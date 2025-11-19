@@ -38,15 +38,5 @@ async def on_startup():
 async def on_shutdown():
     await on_shutdown_notify(bot)
 
-
-if __name__ == "__main__":
-    app.add_event_handler("startup", on_startup)
-    app.add_event_handler("shutdown", on_shutdown)
-
-    @app.post(WEBHOOK_PATH)
-    async def webhook_endpoint(request: Request):
-        return await handle_webhook(request)
-
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+app.add_event_handler("startup", on_startup)
+app.add_event_handler("shutdown", on_shutdown)

@@ -3,6 +3,14 @@ from aiogram import types
 from core.loader import dp
 
 
+@dp.message(commands=["getmyid"])
+async def get_my_id_handler(message: types.Message) -> None:
+    """
+    Handler will reply with the user's Telegram ID when the /getmyid command is used
+    """
+    await message.answer(f"Your Telegram ID is: {message.from_user.id}")
+
+
 @dp.message()
 async def echo_handler(message: types.Message) -> None:
     """
