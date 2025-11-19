@@ -30,9 +30,12 @@ async def handle_webhook(request: Request):
 
 
 async def on_startup():
-    await set_webhook()
+    webhook_info = await bot.get_webhook_info()
+    if webhook_info.url != WEBHOOK_URI:
+        await bot.set_webhook(WEBHOOK_URI)
     await set_default_commands(bot)
     # await on_startup_notify(bot)
+
 
 
 async def on_shutdown():
