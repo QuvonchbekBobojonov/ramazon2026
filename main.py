@@ -1,37 +1,42 @@
-from fastapi import FastAPI, Request
 from aiogram import types
-from mangum import Mangum
+from aiohttp import web
+from fastapi import Request, FastAPI, HTTPException
 
-from core.config import WEBHOOK_URI, BOT_TOKEN
+from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN
 from core.loader import bot, dp
 
 import handlers
-from utils.set_bot_commands import set_default_commands
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
+from utils.set_bot_commands import set_default_commands
 
 app = FastAPI()
 
 
-# Webhook endpoint
-@app.post(f"/{BOT_TOKEN}")
-async def handle_webhook(request: Request):
-    update = types.Update(**await request.json())
-    await dp.feed_webhook_update(bot, update)
-    return {"ok": True}
-
-
-# Startup and shutdown events
-@app.on_event("startup")
-async def on_startup():
+async def set_webhook():
     await bot.set_webhook(WEBHOOK_URI)
+
+
+async def handle_webhook(request: Request):
+    url = str(request.url)
+    index = url.rfind('/')
+    token = url[index + 1:]
+
+    if token == BOT_TOKEN:
+        update = types.Update(**await request.json())
+        await dp.feed_webhook_update(bot, update)
+        return web.Response()
+    else:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+
+async def on_startup():
+    await set_webhook()
     await set_default_commands(bot)
     # await on_startup_notify(bot)
 
 
-@app.on_event("shutdown")
 async def on_shutdown():
     await on_shutdown_notify(bot)
 
-
-# For Vercel serverless
-handler = Mangum(app)
+app.add_event_handler("startup", on_startup)
+app.add_event_handler("shutdown", on_shutdown)
