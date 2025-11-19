@@ -32,7 +32,7 @@ async def handle_webhook(request: Request):
 async def on_startup():
     await set_webhook()
     await set_default_commands(bot)
-    await on_startup_notify(bot)
+    # await on_startup_notify(bot)
 
 
 async def on_shutdown():
