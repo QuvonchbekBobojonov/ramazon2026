@@ -11,6 +11,8 @@ from utils.set_bot_commands import set_default_commands
 
 app = FastAPI()
 
+first_run = False
+
 
 async def set_webhook():
     await bot.set_webhook(WEBHOOK_URI)
@@ -30,8 +32,10 @@ async def handle_webhook(request: Request):
 
 
 async def on_startup():
+    global first_run
     webhook_info = await bot.get_webhook_info()
-    if webhook_info.url != WEBHOOK_URI:
+    if not first_run or webhook_info.url != WEBHOOK_URI:
+        first_run = True
         await bot.set_webhook(WEBHOOK_URI)
     await set_default_commands(bot)
     await on_startup_notify(bot)
