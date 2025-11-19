@@ -1,0 +1,5 @@
+aiogram
+environs
+fastapi
+pip-chill
+uvicorn
