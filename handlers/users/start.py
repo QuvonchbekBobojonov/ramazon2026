@@ -39,7 +39,7 @@ async def command_start_handler(message: Message) -> None:
             f"<b>Asaalomu alaykum, {message.from_user.full_name}!</b>\n\n"
             f"🌙 <b>Keyingi Ramazon boshlanish sanasi:</b> <i>{next_ramadan_uz}</i>\n"
             f"⏳ <b>Ramazon boshlanishigacha qolgan kunlar:</b> <i>{days_left} kun</i>\n\n"
-            f"<i>Barcha ma'lumotlar <a href='https://ramadan.munafio.com/'>munafio.com</a> saytidan olinmoqda.</i>"
+            f"<i>Barcha ma'lumotlar munafio.com saytidan olinmoqda.</i>"
         )
 
     await message.answer(text)
