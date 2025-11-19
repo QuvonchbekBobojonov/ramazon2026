@@ -45,7 +45,6 @@ async def on_shutdown():
     global first_run
     if first_run:
         first_run = False
-        await bot.delete_webhook()
         await on_shutdown_notify(bot)
 
 
@@ -55,7 +54,6 @@ async def webhook_endpoint(request: Request):
 
 
 app.add_event_handler("startup", on_startup)
-app.add_event_handler("shutdown", on_shutdown)
 
 if __name__ == "__main__":
     import uvicorn
