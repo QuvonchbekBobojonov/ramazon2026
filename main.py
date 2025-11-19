@@ -42,7 +42,11 @@ async def on_startup():
 
 
 async def on_shutdown():
-    await on_shutdown_notify(bot)
+    global first_run
+    if first_run:
+        first_run = False
+        await bot.delete_webhook()
+        await on_shutdown_notify(bot)
 
 
 @app.post(WEBHOOK_PATH)
