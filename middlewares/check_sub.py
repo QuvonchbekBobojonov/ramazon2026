@@ -19,7 +19,11 @@ class CheckSubscriptionMiddleware(BaseMiddleware):
         
         # Check if callback is for checking subscription
         if isinstance(event, CallbackQuery) and event.data == "check_subs":
-            await event.answer()
+            await event.answer("🔄 Obunalar tekshirilmoqda...", show_alert=False)
+            try:
+                await event.message.edit_text("🔄 Obunalar tekshirilmoqda, iltimos kuting...", reply_markup=None)
+            except Exception:
+                pass 
             # We don't return here, we proceed to check status below
             
         final_status = True
@@ -44,7 +48,10 @@ class CheckSubscriptionMiddleware(BaseMiddleware):
             elif isinstance(event, CallbackQuery):
                 # If checking via button, update message or alert
                 if event.data == "check_subs":
-                     await event.message.edit_text(text, reply_markup=keyboard)
+                     try:
+                        await event.message.edit_text(text, reply_markup=keyboard)
+                     except Exception:
+                        await event.message.answer(text, reply_markup=keyboard)
                 else:
                      await event.message.answer(text, reply_markup=keyboard)
             
