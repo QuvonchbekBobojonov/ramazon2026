@@ -9,12 +9,23 @@ from utils.ramadan_calculator import get_today_times, get_tomorrow_times, get_da
 from utils.ramadan_data import ramadan_data, ramadan_prayers
 from db.base import async_session_maker
 from db.crud import get_user, update_user_region
+from utils.cache import redis_client
 
 @dp.callback_query(F.data.startswith("region:"))
 async def select_region(call: CallbackQuery, state: FSMContext):
     region = call.data.split(":")[1]
+    user_id = call.from_user.id
+    
+    # Update DB
     async with async_session_maker() as session:
-        await update_user_region(session, call.from_user.id, region)
+        await update_user_region(session, user_id, region)
+    
+    # Update Cache
+    if redis_client:
+        try:
+            redis_client.set(f"user:{user_id}:region", region, ex=3600*24) # Cache for 24 hours
+        except Exception:
+            pass
         
     await state.update_data(region=region)
     await call.message.answer(f"✅ Siz {region.capitalize()} hududini tanladingiz.\n"
@@ -24,14 +35,33 @@ async def select_region(call: CallbackQuery, state: FSMContext):
     await call.message.delete()
 
 async def get_user_region(user_id: int, state: FSMContext):
+    # 1. Check State
     data = await state.get_data()
     region = data.get("region")
+    
+    # 2. Check Redis
+    if not region and redis_client:
+        try:
+            region = redis_client.get(f"user:{user_id}:region")
+        except Exception:
+            pass
+            
+    # 3. Check DB
     if not region:
         async with async_session_maker() as session:
             user = await get_user(session, user_id)
             if user and user.region:
                 region = user.region
-                await state.update_data(region=region)
+                # Write back to cache
+                if redis_client:
+                    try:
+                        redis_client.set(f"user:{user_id}:region", region, ex=3600*24)
+                    except Exception:
+                        pass
+                
+    if region:
+        await state.update_data(region=region)
+        
     return region or "tashkent"
 
 @dp.message(F.text == "📅 Bugungi taqvim")
