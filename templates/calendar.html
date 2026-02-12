@@ -57,35 +57,30 @@
         }
 
         header {
+            background-color: var(--primary-color);
             color: white;
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
             border-bottom: 4px solid var(--accent-color);
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
         }
 
         h1 {
             font-family: 'Amiri', serif;
             margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 2rem;
+            letter-spacing: 1px;
         }
 
         .region-badge {
             display: inline-block;
             background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 6px 18px;
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 1rem;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border: 1px solid var(--accent-color);
         }
+
 
         .calendar-table {
             width: 100%;
@@ -154,28 +149,9 @@
 </head>
 
 <body>
-    {% set region_images = {
-    'tashkent': 'https://storage.kun.uz/source/uploads/2018/01/1-52.jpg',
-    'andijan': 'https://andijan.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'namangan': 'https://namangan.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'fergana': 'https://storage.kun.uz/source/uploads/2018/08/fergana.jpg',
-    'gulistan': 'https://sirdaryo.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'jizzakh': 'https://jizzax.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'samarkand': 'https://images.unsplash.com/photo-1618414251025-056589578278?q=80&w=1200',
-    'karshi': 'https://qashqadaryo.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'termez': 'https://surxondaryo.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'navoi': 'https://navoi.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg',
-    'bukhara': 'https://images.unsplash.com/photo-1587974441312-3269f8845582?q=80&w=1200',
-    'urgench': 'https://images.unsplash.com/photo-1540959733332-e94e7bfbefc7?q=80&w=1200',
-    'nukus': 'https://nukus.uz/storage/headers/June2021/o6tW3Hj9m9fK9vH9.jpg'
-    } %}
-    {% set header_img = region_images.get(region,
-    'https://images.unsplash.com/photo-1520173043194-dc3b2a09c672?q=80&w=1200') %}
-
 
     <div class="container">
-        <header
-            style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('{{ header_img }}'); background-size: cover; background-position: center;">
+        <header>
             <h1>Ramazan 2026</h1>
             <div class="region-badge">📍 {{ region|title }}</div>
 
@@ -185,7 +161,7 @@
             {% set today_day = day.day %}
             {% endif %}
             {% endfor %}
-            <div style="margin-top: 15px; font-weight: 600; font-size: 1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+            <div style="margin-top: 10px; font-weight: 500; font-size: 0.9rem;">
                 {% if today_day > 0 %}
                 🌙 Bugun Ramazonning {{ today_day }}-kuni
                 {% else %}
