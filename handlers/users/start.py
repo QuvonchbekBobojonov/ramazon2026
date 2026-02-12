@@ -21,9 +21,23 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
         await message.answer(SUBSCRIPTION_TEXT, reply_markup=get_subscription_keyboard())
         return
     async with async_session_maker() as session:
-        user = await add_user(session, message.from_user.id, message.from_user.full_name, message.from_user.username)
+        user, is_new = await add_user(session, message.from_user.id, message.from_user.full_name, message.from_user.username)
         
+        if is_new:
+            from core.config import ADMINS
+            from core.loader import bot
+            admin_text = (f"👤 <b>Yangi foydalanuvchi!</b>\n\n"
+                          f"🆔 ID: <code>{message.from_user.id}</code>\n"
+                          f"👤 Name: {message.from_user.full_name}\n"
+                          f"🔗 Username: @{message.from_user.username if message.from_user.username else 'yoq'}")
+            for admin_id in ADMINS:
+                try:
+                    await bot.send_message(admin_id, admin_text)
+                except Exception:
+                    pass
+
         if user.region:
+
             await state.update_data(region=user.region)
             await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
                                  f"📍 Sizning hududingiz: {user.region.capitalize()}.\n"

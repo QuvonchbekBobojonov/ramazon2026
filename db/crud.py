@@ -7,11 +7,14 @@ async def add_user(session: AsyncSession, telegram_id: int, full_name: str, user
     result = await session.execute(stmt)
     user = result.scalar_one_or_none()
     
+    is_new = False
     if not user:
         user = User(telegram_id=telegram_id, full_name=full_name, username=username)
         session.add(user)
         await session.commit()
-    return user
+        is_new = True
+    return user, is_new
+
 
 async def get_user(session: AsyncSession, telegram_id: int):
     stmt = select(User).where(User.telegram_id == telegram_id)
