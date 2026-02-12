@@ -27,11 +27,16 @@ async def command_start_handler(message: Message, state: FSMContext, db_user=Non
         return
         
     if db_user and db_user.region:
+        from core.config import ADMINS
+        user_id = message.from_user.id
+        is_admin = str(user_id) in ADMINS or user_id in ADMINS
+        
         await state.update_data(region=db_user.region)
         await message.answer(f"🌙 <b>Ramazon 2026 botiga xush kelibsiz!</b>\n\n"
                              f"📍 Hudud: <b>{db_user.region.capitalize()}</b>\n"
                              f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
-                             reply_markup=get_ramadan_menu(db_user.region))
+                             reply_markup=get_ramadan_menu(db_user.region, is_admin))
+
     else:
         await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
                              f"🌙 Ramazon 2026 botiga xush kelibsiz.\n\n"
