@@ -70,9 +70,13 @@
         <div class="space-y-4">
             {% for user in users %}
             <div class="glass rounded-2xl p-4 user-card flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-lg font-bold">
-                    {{ user.full_name[:1] }}
+                <div
+                    class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-lg font-bold overflow-hidden relative">
+                    <span class="absolute">{{ user.full_name[:1] }}</span>
+                    <img src="/api/user-photo/{{ user.telegram_id }}?token={{ bot_token }}"
+                        class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'">
                 </div>
+
                 <div class="flex-1">
                     <h4 class="font-medium truncate">{{ user.full_name }}</h4>
                     <p class="text-xs text-slate-400">@{{ user.username or "yo'q" }} • {{ user.region or "hudud yo'q" }}

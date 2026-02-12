@@ -71,8 +71,30 @@ setup_admin(app, engine)
 first_run = False
 
 
+@app.get("/api/user-photo/{telegram_id}")
+async def get_user_photo(telegram_id: int, token: str = None):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return HTMLResponse("Unauthorized", status_code=403)
+    
+    try:
+        from core.loader import bot
+        photos = await bot.get_user_profile_photos(telegram_id, limit=1)
+        if photos.total_count > 0:
+            file_id = photos.photos[0][-1].file_id # Get the medium/large version
+            file = await bot.get_file(file_id)
+            photo_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file.file_path}"
+            from fastapi.responses import RedirectResponse
+            return RedirectResponse(photo_url)
+    except Exception as e:
+        logger.error(f"Error fetching photo for {telegram_id}: {e}")
+    
+    # Return a placeholder or 404
+    return HTMLResponse("Not Found", status_code=404)
+
 @app.get("/admin-mobile")
 async def admin_mobile(request: Request, token: str = None):
+
     from core.config import BOT_TOKEN, ADMINS
     # Simple security: check if token matches bot token or a secret
     if token != BOT_TOKEN:
@@ -103,8 +125,10 @@ async def admin_mobile(request: Request, token: str = None):
         "request": request, 
         "users": users,
         "total_users": total_users,
-        "new_today": new_today
+        "new_today": new_today,
+        "bot_token": BOT_TOKEN
     })
+
 
 
 
