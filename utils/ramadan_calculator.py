@@ -21,7 +21,7 @@ def get_daily_times(date_str, region_slug="tashkent"):
             iftar = calculate_time(day.get("iftar"), offset)
             return {
                 "day": day["day"],
-                "date": day["date"],
+                "date": format_date_uz(day["date"]),
                 "weekday": day["weekday"],
                 "suhoor": suhoor,
                 "iftar": iftar,
@@ -35,9 +35,15 @@ def get_today_times(region_slug="tashkent"):
     today_str = datetime.now().strftime("%Y-%m-%d")
     return get_daily_times(today_str, region_slug)
 
-def get_tomorrow_times(region_slug="tashkent"):
-    tomorrow_str = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
-    return get_daily_times(tomorrow_str, region_slug)
+
+MONTH_MAP = {
+    1: "Yanvar", 2: "Fevral", 3: "Mart", 4: "Aprel", 5: "May", 6: "Iyun",
+    7: "Iyul", 8: "Avgust", 9: "Sentabr", 10: "Oktabr", 11: "Noyabr", 12: "Dekabr"
+}
+
+def format_date_uz(date_str):
+    dt = datetime.strptime(date_str, "%Y-%m-%d")
+    return f"{dt.day}-{MONTH_MAP[dt.month]}"
 
 def get_full_calendar(region_slug="tashkent"):
     offset = get_region_offset(region_slug)
@@ -49,7 +55,7 @@ def get_full_calendar(region_slug="tashkent"):
         iftar = calculate_time(day.get("iftar"), offset)
         calendar_list.append({
             "day": day["day"],
-            "date": day["date"],
+            "date": format_date_uz(day["date"]),
             "weekday": day["weekday"],
             "suhoor": suhoor,
             "iftar": iftar,
