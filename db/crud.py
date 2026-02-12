@@ -12,8 +12,10 @@ async def add_user(session: AsyncSession, telegram_id: int, full_name: str, user
         user = User(telegram_id=telegram_id, full_name=full_name, username=username)
         session.add(user)
         await session.commit()
+        await session.refresh(user)
         is_new = True
     return user, is_new
+
 
 
 async def get_user(session: AsyncSession, telegram_id: int):

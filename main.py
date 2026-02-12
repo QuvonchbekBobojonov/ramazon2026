@@ -44,7 +44,19 @@ async def global_exception_handler(request: Request, exc: Exception):
         content=error_details
     )
 
+from sqlalchemy import func, select
+from db.models import User
+from db.base import async_session_maker
+
+@app.get("/db-check")
+async def db_check():
+    async with async_session_maker() as session:
+        result = await session.execute(select(func.count(User.id)))
+        count = result.scalar()
+        return {"total_users": count}
+
 templates = Jinja2Templates(directory="templates")
+
 
 
 # Admin Panel Setup

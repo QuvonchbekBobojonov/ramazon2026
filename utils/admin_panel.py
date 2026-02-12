@@ -56,3 +56,4 @@ def setup_admin(app: FastAPI, engine: AsyncEngine):
     admin = Admin(app, engine, title="Ramazon 2026 Admin", authentication_backend=authentication_backend)
     admin.add_view(UserAdmin)
 
+
