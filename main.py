@@ -12,8 +12,10 @@ from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
 from utils.ramadan_calculator import get_daily_times, get_full_calendar
 from utils.notifications import send_daily_notifications
+from middlewares import setup_middlewares
 
 from db.base import engine, Base
+
 
 import logging
 import sys
@@ -81,7 +83,9 @@ async def on_startup():
         await bot.set_webhook(WEBHOOK_URI)
     
     await set_default_commands(bot)
+    setup_middlewares(dp)
     await on_startup_notify(bot)
+
 
 
 async def on_shutdown():
