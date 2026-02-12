@@ -63,6 +63,7 @@ class CheckSubscriptionMiddleware(BaseMiddleware):
         try:
             member = await bot.get_chat_member(user_id=user_id, chat_id=channel)
             return member.status in ["creator", "administrator", "member"]
-        except Exception:
+        except Exception as e:
+            print(f"Error checking subscription for {user_id} in {channel}: {e}")
             # If bot is not admin or channel is private/invalid, assume subscribed to avoid blocking everyone
-            return True 
+            return False 
