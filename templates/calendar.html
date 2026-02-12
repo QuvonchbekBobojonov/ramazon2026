@@ -144,7 +144,21 @@
         <header>
             <h1>Ramazon 2026</h1>
             <div class="region-badge">📍 {{ region|title }}</div>
+            {% set today_day = 0 %}
+            {% for day in calendar %}
+            {% if day.is_today %}
+            {% set today_day = day.day %}
+            {% endif %}
+            {% endfor %}
+            <div style="margin-top: 10px; font-weight: 500; font-size: 0.9rem;">
+                {% if today_day > 0 %}
+                🌙 Bugun Ramazonning {{ today_day }}-kuni
+                {% else %}
+                ✨ Ramazon oyiga xush kelibsiz!
+                {% endif %}
+            </div>
         </header>
+
 
         <table class="calendar-table">
             <thead>
@@ -158,12 +172,20 @@
             <tbody>
                 {% for day in calendar %}
                 <tr class="{% if day.is_today %}today{% endif %}">
-                    <td>{{ day.day }}</td>
+                    <td>
+                        {{ day.day }}
+                        {% if day.note %}
+                        <div style="font-size: 0.7rem; color: var(--accent-color); font-weight: bold; margin-top: 2px;">
+                            {{ day.note }}
+                        </div>
+                        {% endif %}
+                    </td>
                     <td class="date-col">{{ day.date }}</td>
                     <td class="time-col">{{ day.suhoor }}</td>
                     <td class="time-col">{{ day.iftar }}</td>
                 </tr>
                 {% endfor %}
+
             </tbody>
         </table>
 
