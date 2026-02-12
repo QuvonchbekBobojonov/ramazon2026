@@ -28,11 +28,24 @@ class AdminAuth(AuthenticationBackend):
 
 authentication_backend = AdminAuth(secret_key=os.getenv("BOT_TOKEN", "secret"))
 
+from markupsafe import Markup
+
 class UserAdmin(ModelView, model=User):
-    column_list = ["id", "telegram_id", "full_name"]
+    column_list = ["id", "telegram_id", "full_name", "username", "region", "profile_link", "created_at"]
+    column_searchable_list = ["full_name", "username", "telegram_id"]
+    column_filters = ["region", "created_at"]
+    
+    column_formatters = {
+        "profile_link": lambda m, a: Markup(
+            f'<a href="https://t.me/{m.username}" target="_blank">@{m.username}</a>' if m.username 
+            else f'<a href="tg://user?id={m.telegram_id}">User Profile</a>'
+        )
+    }
+    
     name = "Foydalanuvchi"
     name_plural = "Foydalanuvchilar"
     icon = "fa-solid fa-user"
+
 
 
 
