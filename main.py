@@ -21,8 +21,16 @@ app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=BOT_TOKEN)
 templates = Jinja2Templates(directory="templates")
 
+from fastapi.responses import JSONResponse
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"error": str(exc), "type": type(exc).__name__}
+    )
 
 # Admin Panel Setup
+
 from utils.admin_panel import setup_admin
 
 # Admin Panel Setup moved to utils/admin_panel.py
