@@ -32,8 +32,8 @@ from markupsafe import Markup
 
 class UserAdmin(ModelView, model=User):
     column_list = ["id", "telegram_id", "full_name", "username", "region", "profile_link", "created_at"]
-    column_searchable_list = ["full_name", "username", "telegram_id"]
-    column_filters = ["region", "created_at"]
+    # Removed filters and search due to sqladmin compatibility issues
+
 
 
 

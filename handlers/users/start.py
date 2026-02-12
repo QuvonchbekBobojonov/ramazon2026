@@ -15,6 +15,11 @@ async def command_start_handler(message: Message, state: FSMContext, db_user=Non
     """
     Handles /start command, registers user, and checks for region.
     """
+    import logging
+    logging.info(f"Start handler called. User: {message.from_user.id}, db_user: {db_user}")
+    if db_user:
+        logging.info(f"db_user region: {db_user.region}")
+
     # Check subscription first
     is_subscribed = await check_membership(message.from_user.id)
     if not is_subscribed:
