@@ -23,12 +23,13 @@ async def command_start_handler(message: Message, state: FSMContext, db_user=Non
         
     if db_user and db_user.region:
         await state.update_data(region=db_user.region)
-        await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
-                             f"📍 Sizning hududingiz: {db_user.region.capitalize()}.\n"
+        await message.answer(f"🌙 <b>Ramazon 2026 botiga xush kelibsiz!</b>\n\n"
+                             f"📍 Hudud: <b>{db_user.region.capitalize()}</b>\n"
                              f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
                              reply_markup=get_ramadan_menu(db_user.region))
     else:
         await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
-                             f"🌙 Ramazon 2026 botiga xush kelibsiz.\n"
-                             f"🌍 Iltimos, o'z hududingizni tanlang:",
+                             f"🌙 Ramazon 2026 botiga xush kelibsiz.\n\n"
+                             f"🌍 Iltimos, davom etish uchun <b>o'z hududingizni tanlang:</b>",
                              reply_markup=get_regions_keyboard())
+
