@@ -15,8 +15,12 @@ from utils.notifications import send_daily_notifications
 
 from db.base import engine, Base
 
+from starlette.middleware.sessions import SessionMiddleware
+
 app = FastAPI()
+app.add_middleware(SessionMiddleware, secret_key=BOT_TOKEN)
 templates = Jinja2Templates(directory="templates")
+
 
 # Admin Panel Setup
 from utils.admin_panel import setup_admin
