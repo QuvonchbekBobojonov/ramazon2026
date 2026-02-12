@@ -13,11 +13,10 @@ class UserRegistrationMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: Dict[str, Any]
     ) -> Any:
-        user = None
-        if isinstance(event, (Message, CallbackQuery)):
-            user = event.from_user
+        user = data.get("event_from_user")
         
         if user and not user.is_bot:
+
             async with async_session_maker() as session:
                 db_user, is_new = await add_user(
                     session, 
