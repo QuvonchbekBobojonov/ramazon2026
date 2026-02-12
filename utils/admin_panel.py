@@ -29,12 +29,13 @@ class AdminAuth(AuthenticationBackend):
 authentication_backend = AdminAuth(secret_key=os.getenv("BOT_TOKEN", "secret"))
 
 class UserAdmin(ModelView, model=User):
-    column_list = [User.id, User.telegram_id, User.full_name, User.username, User.region, User.created_at]
-    column_searchable_list = [User.full_name, User.username, User.telegram_id]
-    column_filters = [User.region, User.created_at]
+    column_list = ["id", "telegram_id", "full_name", "username", "region", "created_at"]
+    column_searchable_list = ["full_name", "username", "telegram_id"]
+    column_filters = ["region", "created_at"]
     name = "Foydalanuvchi"
     name_plural = "Foydalanuvchilar"
     icon = "fa-solid fa-user"
+
 
 def setup_admin(app: FastAPI, engine: AsyncEngine):
     admin = Admin(app, engine, title="Ramazon 2026 Admin", authentication_backend=authentication_backend)
