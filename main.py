@@ -71,15 +71,31 @@ setup_admin(app, engine)
 first_run = False
 
 
-@app.post("/api/send-notifications")
-async def trigger_notifications(request: Request):
-    # Optional: check for a secret header to prevent unauthorized access
-    # auth_header = request.headers.get("Authorization")
-    # if auth_header != f"Bearer {os.getenv('CRON_SECRET')}":
-    #    raise HTTPException(status_code=403, detail="Unauthorized")
-    
-    count = await send_daily_notifications()
-    return {"status": "success", "users_notified": count}
+@app.get("/admin-mobile")
+async def admin_mobile(request: Request, token: str = None):
+    from core.config import BOT_TOKEN, ADMINS
+    # Simple security: check if token matches bot token or a secret
+    if token != BOT_TOKEN:
+        # In a real app, you'd check initData, but for now, we'll use a token
+        return HTMLResponse("Unauthorized", status_code=403)
+        
+    async with async_session_maker() as session:
+        result = await session.execute(select(User).order_by(User.created_at.desc()))
+        users = result.scalars().all()
+        
+        # Stats
+        total_users = len(users)
+        import datetime
+        today = datetime.date.today()
+        new_today = sum(1 for u in users if u.created_at.date() == today)
+        
+    return templates.TemplateResponse("admin_mobile.html", {
+        "request": request, 
+        "users": users,
+        "total_users": total_users,
+        "new_today": new_today
+    })
+
 
 
 

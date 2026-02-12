@@ -17,7 +17,9 @@ def get_ramadan_menu(region: str = "tashkent", is_admin: bool = False) -> ReplyK
     ]
     
     if is_admin:
-        keyboard.append([KeyboardButton(text="⚙️ Admin Panel", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/admin"))])
+        from core.config import BOT_TOKEN
+        keyboard.append([KeyboardButton(text="⚙️ Admin Panel", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/admin-mobile?token={BOT_TOKEN}"))])
+
         
     return ReplyKeyboardMarkup(
         keyboard=keyboard,
