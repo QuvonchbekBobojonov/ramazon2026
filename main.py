@@ -11,6 +11,7 @@ import handlers
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
 from utils.ramadan_calculator import get_daily_times, get_full_calendar
+from middlewares.check_sub import CheckSubscriptionMiddleware
 
 from db.base import engine, Base
 
@@ -53,6 +54,9 @@ async def on_startup():
     webhook_info = await bot.get_webhook_info()
     if webhook_info.url != WEBHOOK_URI:
         await bot.set_webhook(WEBHOOK_URI)
+    
+    dp.message.middleware(CheckSubscriptionMiddleware())
+    dp.callback_query.middleware(CheckSubscriptionMiddleware())
     
     await set_default_commands(bot)
     await on_startup_notify(bot)
