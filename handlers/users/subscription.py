@@ -17,10 +17,7 @@ async def check_subs_callback(call: types.CallbackQuery, state: FSMContext):
             await call.message.delete()
         except:
             pass
-        await call.message.answer("✅ Obuna tasdiqlandi! Botdan foydalanishingiz mumkin.", reply_markup=get_ramadan_menu())
-        # Re-trigger start logic to show menu/register
-        # We need to create a dummy message to pass to the handler
-        # Or just call the logic directly. Calling logic directly is safer.
+        await call.message.answer("✅ Obuna tasdiqlandi! Botdan foydalanishingiz mumkin.")
         await command_start_handler(call.message, state)
     else:
         try:
