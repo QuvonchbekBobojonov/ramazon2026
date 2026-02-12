@@ -102,8 +102,14 @@ async def admin_mobile(request: Request, token: str = None):
         return HTMLResponse("Unauthorized", status_code=403)
         
     async with async_session_maker() as session:
-        result = await session.execute(select(User).order_by(User.created_at.desc()))
+        # Extract bot ID from token (it's the first part before the colon)
+        bot_id = int(BOT_TOKEN.split(":")[0])
+        
+        result = await session.execute(
+            select(User).where(User.telegram_id != bot_id).order_by(User.created_at.desc())
+        )
         users = result.scalars().all()
+
         
         from datetime import timedelta
         # Convert created_at to UZ time (UTC+5)
