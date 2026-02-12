@@ -158,13 +158,18 @@ async def on_startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
         
-    webhook_info = await bot.get_webhook_info()
-    if webhook_info.url != WEBHOOK_URI:
-        await bot.set_webhook(WEBHOOK_URI)
+    try:
+        webhook_info = await bot.get_webhook_info()
+        if webhook_info.url != WEBHOOK_URI:
+            await bot.set_webhook(WEBHOOK_URI)
+        
+        await set_default_commands(bot)
+        await on_startup_notify(bot)
+    except Exception as e:
+        logger.error(f"Error during bot setup: {e}")
     
-    await set_default_commands(bot)
     setup_middlewares(dp)
-    await on_startup_notify(bot)
+
 
 
 
