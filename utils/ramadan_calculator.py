@@ -31,13 +31,19 @@ def get_daily_times(date_str, region_slug="tashkent"):
             }
     return None
 
+def get_now_uz():
+    # Uz is UTC+5. On Vercel datetime.now() is usually UTC.
+    # A simple way without external libs (like pytz) is:
+    return datetime.utcnow() + timedelta(hours=5)
+
 def get_today_times(region_slug="tashkent"):
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    today_str = get_now_uz().strftime("%Y-%m-%d")
     return get_daily_times(today_str, region_slug)
 
 def get_tomorrow_times(region_slug="tashkent"):
-    tomorrow_str = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+    tomorrow_str = (get_now_uz() + timedelta(days=1)).strftime("%Y-%m-%d")
     return get_daily_times(tomorrow_str, region_slug)
+
 
 
 MONTH_MAP = {
@@ -51,7 +57,8 @@ def format_date_uz(date_str):
 
 def get_full_calendar(region_slug="tashkent"):
     offset = get_region_offset(region_slug)
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    today_str = get_now_uz().strftime("%Y-%m-%d")
+
     calendar_list = []
     
     for day in ramadan_data["calendar"]:

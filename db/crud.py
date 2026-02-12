@@ -22,3 +22,9 @@ async def update_user_region(session: AsyncSession, telegram_id: int, region: st
     stmt = update(User).where(User.telegram_id == telegram_id).values(region=region)
     await session.execute(stmt)
     await session.commit()
+
+async def get_all_users(session: AsyncSession):
+    stmt = select(User)
+    result = await session.execute(stmt)
+    return result.scalars().all()
+

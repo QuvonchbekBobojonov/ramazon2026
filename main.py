@@ -11,6 +11,7 @@ import handlers
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
 from utils.ramadan_calculator import get_daily_times, get_full_calendar
+from utils.notifications import send_daily_notifications
 
 from db.base import engine, Base
 
@@ -24,6 +25,18 @@ from utils.admin_panel import setup_admin
 setup_admin(app, engine)
 
 first_run = False
+
+
+@app.post("/api/send-notifications")
+async def trigger_notifications(request: Request):
+    # Optional: check for a secret header to prevent unauthorized access
+    # auth_header = request.headers.get("Authorization")
+    # if auth_header != f"Bearer {os.getenv('CRON_SECRET')}":
+    #    raise HTTPException(status_code=403, detail="Unauthorized")
+    
+    count = await send_daily_notifications()
+    return {"status": "success", "users_notified": count}
+
 
 
 async def set_webhook():
