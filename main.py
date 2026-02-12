@@ -1,6 +1,7 @@
 from aiogram import types
 from aiohttp import web
 from fastapi import Request, FastAPI, HTTPException
+from sqladmin import Admin, ModelView
 
 from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN
 from core.loader import bot, dp
@@ -9,7 +10,17 @@ import handlers
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
 
+from db.base import engine, Base
+from db.models import User
+
 app = FastAPI()
+
+# Admin Panel Setup
+class UserAdmin(ModelView, model=User):
+    column_list = [User.id, User.telegram_id, User.full_name, User.region, User.created_at]
+
+admin = Admin(app, engine)
+admin.add_view(UserAdmin)
 
 first_run = False
 
@@ -33,6 +44,11 @@ async def handle_webhook(request: Request):
 
 async def on_startup():
     global first_run
+    
+    # Create tables
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        
     webhook_info = await bot.get_webhook_info()
     if not first_run or webhook_info.url != WEBHOOK_URI:
         first_run = True
