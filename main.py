@@ -51,9 +51,9 @@ async def on_startup():
         await conn.run_sync(Base.metadata.create_all)
         
     webhook_info = await bot.get_webhook_info()
-    if not first_run or webhook_info.url != WEBHOOK_URI:
-        first_run = True
+    if webhook_info.url != WEBHOOK_URI:
         await bot.set_webhook(WEBHOOK_URI)
+    
     await set_default_commands(bot)
     await on_startup_notify(bot)
 
