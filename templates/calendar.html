@@ -69,11 +69,19 @@
 
         /* Customize backdrop based on region some more */
             {
-            % if region=='samarkand' %
+            % if region=='tashkent' %
         }
 
         header {
-            background-image: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)), url('https://images.unsplash.com/photo-1610452392476-8f3526c88f28?auto=format&fit=crop&q=80&w=600');
+            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1528644491123-2f907161353e?auto=format&fit=crop&q=80&w=600');
+        }
+
+            {
+            % elif region=='samarkand' %
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1610452392476-8f3526c88f28?auto=format&fit=crop&q=80&w=600');
         }
 
             {
@@ -81,20 +89,41 @@
         }
 
         header {
-            background-image: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)), url('https://images.unsplash.com/photo-1577708575003-8822003c09b6?auto=format&fit=crop&q=80&w=600');
+            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1577708575003-8822003c09b6?auto=format&fit=crop&q=80&w=600');
         }
 
             {
-            % elif region=='khiva' or region=='xiva' %
+            % elif region in ['khiva',
+            'urgench',
+            'xiva'] %
         }
 
         header {
-            background-image: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)), url('https://images.unsplash.com/photo-1588693998811-37f22312d919?auto=format&fit=crop&q=80&w=600');
+            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1588693998811-37f22312d919?auto=format&fit=crop&q=80&w=600');
+        }
+
+            {
+            % elif region in ['andijan',
+            'namangan',
+            'fergana'] %
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1590075865003-e48277da250d?auto=format&fit=crop&q=80&w=600');
+        }
+
+            {
+            % elif region=='nukus' %
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1542640244-7e672d6cef21?auto=format&fit=crop&q=80&w=600');
         }
 
             {
             % endif %
         }
+
 
 
         h1 {
