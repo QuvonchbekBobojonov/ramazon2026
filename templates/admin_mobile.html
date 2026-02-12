@@ -83,10 +83,11 @@
                     </p>
                 </div>
                 <div class="flex flex-col items-end gap-2">
-                    <a href="https://t.me/{{ user.username if user.username else '' }}"
+                    <a href="{% if user.username %}https://t.me/{{ user.username }}{% else %}tg://user?id={{ user.telegram_id }}{% endif %}"
                         class="w-8 h-8 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
                         <i class="fa-brands fa-telegram text-sm"></i>
                     </a>
+
                     <span class="text-[10px] text-slate-500 italic">{{ user.created_at_uz.strftime('%H:%M') if
                         user.created_at_uz else '--:--' }}</span>
                 </div>
