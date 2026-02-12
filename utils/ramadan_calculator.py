@@ -35,6 +35,10 @@ def get_today_times(region_slug="tashkent"):
     today_str = datetime.now().strftime("%Y-%m-%d")
     return get_daily_times(today_str, region_slug)
 
+def get_tomorrow_times(region_slug="tashkent"):
+    tomorrow_str = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+    return get_daily_times(tomorrow_str, region_slug)
+
 
 MONTH_MAP = {
     1: "Yanvar", 2: "Fevral", 3: "Mart", 4: "Aprel", 5: "May", 6: "Iyun",
