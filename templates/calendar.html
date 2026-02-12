@@ -57,90 +57,34 @@
         }
 
         header {
-            background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)),
-                url('https://images.unsplash.com/photo-1590075865003-e48277da250d?auto=format&fit=crop&q=80&w=600') no-repeat center center;
-            background-size: cover;
             color: white;
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
             border-bottom: 4px solid var(--accent-color);
             position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-
-        /* Customize backdrop based on region some more */
-            {
-            % if region=='tashkent' %
-        }
-
-        header {
-            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1528644491123-2f907161353e?auto=format&fit=crop&q=80&w=600');
-        }
-
-            {
-            % elif region=='samarkand' %
-        }
-
-        header {
-            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1610452392476-8f3526c88f28?auto=format&fit=crop&q=80&w=600');
-        }
-
-            {
-            % elif region=='bukhara' %
-        }
-
-        header {
-            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1577708575003-8822003c09b6?auto=format&fit=crop&q=80&w=600');
-        }
-
-            {
-            % elif region in ['khiva',
-            'urgench',
-            'xiva'] %
-        }
-
-        header {
-            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1588693998811-37f22312d919?auto=format&fit=crop&q=80&w=600');
-        }
-
-            {
-            % elif region in ['andijan',
-            'namangan',
-            'fergana'] %
-        }
-
-        header {
-            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1590075865003-e48277da250d?auto=format&fit=crop&q=80&w=600');
-        }
-
-            {
-            % elif region=='nukus' %
-        }
-
-        header {
-            background-image: linear-gradient(rgba(0, 50, 0, 0.6), rgba(0, 50, 0, 0.8)), url('https://images.unsplash.com/photo-1542640244-7e672d6cef21?auto=format&fit=crop&q=80&w=600');
-        }
-
-            {
-            % endif %
-        }
-
-
 
         h1 {
             font-family: 'Amiri', serif;
             margin: 0;
-            font-size: 2rem;
-            letter-spacing: 1px;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .region-badge {
             display: inline-block;
             background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
+            backdrop-filter: blur(5px);
+            padding: 6px 18px;
             border-radius: 20px;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            border: 1px solid var(--accent-color);
+            font-size: 1rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .calendar-table {
@@ -192,27 +136,49 @@
 
         footer {
             text-align: center;
-            padding: 15px;
-            font-size: 0.8rem;
+            padding: 20px;
+            font-size: 0.85rem;
             color: #666;
             background-color: #f1f1f1;
+            line-height: 1.6;
+        }
+
+        .moorfo-credit {
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #444;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 
 <body>
+    {% set region_images = {
+    'tashkent': 'https://images.unsplash.com/photo-1528644491600-1160a0c9f1cc?q=80&w=1200',
+    'samarkand': 'https://images.unsplash.com/photo-1628172828659-1e649033328e?q=80&w=1200',
+    'bukhara': 'https://images.unsplash.com/photo-1616188410549-010db943c450?q=80&w=1200',
+    'khiva': 'https://images.unsplash.com/photo-1540959733332-e94e7bfbefc7?q=80&w=1200',
+    'andijan': 'https://images.unsplash.com/photo-1582213776865-dc04d493a38b?q=80&w=1200',
+    'namangan': 'https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?q=80&w=1200',
+    'fergana': 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1200'
+    } %}
+    {% set header_img = region_images.get(region,
+    'https://images.unsplash.com/photo-1520173043194-dc3b2a09c672?q=80&w=1200') %}
 
     <div class="container">
-        <header>
-            <h1>Ramazon 2026</h1>
+        <header
+            style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('{{ header_img }}'); background-size: cover; background-position: center;">
+            <h1>Ramazan 2026</h1>
             <div class="region-badge">📍 {{ region|title }}</div>
+
             {% set today_day = 0 %}
             {% for day in calendar %}
             {% if day.is_today %}
             {% set today_day = day.day %}
             {% endif %}
             {% endfor %}
-            <div style="margin-top: 10px; font-weight: 500; font-size: 0.9rem;">
+            <div style="margin-top: 15px; font-weight: 600; font-size: 1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
                 {% if today_day > 0 %}
                 🌙 Bugun Ramazonning {{ today_day }}-kuni
                 {% else %}
@@ -252,11 +218,8 @@
         </table>
 
         <footer>
-            Taqvim O‘zbekiston musulmonlari idorasi ma’lumotlari asosida tayyorlandi. <br>
-            <div style="margin-top: 5px; opacity: 0.8; font-size: 0.8rem;">
-                <a href="https://www.moorfo.uz" target="_blank"
-                    style="color: inherit; text-decoration: none;">www.moorfo.uz</a> tomonidan yaratildi
-            </div>
+            Taqvim O‘zbekiston musulmonlari idorasi ma’lumotlari asosida tayyorlandi.
+            <span class="moorfo-credit">www.moorfo.uz tomonida yaratildi</span>
         </footer>
 
     </div>
