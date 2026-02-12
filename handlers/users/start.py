@@ -8,12 +8,18 @@ from db.base import async_session_maker
 from db.crud import add_user
 from keyboards.default.ramadan_menu import get_ramadan_menu
 from keyboards.inlines.regions import get_regions_keyboard
+from utils.subscription import check_membership, get_subscription_keyboard, SUBSCRIPTION_TEXT
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message, state: FSMContext) -> None:
     """
     Handles /start command, registers user, and checks for region.
     """
+    # Check subscription first
+    is_subscribed = await check_membership(message.from_user.id)
+    if not is_subscribed:
+        await message.answer(SUBSCRIPTION_TEXT, reply_markup=get_subscription_keyboard())
+        return
     async with async_session_maker() as session:
         user = await add_user(session, message.from_user.id, message.from_user.full_name, message.from_user.username)
         
