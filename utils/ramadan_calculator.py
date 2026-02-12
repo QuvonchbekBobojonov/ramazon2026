@@ -38,3 +38,23 @@ def get_today_times(region_slug="tashkent"):
 def get_tomorrow_times(region_slug="tashkent"):
     tomorrow_str = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
     return get_daily_times(tomorrow_str, region_slug)
+
+def get_full_calendar(region_slug="tashkent"):
+    offset = get_region_offset(region_slug)
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    calendar_list = []
+    
+    for day in ramadan_data["calendar"]:
+        suhoor = calculate_time(day.get("suhoor"), offset)
+        iftar = calculate_time(day.get("iftar"), offset)
+        calendar_list.append({
+            "day": day["day"],
+            "date": day["date"],
+            "weekday": day["weekday"],
+            "suhoor": suhoor,
+            "iftar": iftar,
+            "note": day.get("note"),
+            "region": region_slug,
+            "is_today": day["date"] == today_str
+        })
+    return calendar_list

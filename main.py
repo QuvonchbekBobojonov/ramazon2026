@@ -10,7 +10,7 @@ from core.loader import bot, dp
 import handlers
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
-from utils.ramadan_calculator import get_daily_times
+from utils.ramadan_calculator import get_daily_times, get_full_calendar
 
 from db.base import engine, Base
 
@@ -67,7 +67,7 @@ async def on_shutdown():
 
 @app.get("/calendar", response_class=HTMLResponse)
 async def get_calendar(request: Request, region: str = "tashkent"):
-    calendar_data = get_daily_times(region)
+    calendar_data = get_full_calendar(region)
     return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
 
 @app.post(WEBHOOK_PATH)
