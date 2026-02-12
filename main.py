@@ -2,7 +2,6 @@ from aiogram import types
 from aiohttp import web
 from fastapi import Request, FastAPI, HTTPException
 
-
 from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN
 from core.loader import bot, dp
 
@@ -11,7 +10,6 @@ from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
 
 from db.base import engine, Base
-
 
 app = FastAPI()
 
