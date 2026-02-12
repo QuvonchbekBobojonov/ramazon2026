@@ -28,7 +28,24 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=BOT_TOKEN)
+from fastapi.responses import JSONResponse
+import traceback
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    error_details = {
+        "error": str(exc),
+        "type": type(exc).__name__,
+        "traceback": traceback.format_exc()
+    }
+    logger.error(f"Global error: {error_details}")
+    return JSONResponse(
+        status_code=500,
+        content=error_details
+    )
+
 templates = Jinja2Templates(directory="templates")
+
 
 # Admin Panel Setup
 
