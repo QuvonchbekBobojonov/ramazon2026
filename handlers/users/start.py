@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from core.loader import dp
 from db.base import async_session_maker
 from db.crud import add_user
-from keyboards.default.ramadan_menu import ramadan_menu
+from keyboards.default.ramadan_menu import get_ramadan_menu
 from keyboards.inlines.regions import get_regions_keyboard
 
 @dp.message(CommandStart())
@@ -22,7 +22,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
             await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
                                  f"📍 Sizning hududingiz: {user.region.capitalize()}.\n"
                                  f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
-                                 reply_markup=ramadan_menu)
+                                 reply_markup=get_ramadan_menu(user.region))
         else:
             await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
                                  f"🌙 Ramazon 2026 botiga xush kelibsiz.\n"

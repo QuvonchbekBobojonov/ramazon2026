@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 from core.loader import dp
-from keyboards.default.ramadan_menu import ramadan_menu
+from keyboards.default.ramadan_menu import get_ramadan_menu
 from keyboards.inlines.regions import get_regions_keyboard
 from utils.ramadan_calculator import get_today_times, get_tomorrow_times, get_daily_times, calculate_time, get_region_offset
 from utils.ramadan_data import ramadan_data
@@ -19,7 +19,7 @@ async def select_region(call: CallbackQuery, state: FSMContext):
     await state.update_data(region=region)
     await call.message.answer(f"✅ Siz {region.capitalize()} hududini tanladingiz.\n"
                               f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
-                              reply_markup=ramadan_menu)
+                              reply_markup=get_ramadan_menu(region))
     await call.answer()
     await call.message.delete()
 
@@ -68,22 +68,7 @@ async def tomorrow_calendar(message: Message, state: FSMContext):
         
     await message.answer(response)
 
-@dp.message(F.text == "🗓 To'liq taqvim")
-async def full_calendar(message: Message, state: FSMContext):
-    region = await get_user_region(message.from_user.id, state)
-    
-    response = f"🗓 <b>To'liq Ramazon taqvimi - {region.capitalize()}</b>\n\n"
-    response += "🆔 Kun | 📅 Sana | 🏙 Saharlik | 🌆 Iftorlik\n"
-    response += "----------------------------------------------\n"
-    
-    offset = get_region_offset(region)
-    
-    for day in ramadan_data["calendar"]:
-        suhoor = calculate_time(day.get("suhoor"), offset)
-        iftar = calculate_time(day.get("iftar"), offset)
-        response += f"{day['day']} | {day['date'][5:]} | {suhoor} | {iftar}\n"
-        
-    await message.answer(response)
+
 
 @dp.message(F.text == "📍 Hududni o'zgartirish")
 async def change_region_cmd(message: Message):

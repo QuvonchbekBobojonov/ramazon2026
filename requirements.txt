@@ -37,3 +37,4 @@ sqlalchemy
 asyncpg
 sqladmin
 greenlet
+jinja2

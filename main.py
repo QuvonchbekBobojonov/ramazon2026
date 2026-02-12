@@ -1,6 +1,8 @@
 from aiogram import types
 from aiohttp import web
 from fastapi import Request, FastAPI, HTTPException
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN
 from core.loader import bot, dp
@@ -8,10 +10,12 @@ from core.loader import bot, dp
 import handlers
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
+from utils.ramadan_calculator import get_daily_times
 
 from db.base import engine, Base
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 # Admin Panel Setup
 from utils.admin_panel import setup_admin
@@ -60,6 +64,11 @@ async def on_shutdown():
         first_run = False
         await on_shutdown_notify(bot)
 
+
+@app.get("/calendar", response_class=HTMLResponse)
+async def get_calendar(request: Request, region: str = "tashkent"):
+    calendar_data = get_daily_times(region)
+    return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
 
 @app.post(WEBHOOK_PATH)
 async def webhook_endpoint(request: Request):
