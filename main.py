@@ -83,11 +83,21 @@ async def admin_mobile(request: Request, token: str = None):
         result = await session.execute(select(User).order_by(User.created_at.desc()))
         users = result.scalars().all()
         
-        # Stats
+        from datetime import timedelta
+        # Convert created_at to UZ time (UTC+5)
+        for user in users:
+            if user.created_at:
+                user.created_at_uz = user.created_at + timedelta(hours=5)
+            else:
+                user.created_at_uz = None
+        
+        # Stats in UZ time
+        from utils.ramadan_calculator import get_now_uz
+        now_uz = get_now_uz()
+        today_uz = now_uz.date()
+        
         total_users = len(users)
-        import datetime
-        today = datetime.date.today()
-        new_today = sum(1 for u in users if u.created_at.date() == today)
+        new_today = sum(1 for u in users if u.created_at_uz and u.created_at_uz.date() == today_uz)
         
     return templates.TemplateResponse("admin_mobile.html", {
         "request": request, 
@@ -95,6 +105,7 @@ async def admin_mobile(request: Request, token: str = None):
         "total_users": total_users,
         "new_today": new_today
     })
+
 
 
 

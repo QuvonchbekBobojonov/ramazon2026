@@ -83,8 +83,10 @@
                         class="w-8 h-8 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
                         <i class="fa-brands fa-telegram text-sm"></i>
                     </a>
-                    <span class="text-[10px] text-slate-500 italic">{{ user.created_at.strftime('%H:%M') }}</span>
+                    <span class="text-[10px] text-slate-500 italic">{{ user.created_at_uz.strftime('%H:%M') if
+                        user.created_at_uz else '--:--' }}</span>
                 </div>
+
             </div>
             {% endfor %}
         </div>
