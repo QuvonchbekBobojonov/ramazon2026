@@ -4,6 +4,7 @@ from aiogram.types import Message, CallbackQuery
 
 from core.loader import dp
 from keyboards.default.ramadan_menu import ramadan_menu
+from keyboards.inlines.regions import get_regions_keyboard
 from utils.ramadan_calculator import get_today_times, get_tomorrow_times, get_daily_times, calculate_time, get_region_offset
 from utils.ramadan_data import ramadan_data
 from db.base import async_session_maker
