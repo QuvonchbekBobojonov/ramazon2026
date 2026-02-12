@@ -17,6 +17,8 @@ from db.base import engine, Base
 
 import logging
 import sys
+from starlette.middleware.sessions import SessionMiddleware
+
 
 # Configure logging to see errors in Vercel logs
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
