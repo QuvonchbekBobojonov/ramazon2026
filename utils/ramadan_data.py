@@ -59,5 +59,15 @@ ramadan_data = {
     ]
 }
 
-# Calculated/Interpolated data where missing in original prompt (days 6-9, 11-14, 16-19, 21-25, 27-29)
-# I have filled in the gaps with estimated times based on the progression in the user prompt.
+ramadan_prayers = {
+    "suhoor": {
+        "arabic": "نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرِ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ، خَالِصًا لِلهِ تَعَالَى أَللهُ أَكْبَرُ",
+        "transliteration": "Navaytu an asuva sovma shahri ramazona minal fajri ilal maghribi, xolisan lillahi ta'ala. Allohu akbar.",
+        "translation": "Ramazon oyining ro'zasini tong otgandan to quyosh botguncha tutishni niyat qildim. Xolis Alloh uchun. Alloh buyukdir."
+    },
+    "iftar": {
+        "arabic": "اَللَّهُمَّ لَكَ صُمْتُ وَ بِكَ آمَنْتُ وَ عَلَيْكَ تَوَكَّلْتُ وَ عَلَى رِزْقِكَ أَفْطَرْتُ، فَاغْفِرْلِى مَا قَدَّمْتُ وَ مَا أَخَّرْتُ يَا أَرْحَمَ الرَّاحِمِينَ",
+        "transliteration": "Allohumma laka sumtu va bika amantu va 'alayka tavakkaltu va 'ala rizqika aftartu, fag'firli ma qoddamtu va ma axxortu ya arhamar rohimin.",
+        "translation": "Ey Alloh! Ushbu ro'zamni Sen uchun tutdim va Senga iymon keltirdim va Senga tavakkul qildim va bergan rizqing bilan iftor qildim. Ey mehribonlarning eng mehriboni, mening avvalgi va keyingi gunohlarimni mag'firat qilgin."
+    }
+}

@@ -6,7 +6,7 @@ from core.loader import dp
 from keyboards.default.ramadan_menu import get_ramadan_menu
 from keyboards.inlines.regions import get_regions_keyboard
 from utils.ramadan_calculator import get_today_times, get_tomorrow_times, get_daily_times, calculate_time, get_region_offset
-from utils.ramadan_data import ramadan_data
+from utils.ramadan_data import ramadan_data, ramadan_prayers
 from db.base import async_session_maker
 from db.crud import get_user, update_user_region
 
@@ -73,3 +73,21 @@ async def tomorrow_calendar(message: Message, state: FSMContext):
 @dp.message(F.text == "📍 Hududni o'zgartirish")
 async def change_region_cmd(message: Message):
     await message.answer("🌍 Iltimos, o'z hududingizni tanlang:", reply_markup=get_regions_keyboard())
+
+
+@dp.message(F.text == "🤲 Ramazon duolari")
+async def ramadan_prayers_handler(message: Message):
+    suhoor = ramadan_prayers["suhoor"]
+    iftar = ramadan_prayers["iftar"]
+    
+    response = (f"🏙 <b>Saharlik duosi:</b>\n"
+                f"<i>{suhoor['arabic']}</i>\n\n"
+                f"<b>O'qilishi:</b> {suhoor['transliteration']}\n\n"
+                f"<b>Ma'nosi:</b> {suhoor['translation']}\n\n"
+                f"➖➖➖➖➖➖➖➖➖➖\n\n"
+                f"🌆 <b>Iftorlik duosi:</b>\n"
+                f"<i>{iftar['arabic']}</i>\n\n"
+                f"<b>O'qilishi:</b> {iftar['transliteration']}\n\n"
+                f"<b>Ma'nosi:</b> {iftar['translation']}")
+    
+    await message.answer(response)

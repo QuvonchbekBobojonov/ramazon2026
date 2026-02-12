@@ -10,6 +10,7 @@ def get_ramadan_menu(region: str = "tashkent") -> ReplyKeyboardMarkup:
             ],
             [
                 KeyboardButton(text="🗓 To'liq taqvim", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/calendar?region={region}")),
+                KeyboardButton(text="🤲 Ramazon duolari"),
             ],
             [
                 KeyboardButton(text="📍 Hududni o'zgartirish"),
