@@ -17,8 +17,8 @@ async def select_region(call: CallbackQuery, state: FSMContext):
         await update_user_region(session, call.from_user.id, region)
         
     await state.update_data(region=region)
-    await call.message.answer(f"Siz {region.capitalize()} hududini tanladingiz.\n"
-                              f"Quyidagi menyudan foydalanishingiz mumkin:",
+    await call.message.answer(f"✅ Siz {region.capitalize()} hududini tanladingiz.\n"
+                              f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
                               reply_markup=ramadan_menu)
     await call.answer()
     await call.message.delete()
@@ -41,13 +41,13 @@ async def today_calendar(message: Message, state: FSMContext):
     
     if times:
         response = (f"📅 <b>Bugungi taqvim ({times['date']})</b>\n\n"
-                    f"📍 Hudud: {region.capitalize()}\n"
-                    f"🏙 Saharlik: <b>{times['suhoor']}</b>\n"
-                    f"🌆 Iftorlik: <b>{times['iftar']}</b>\n")
+                    f"📍 <b>Hudud:</b> {region.capitalize()}\n"
+                    f"🏙 <b>Saharlik:</b> <b>{times['suhoor']}</b>\n"
+                    f"🌆 <b>Iftorlik:</b> <b>{times['iftar']}</b>\n")
         if times.get("note"):
-            response += f"\nEslatma: {times['note']}"
+            response += f"\n💡 <b>Eslatma:</b> {times['note']}"
     else:
-        response = "Bugun uchun ma'lumot topilmadi."
+        response = "⚠️ Bugun uchun ma'lumot topilmadi."
     
     await message.answer(response)
 
@@ -58,13 +58,13 @@ async def tomorrow_calendar(message: Message, state: FSMContext):
     
     if times:
         response = (f"⏳ <b>Ertangi taqvim ({times['date']})</b>\n\n"
-                    f"📍 Hudud: {region.capitalize()}\n"
-                    f"🏙 Saharlik: <b>{times['suhoor']}</b>\n"
-                    f"🌆 Iftorlik: <b>{times['iftar']}</b>\n")
+                    f"📍 <b>Hudud:</b> {region.capitalize()}\n"
+                    f"🏙 <b>Saharlik:</b> <b>{times['suhoor']}</b>\n"
+                    f"🌆 <b>Iftorlik:</b> <b>{times['iftar']}</b>\n")
         if times.get("note"):
-            response += f"\nEslatma: {times['note']}"
+            response += f"\n💡 <b>Eslatma:</b> {times['note']}"
     else:
-        response = "Ertaga uchun ma'lumot topilmadi."
+        response = "⚠️ Ertaga uchun ma'lumot topilmadi."
         
     await message.answer(response)
 
@@ -73,8 +73,8 @@ async def full_calendar(message: Message, state: FSMContext):
     region = await get_user_region(message.from_user.id, state)
     
     response = f"🗓 <b>To'liq Ramazon taqvimi - {region.capitalize()}</b>\n\n"
-    response += "Kun | Sana | Saharlik | Iftorlik\n"
-    response += "-----------------------------------\n"
+    response += "🆔 Kun | 📅 Sana | 🏙 Saharlik | 🌆 Iftorlik\n"
+    response += "----------------------------------------------\n"
     
     offset = get_region_offset(region)
     
@@ -87,4 +87,4 @@ async def full_calendar(message: Message, state: FSMContext):
 
 @dp.message(F.text == "📍 Hududni o'zgartirish")
 async def change_region_cmd(message: Message):
-    await message.answer("Iltimos, o'z hududingizni tanlang:", reply_markup=get_regions_keyboard())
+    await message.answer("🌍 Iltimos, o'z hududingizni tanlang:", reply_markup=get_regions_keyboard())
