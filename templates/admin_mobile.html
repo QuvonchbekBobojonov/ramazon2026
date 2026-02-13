@@ -35,6 +35,54 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Marquee Effect for long names */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-right: 50px;
+            /* Space between loops */
+        }
+
+        .can-scroll:hover .marquee-scroll {
+            display: inline-block;
+            width: auto;
+            animation: oscillate 3s ease-in-out infinite alternate;
+            padding-right: 20px;
+            overflow: visible;
+        }
+
+        @keyframes oscillate {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-100% + 120px));
+            }
+
+            /* 120px is safe space */
+        }
+
+        /* Continuous scroll if too long */
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .truncate-custom {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
     </style>
 </head>
 
@@ -77,11 +125,16 @@
                         class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'">
                 </div>
 
-                <div class="flex-1">
-                    <h4 class="font-medium truncate">{{ user.full_name }}</h4>
-                    <p class="text-xs text-slate-400">@{{ user.username or "yo'q" }} • {{ user.region or "hudud yo'q" }}
-                    </p>
+                <div class="flex-1 min-w-0">
+                    <div class="marquee-container">
+                        <h4 class="font-medium inline-block marquee-scroll w-full truncate-custom">
+                            {{ user.full_name }}
+                        </h4>
+                    </div>
+                    <p class="text-xs text-slate-400 truncate-custom">@{{ user.username or "yo'q" }} • {{ user.region or
+                        "hudud yo'q" }}</p>
                 </div>
+
                 <div class="flex flex-col items-end gap-2">
                     <a href="{% if user.username %}https://t.me/{{ user.username }}{% else %}tg://user?id={{ user.telegram_id }}{% endif %}"
                         class="w-8 h-8 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
@@ -97,6 +150,16 @@
         </div>
     </div>
 
+    <script>
+        // Check for overflowing text and add a class if it overflows
+        document.querySelectorAll('.marquee-container h4').forEach(el => {
+            if (el.scrollWidth > el.clientWidth) {
+                // It overflows
+                el.parentElement.classList.add('can-scroll');
+            }
+        });
+    </script>
 </body>
+
 
 </html>
