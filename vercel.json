@@ -15,6 +15,10 @@
         {
             "path": "/api/send-notifications",
             "schedule": "0 0 * * *"
+        },
+        {
+            "path": "/",
+            "schedule": "*/5 * * * *"
         }
     ]
 }
