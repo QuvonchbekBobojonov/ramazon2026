@@ -35,7 +35,8 @@ async def command_start_handler(message: Message, state: FSMContext, db_user=Non
         await message.answer(f"🌙 <b>Ramazon 2026 botiga xush kelibsiz!</b>\n\n"
                              f"📍 Hudud: <b>{db_user.region.capitalize()}</b>\n"
                              f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
-                             reply_markup=get_ramadan_menu(db_user.region, is_admin))
+                             reply_markup=get_ramadan_menu(db_user.region, is_admin, user_id=user_id))
+
 
     else:
         await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"

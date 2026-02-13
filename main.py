@@ -187,9 +187,27 @@ async def on_shutdown():
 
 
 @app.get("/calendar", response_class=HTMLResponse)
-async def get_calendar(request: Request, region: str = "tashkent"):
+async def get_calendar(request: Request, region: str = "tashkent", user_id: int = None):
+    from utils.subscription import check_membership
+    
+    # If user_id is provided, check their subscription status
+    if user_id:
+        try:
+            is_subscribed = await check_membership(user_id)
+            if not is_subscribed:
+                return templates.TemplateResponse("subscription_required.html", {"request": request})
+        except Exception as e:
+            logger.error(f"Error checking membership in webapp: {e}")
+            # If checking fails (e.g. rate limit), we allow access as a fallback to avoid UX break
+            pass
+    elif not user_id:
+        # If no user_id, we can't verify membership, so we show the required page
+        # Note: In production, you'd use initData for better security
+        return templates.TemplateResponse("subscription_required.html", {"request": request})
+
     calendar_data = get_full_calendar(region)
     return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
+
 
 @app.post(WEBHOOK_PATH)
 async def webhook_endpoint(request: Request):
