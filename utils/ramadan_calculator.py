@@ -15,10 +15,19 @@ def calculate_time(time_str, offset_minutes):
 
 def get_daily_times(date_str, region_slug="tashkent"):
     offset = get_region_offset(region_slug)
+    
+    if isinstance(offset, dict):
+        suhoor_offset = offset.get("suhoor", 0)
+        iftar_offset = offset.get("iftar", 0)
+        display_offset = None # Complex offset, maybe don't show single number
+    else:
+        suhoor_offset = iftar_offset = offset
+        display_offset = offset
+
     for day in ramadan_data["calendar"]:
         if day["date"] == date_str:
-            suhoor = calculate_time(day.get("suhoor"), offset)
-            iftar = calculate_time(day.get("iftar"), offset)
+            suhoor = calculate_time(day.get("suhoor"), suhoor_offset)
+            iftar = calculate_time(day.get("iftar"), iftar_offset)
             return {
                 "day": day["day"],
                 "date": format_date_uz(day["date"]),
@@ -27,7 +36,7 @@ def get_daily_times(date_str, region_slug="tashkent"):
                 "iftar": iftar,
                 "note": day.get("note"),
                 "region": region_slug,
-                "offset": offset
+                "offset": display_offset
             }
     return None
 
@@ -51,12 +60,19 @@ def format_date_uz(date_str):
 
 def get_full_calendar(region_slug="tashkent"):
     offset = get_region_offset(region_slug)
+    
+    if isinstance(offset, dict):
+        suhoor_offset = offset.get("suhoor", 0)
+        iftar_offset = offset.get("iftar", 0)
+    else:
+        suhoor_offset = iftar_offset = offset
+
     today_str = datetime.now().strftime("%Y-%m-%d")
     calendar_list = []
     
     for day in ramadan_data["calendar"]:
-        suhoor = calculate_time(day.get("suhoor"), offset)
-        iftar = calculate_time(day.get("iftar"), offset)
+        suhoor = calculate_time(day.get("suhoor"), suhoor_offset)
+        iftar = calculate_time(day.get("iftar"), iftar_offset)
         calendar_list.append({
             "day": day["day"],
             "date": format_date_uz(day["date"]),

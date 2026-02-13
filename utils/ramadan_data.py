@@ -22,7 +22,7 @@ ramadan_data = {
         "termez": 12,
         "navoi": 15,
         "bukhara": 21,
-        "urgench": 35,
+        "urgench": {"suhoor": 36, "iftar": 37},
         "nukus": 42
     },
     "calendar": [
