@@ -3,6 +3,8 @@ from aiohttp import web
 from fastapi import Request, FastAPI, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
 
 from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN
 from core.loader import bot, dp
@@ -27,7 +29,9 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(SessionMiddleware, secret_key=BOT_TOKEN)
+
 from fastapi.responses import JSONResponse
 import traceback
 
