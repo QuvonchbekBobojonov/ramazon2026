@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <!-- Quick Info Grid -->
+    <!-- Ramadan Quick Stats -->
     <div class="px-5 mt-6 grid grid-cols-2 gap-4">
         {% set today_day = 0 %}
         {% for day in calendar %}
@@ -80,23 +80,29 @@
         {% endif %}
         {% endfor %}
 
-        <div class="glass rounded-2xl p-4">
-            <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mb-3">
-                <i class="fas fa-moon text-purple-400"></i>
+        <div class="glass rounded-2xl p-4 border-l-2 border-emerald-500/40">
+            <div
+                class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3 relative overflow-hidden">
+                <div class="absolute inset-0 bg-emerald-500/5 animate-pulse"></div>
+                <i class="fas fa-kaaba text-emerald-400 relative z-10 text-lg"></i>
             </div>
-            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Bugun</p>
-            <h2 class="text-lg font-bold mt-1">{% if today_day > 0 %}{{ today_day }}-kun{% else %}Tez orada{% endif %}
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest font-bold">Ramazan Oyi</p>
+            <h2 class="text-xl font-bold mt-1 text-emerald-50">
+                {% if today_day > 0 %}{{ today_day }}-kun{% else %}Yaqinda{% endif %}
             </h2>
         </div>
 
-        <div class="glass rounded-2xl p-4">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3">
-                <i class="fas fa-location-dot text-blue-400"></i>
+        <div class="glass rounded-2xl p-4 border-l-2 border-amber-500/40">
+            <div
+                class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center mb-3 relative overflow-hidden">
+                <div class="absolute inset-0 bg-amber-500/5 animate-pulse"></div>
+                <i class="fas fa-mosque text-amber-400 relative z-10 text-lg"></i>
             </div>
-            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Hudud</p>
-            <h2 class="text-lg font-bold mt-1 truncate">{{ region|title }}</h2>
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest font-bold">Mintaqa</p>
+            <h2 class="text-xl font-bold mt-1 truncate text-amber-50">{{ region|title }}</h2>
         </div>
     </div>
+
 
     <!-- Table Header -->
     <div class="px-5 mt-8 sticky top-[84px] z-10 py-2 bg-[#0f172a]">
