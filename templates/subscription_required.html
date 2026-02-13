@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obuna zarur</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0f172a] text-white flex items-center justify-center min-h-screen p-6 overflow-hidden">
+    <div class="max-w-md w-full text-center space-y-8">
+        <!-- Animated Crescent -->
+        <div class="relative inline-block">
+            <div class="absolute inset-0 bg-blue-500 blur-3xl opacity-20 animate-pulse"></div>
+            <i class="fa-solid fa-moon text-7xl text-blue-400 relative z-10"></i>
+        </div>
+
+        <div class="space-y-4">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Obuna talab qilinadi
+            </h1>
+            <p class="text-slate-400 leading-relaxed text-lg">
+                Taqvimni ko'rish va barcha imkoniyatlardan foydalanish uchun kanalimizga obuna bo'lishingiz shart.
+            </p>
+        </div>
+
+        <div class="pt-6 space-y-4">
+            <button onclick="openChannel()"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-blue-600/20">
+                <i class="fa-brands fa-telegram text-xl"></i>
+                Kanalga obuna bo'lish
+            </button>
+
+            <button onclick="Telegram.WebApp.close()"
+                class="w-full bg-slate-800/50 text-slate-300 font-medium py-4 rounded-2xl border border-white/5 hover:bg-slate-800 transition-all">
+                Orqaga qaytish
+            </button>
+        </div>
+
+        <p class="text-xs text-slate-500 pt-10">
+            Obuna bo'lgach, botga /start buyrug'ini yuboring
+        </p>
+    </div>
+
+    <script>
+        Telegram.WebApp.ready();
+
+        function openChannel() {
+            // Using the channel from your config dynamically
+            var channel = "{{ primary_channel }}";
+            Telegram.WebApp.openTelegramLink("https://t.me/" + channel);
+        }
+    </script>
+
+
+</body>
+
+</html>

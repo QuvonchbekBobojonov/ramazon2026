@@ -39,3 +39,5 @@ sqladmin
 greenlet
 jinja2
 upstash-redis
+itsdangerous
+python-multipart

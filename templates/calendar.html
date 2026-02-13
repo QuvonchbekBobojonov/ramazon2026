@@ -3,191 +3,166 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ramazon 2026 Taqvim - {{ region|title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Roboto:wght@400;500;700&display=swap');
-
-        :root {
-            --primary-color: #006400;
-            /* Islamic Green */
-            --accent-color: #D4AF37;
-            /* Gold */
-            --bg-color: #f8f9fa;
-            --text-color: #333;
-            --table-header-bg: #004d00;
-            --table-row-even: #e8f5e9;
-            --table-border: #c8e6c9;
-            --today-bg: #fff9c4;
-            /* Light Yellow for today */
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 10px;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006400' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            font-family: 'Outfit', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            position: relative;
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Watermark */
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 3rem;
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0.05);
-            pointer-events: none;
-            white-space: nowrap;
-            z-index: 0;
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent-color);
+        .calendar-card {
+            transition: all 0.3s ease;
         }
 
-        h1 {
+        .today-card {
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            background: rgba(96, 165, 250, 0.1);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.1);
+        }
+
+        .arabic-font {
             font-family: 'Amiri', serif;
-            margin: 0;
-            font-size: 2rem;
-            letter-spacing: 1px;
         }
 
-        .region-badge {
-            display: inline-block;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            border: 1px solid var(--accent-color);
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-            position: relative;
-            z-index: 1;
-        }
-
-        .calendar-table th,
-        .calendar-table td {
-            padding: 12px 8px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        .calendar-table th {
-            background-color: var(--table-header-bg);
-            color: white;
-            font-weight: 500;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        .calendar-table tr {
-            border-bottom: 1px solid var(--table-border);
-        }
-
-        .calendar-table tr:nth-child(even) {
-            background-color: var(--table-row-even);
-        }
-
-        .today {
-            background-color: var(--today-bg) !important;
-            font-weight: bold;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .date-col {
-            font-family: 'Amiri', serif;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .time-col {
-            font-weight: 600;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 0.8rem;
-            color: #666;
-            background-color: #f1f1f1;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body>
-
-    <div class="container">
-        <header>
-            <h1>Ramazon 2026</h1>
-            <div class="region-badge">📍 {{ region|title }}</div>
-        </header>
-
-        <table class="calendar-table">
-            <thead>
-                <tr>
-                    <th>Kun</th>
-                    <th>Sana</th>
-                    <th>Saharlik</th>
-                    <th>Iftorlik</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for day in calendar %}
-                <tr class="{% if day.is_today %}today{% endif %}">
-                    <td>{{ day.day }}</td>
-                    <td class="date-col">{{ day.date }}</td>
-                    <td class="time-col">{{ day.suhoor }}</td>
-                    <td class="time-col">{{ day.iftar }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <footer>
-            Taqvim O‘zbekiston musulmonlari idorasi ma’lumotlari asosida tayyorlandi.
-        </footer>
+<body class="pb-10 bg-[#0f172a]">
+    <div class="px-5 pt-8 pb-4 sticky top-0 bg-[#0f172a]/80 backdrop-blur-md z-10 border-b border-white/5">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold gradient-text">Ramazan 2026</h1>
+                <p class="text-slate-400 text-sm arabic-font mb-1">To'liq taqvim • {{ region|title }}</p>
+            </div>
+            <div class="glass px-3 py-1 rounded-full border border-blue-500/30 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-xs font-medium text-blue-400 uppercase tracking-wider">Jonli</span>
+            </div>
+        </div>
     </div>
+
+    <!-- Ramadan Aesthetic GIF -->
+    <div class="px-5 mt-6">
+        <div class="glass rounded-3xl p-1 overflow-hidden relative shadow-2xl shadow-blue-500/10 border border-white/5">
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10 opacity-60">
+            </div>
+            <img src="/static/ramadan.gif" alt="Ramadan Mubarak" loading="lazy" decoding="async"
+                class="w-full h-48 object-cover rounded-[22px] transform scale-105 hover:scale-100 transition-transform duration-700">
+            <div class="absolute top-4 right-6 z-20">
+                <div
+                    class="glass px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">{{ region|title
+                        }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Table Header -->
+    <div class="px-5 mt-8 sticky top-[84px] z-10 py-2 bg-[#0f172a]">
+        <div class="grid grid-cols-4 gap-2 text-[10px] uppercase tracking-widest font-bold text-slate-500 text-center">
+            <div>Kun</div>
+            <div>Sana</div>
+            <div>Saharlik</div>
+            <div>Iftorlik</div>
+        </div>
+    </div>
+
+    <!-- Calendar List -->
+    <div class="px-5 mt-2 space-y-3">
+        {% for day in calendar %}
+        <div
+            class="glass rounded-2xl p-4 calendar-card {% if day.is_today %}today-card animate-pulse-subtle{% endif %}">
+            <div class="grid grid-cols-4 gap-2 items-center text-center">
+                <!-- Day -->
+                <div class="flex flex-col items-center">
+                    <span class="text-lg font-bold {% if day.is_today %}text-blue-400{% else %}text-white{% endif %}">{{
+                        day.day }}</span>
+                    {% if day.note %}
+                    <span class="text-[8px] text-amber-400 font-bold uppercase truncate w-full px-1">{{ day.note
+                        }}</span>
+                    {% endif %}
+                </div>
+
+                <!-- Date -->
+                <div class="flex flex-col">
+                    <span class="text-xs font-semibold text-slate-300">{{ day.date.split(' ')[0] }}</span>
+                    <span class="text-[10px] text-slate-500">{{ day.date.split(' ')[1] if ' ' in day.date else ''
+                        }}</span>
+                </div>
+
+                <!-- Suhoor -->
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-blue-400">{{ day.suhoor }}</span>
+                    <span class="text-[8px] text-slate-500 uppercase font-medium">Saharlik</span>
+                </div>
+
+                <!-- Iftar -->
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-purple-400">{{ day.iftar }}</span>
+                    <span class="text-[8px] text-slate-500 uppercase font-medium">Iftorlik</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-10 px-5 text-center text-slate-500">
+        <div class="glass rounded-2xl p-5 border border-white/5 space-y-2">
+            <p class="text-xs leading-relaxed">
+                Taqvim O‘zbekiston musulmonlari idorasi ma’lumotlari asosida tayyorlandi.
+            </p>
+            <div class="w-12 h-0.5 bg-slate-800 mx-auto my-3"></div>
+            <p class="text-[10px] font-semibold tracking-widest uppercase text-slate-400">
+                Loyiha muallifi: <span class="gradient-text">www.moorfo.uz</span>
+            </p>
+        </div>
+    </footer>
 
     <script>
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
 
-        // Optional: Dynamic theme matching
+        // Match Telegram color scheme
         if (Telegram.WebApp.colorScheme === 'dark') {
-            document.documentElement.style.setProperty('--bg-color', '#121212');
-            document.documentElement.style.setProperty('--text-color', '#e0e0e0');
-            document.documentElement.style.setProperty('--today-bg', '#332b00');
-            document.documentElement.style.setProperty('--table-row-even', '#1e1e1e');
-            document.documentElement.style.setProperty('--table-border', '#333');
-            document.querySelector('.container').style.background = '#1e1e1e';
-            document.querySelector('.watermark').style.color = 'rgba(255, 255, 255, 0.05)';
+            document.body.style.backgroundColor = '#0f172a';
         }
     </script>
-
 </body>
 
 </html>

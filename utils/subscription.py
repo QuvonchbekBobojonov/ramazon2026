@@ -12,7 +12,8 @@ async def check_membership(user_id: int):
         except Exception as e:
             print(f"Error checking subscription for {user_id} in {channel}: {e}")
             # Fail safe: if error (e.g. bot not admin), assume subscribed to avoid locking info
-            status = False
+            status = True
+
         
         if not status:
             final_status = False

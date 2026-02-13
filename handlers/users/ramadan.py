@@ -27,10 +27,15 @@ async def select_region(call: CallbackQuery, state: FSMContext):
         except Exception:
             pass
         
+    from core.config import ADMINS
+    is_admin = str(user_id) in ADMINS or user_id in ADMINS
+    
     await state.update_data(region=region)
     await call.message.answer(f"✅ Siz {region.capitalize()} hududini tanladingiz.\n"
                               f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
-                              reply_markup=get_ramadan_menu(region))
+                              reply_markup=get_ramadan_menu(region, is_admin, user_id=user_id))
+
+
     await call.answer()
     await call.message.delete()
 
