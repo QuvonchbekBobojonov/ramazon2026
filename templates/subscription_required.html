@@ -56,10 +56,12 @@
         Telegram.WebApp.ready();
 
         function openChannel() {
-            // Using the channel from your config
-            Telegram.WebApp.openTelegramLink("https://t.me/QuvonchbekBobojonov");
+            // Using the channel from your config dynamically
+            var channel = "{{ primary_channel }}";
+            Telegram.WebApp.openTelegramLink("https://t.me/" + channel);
         }
     </script>
+
 
 </body>
 

@@ -195,15 +195,25 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
         try:
             is_subscribed = await check_membership(user_id)
             if not is_subscribed:
-                return templates.TemplateResponse("subscription_required.html", {"request": request})
+                from core.config import CHANNELS
+                # Pass the first channel for the button, or the list if needed
+                return templates.TemplateResponse("subscription_required.html", {
+                    "request": request, 
+                    "channels": CHANNELS,
+                    "primary_channel": CHANNELS[0].replace("@", "") if CHANNELS else "QuvonchbekBobojonov"
+                })
         except Exception as e:
             logger.error(f"Error checking membership in webapp: {e}")
             # If checking fails (e.g. rate limit), we allow access as a fallback to avoid UX break
             pass
     elif not user_id:
-        # If no user_id, we can't verify membership, so we show the required page
-        # Note: In production, you'd use initData for better security
-        return templates.TemplateResponse("subscription_required.html", {"request": request})
+        from core.config import CHANNELS
+        return templates.TemplateResponse("subscription_required.html", {
+            "request": request,
+            "channels": CHANNELS,
+            "primary_channel": CHANNELS[0].replace("@", "") if CHANNELS else "QuvonchbekBobojonov"
+        })
+
 
     calendar_data = get_full_calendar(region)
     return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
