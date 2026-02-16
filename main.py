@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 
-from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN
+from core.config import WEBHOOK_PATH, WEBHOOK_URI, BOT_TOKEN, WEBHOOK_HOST
 from core.loader import bot, dp
 
 import handlers
