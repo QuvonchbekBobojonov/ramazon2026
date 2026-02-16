@@ -241,6 +241,20 @@ async def on_startup():
         logger.error(f"Error during bot setup (webhook might be invalid): {e}")
     
     setup_middlewares(dp)
+    
+    # Scheduler optimization
+    from apscheduler.schedulers.asyncio import AsyncIOScheduler
+    from pytz import timezone
+    
+    uz_tz = timezone('Asia/Tashkent')
+    scheduler = AsyncIOScheduler(timezone=uz_tz)
+    
+    # Schedule notifications at 05:00 and 05:30
+    scheduler.add_job(send_daily_notifications, 'cron', hour=5, minute=0)
+    scheduler.add_job(send_daily_notifications, 'cron', hour=5, minute=30)
+    
+    scheduler.start()
+    logger.info("Scheduler started (05:00 and 05:30 UZ time)")
 
 
 
