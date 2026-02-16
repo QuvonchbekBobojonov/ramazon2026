@@ -17,3 +17,5 @@ DATABASE_URL = env.str("DATABASE_URL")
 
 UPSTASH_REDIS_REST_URL = env.str("UPSTASH_REDIS_REST_URL", default=None)
 UPSTASH_REDIS_REST_TOKEN = env.str("UPSTASH_REDIS_REST_TOKEN", default=None)
+
+REDIS_URL = env.str("REDIS_URL", default=None)

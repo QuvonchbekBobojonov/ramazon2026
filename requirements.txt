@@ -43,3 +43,4 @@ itsdangerous
 python-multipart
 apscheduler
 pytz
+redis
