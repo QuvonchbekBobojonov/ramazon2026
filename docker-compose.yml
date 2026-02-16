@@ -1,4 +1,17 @@
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: ramazon_db
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ramazon}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ramazon_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-ramazon_db}
+    ports:
+      - "5432:5432"
+
   redis:
     image: redis:7-alpine
     container_name: ramazon_redis
@@ -11,6 +24,7 @@ services:
     container_name: ramazon_bot
     restart: always
     depends_on:
+      - db
       - redis
     volumes:
       - .:/app
@@ -18,9 +32,12 @@ services:
       BOT_TOKEN: ${BOT_TOKEN}
       ADMINS: ${ADMINS}
       WEBHOOK_HOST: ${WEBHOOK_HOST}
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-ramazon}:${POSTGRES_PASSWORD:-ramazon_pass}@db:5432/${POSTGRES_DB:-ramazon_db}
       REDIS_URL: redis://redis:6379/0
       UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL}
       UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN}
     ports:
       - "8080:8080"
+
+volumes:
+  postgres_data:
