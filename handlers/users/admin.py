@@ -34,7 +34,7 @@ async def confirm_restart(callback: CallbackQuery):
     async with async_session_maker() as session:
         users = await get_all_users(session)
     
-    text = "🚀 <b>Botimiz qayta ishga tushdi va yanada yaxshi ishlamoqda!</b> \n\nNoqulayliklar uchun uzr so'raymiz. 😊"
+    text = "🚀 <b>Botimiz qayta ishga tushdi!</b> \n\nXatoliklar (bug fix) muvaffaqiyatli bartaraf etildi va bot yanada yaxshi ishlamoqda. \n\nNoqulayliklar uchun uzr so'raymiz. 😊"
     
     count = 0
     for user in users:
