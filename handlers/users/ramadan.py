@@ -4,12 +4,26 @@ from aiogram.types import Message, CallbackQuery
 
 from core.loader import dp
 from keyboards.default.ramadan_menu import get_ramadan_menu
-from keyboards.inlines.regions import get_regions_keyboard
+from keyboards.inlines.regions import get_regions_keyboard, get_districts_keyboard
 from utils.ramadan_calculator import get_today_times, get_tomorrow_times, get_daily_times, calculate_time, get_region_offset
 from utils.ramadan_data import ramadan_data, ramadan_prayers
 from db.base import async_session_maker
 from db.crud import get_user, update_user_region
 from utils.cache import redis_client
+
+@dp.callback_query(F.data.startswith("viloyat:"))
+async def select_viloyat(call: CallbackQuery):
+    viloyat = call.data.split(":")[1]
+    await call.message.edit_text(f"📍 <b>{viloyat}</b> viloyatini tanladingiz.\n\n"
+                                 f"🏙 Davom etish uchun <b>shahar yoki tumanni tanlang:</b>",
+                                 reply_markup=get_districts_keyboard(viloyat))
+    await call.answer()
+
+@dp.callback_query(F.data == "back_to_regions")
+async def back_to_regions_handler(call: CallbackQuery):
+    await call.message.edit_text(f"🌍 Iltimos, davom etish uchun <b>o'z hududingizni tanlang:</b>",
+                                 reply_markup=get_regions_keyboard())
+    await call.answer()
 
 @dp.callback_query(F.data.startswith("region:"))
 async def select_region(call: CallbackQuery, state: FSMContext):
