@@ -25,7 +25,10 @@ async def admin_panel_cmd(message: Message):
 
 @dp.callback_query(F.data == "confirm_restart_notify")
 async def confirm_restart(callback: CallbackQuery):
-    await callback.answer("Xabarnomalar yuborilmoqda...")
+    try:
+        await callback.answer("Xabarnomalar yuborilmoqda...")
+    except Exception:
+        pass
     await callback.message.edit_text("⏳ <b>Foydalanuvchilarga xabar yuborilmoqda...</b>")
     
     async with async_session_maker() as session:
@@ -46,5 +49,8 @@ async def confirm_restart(callback: CallbackQuery):
 
 @dp.callback_query(F.data == "cancel_restart_notify")
 async def cancel_restart(callback: CallbackQuery):
-    await callback.answer("Bekor qilindi")
+    try:
+        await callback.answer("Bekor qilindi")
+    except Exception:
+        pass
     await callback.message.edit_text("❌ <b>Xabarnoma yuborish bekor qilindi.</b>")

@@ -56,7 +56,10 @@ class SubscriptionMiddleware(BaseMiddleware):
             if event.data == "check_subs":
                 return await handler(event, data)
             
-            await event.answer("Kanalga obuna bo'lishingiz shart!", show_alert=True)
+            try:
+                await event.answer("Kanalga obuna bo'lishingiz shart!", show_alert=True)
+            except Exception:
+                pass
             try:
                 await event.message.edit_text(
                     SUBSCRIPTION_TEXT,

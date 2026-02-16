@@ -7,7 +7,10 @@ from handlers.users.start import command_start_handler
 
 @dp.callback_query(lambda c: c.data == "check_subs")
 async def check_subs_callback(call: types.CallbackQuery, state: FSMContext):
-    await call.answer("🔄 Obunalar tekshirilmoqda...", show_alert=False)
+    try:
+        await call.answer("🔄 Obunalar tekshirilmoqda...", show_alert=False)
+    except Exception:
+        pass
     
     user_id = call.from_user.id
     is_subscribed = await check_membership(user_id)
