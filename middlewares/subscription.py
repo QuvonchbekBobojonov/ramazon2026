@@ -3,7 +3,8 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Message, CallbackQuery
 from utils.subscription import check_membership, get_subscription_keyboard, SUBSCRIPTION_TEXT
 from core.config import ADMINS
-from utils.cache import redis_client
+from db.base import async_session_maker
+from db.crud import update_user_subscription
 import logging
 
 class SubscriptionMiddleware(BaseMiddleware):
@@ -14,13 +15,24 @@ class SubscriptionMiddleware(BaseMiddleware):
         data: Dict[str, Any]
     ) -> Any:
         user = data.get("event_from_user")
+        db_user = data.get("db_user")
         
         # Adminlar va botlarni tekshirmaymiz
         if not user or user.is_bot or str(user.id) in ADMINS or user.id in ADMINS:
             return await handler(event, data)
 
-        # Obunani real-time rejimda Telegramdan tekshirish (keshsiz)
-        is_subscribed = await check_membership(user.id)
+        is_subscribed = db_user.is_subscribed if db_user else False
+        is_start_command = isinstance(event, Message) and event.text and event.text.startswith("/start")
+
+        # Agar bazada obuna bo'lmagan bo'lsa yoki /start bosgan bo'lsa, qayta tekshiramiz
+        if not is_subscribed or is_start_command:
+            is_subscribed = await check_membership(user.id)
+            
+            # Bazani yangilash
+            if db_user and db_user.is_subscribed != is_subscribed:
+                async with async_session_maker() as session:
+                    await update_user_subscription(session, user.id, is_subscribed)
+                    db_user.is_subscribed = is_subscribed # Update in-memory for current request
         
         if is_subscribed:
             return await handler(event, data)

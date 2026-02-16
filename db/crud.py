@@ -28,6 +28,11 @@ async def update_user_region(session: AsyncSession, telegram_id: int, region: st
     await session.execute(stmt)
     await session.commit()
 
+async def update_user_subscription(session: AsyncSession, telegram_id: int, is_subscribed: bool):
+    stmt = update(User).where(User.telegram_id == telegram_id).values(is_subscribed=is_subscribed)
+    await session.execute(stmt)
+    await session.commit()
+
 async def get_all_users(session: AsyncSession):
     stmt = select(User)
     result = await session.execute(stmt)

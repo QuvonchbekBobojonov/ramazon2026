@@ -277,11 +277,21 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
              calendar_data = get_full_calendar(region)
              return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
 
-        try:
-            is_subscribed = await check_membership(user_id)
-        except Exception as e:
-            logger.error(f"Error checking membership in webapp: {e}")
-            is_subscribed = True # Fallback to allow access
+        # Bazadan tekshirish
+        async with async_session_maker() as session:
+             from db.crud import get_user, update_user_subscription
+             db_user = await get_user(session, user_id)
+             is_subscribed = db_user.is_subscribed if db_user else False
+
+             # Agar bazada obuna bo'lmagan bo'lsa, real-time tekshiramiz
+             if not is_subscribed:
+                 try:
+                     is_subscribed = await check_membership(user_id)
+                     if is_subscribed and db_user:
+                         await update_user_subscription(session, user_id, True)
+                 except Exception as e:
+                     logger.error(f"Error checking membership in webapp: {e}")
+                     is_subscribed = True # Fallback to allow access
 
         if not is_subscribed:
             from core.config import CHANNELS

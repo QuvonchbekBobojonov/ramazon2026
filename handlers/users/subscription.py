@@ -4,7 +4,8 @@ from core.loader import dp, bot
 from utils.subscription import check_membership, get_subscription_keyboard, SUBSCRIPTION_TEXT
 from keyboards.default.ramadan_menu import get_ramadan_menu
 from handlers.users.start import command_start_handler
-from utils.cache import redis_client
+from db.base import async_session_maker
+from db.crud import update_user_subscription
 import logging
 
 @dp.callback_query(lambda c: c.data == "check_subs")
@@ -18,6 +19,10 @@ async def check_subs_callback(call: types.CallbackQuery, state: FSMContext):
     is_subscribed = await check_membership(user_id)
     
     if is_subscribed:
+        # Bazani yangilash
+        async with async_session_maker() as session:
+            await update_user_subscription(session, user_id, True)
+
         try:
             await call.message.delete()
         except:
