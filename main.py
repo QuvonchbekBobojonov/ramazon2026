@@ -277,31 +277,11 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
              calendar_data = get_full_calendar(region)
              return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
 
-        from utils.cache import redis_client
-        cache_key = f"user_sub:{user_id}"
-        
-        # Try to get from cache first
-        is_subscribed = None
-        if redis_client:
-            try:
-                is_subscribed = redis_client.get(cache_key)
-            except Exception:
-                pass
-        
-        if is_subscribed is None:
-            try:
-                is_subscribed = await check_membership(user_id)
-                # Cache for 10 minutes (600 seconds)
-                if redis_client:
-                    try:
-                        redis_client.set(cache_key, "1" if is_subscribed else "0", ex=600)
-                    except Exception:
-                        pass
-            except Exception as e:
-                logger.error(f"Error checking membership in webapp: {e}")
-                is_subscribed = True # Fallback to allow access
-        else:
-            is_subscribed = (is_subscribed == "1" or is_subscribed == b"1")
+        try:
+            is_subscribed = await check_membership(user_id)
+        except Exception as e:
+            logger.error(f"Error checking membership in webapp: {e}")
+            is_subscribed = True # Fallback to allow access
 
         if not is_subscribed:
             from core.config import CHANNELS

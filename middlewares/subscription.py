@@ -19,37 +19,8 @@ class SubscriptionMiddleware(BaseMiddleware):
         if not user or user.is_bot or str(user.id) in ADMINS or user.id in ADMINS:
             return await handler(event, data)
 
-        # Redis keshini tekshirish
-        cache_key = f"user_sub:{user.id}"
-        is_subscribed = None
-        
-        if redis_client:
-            try:
-                cached_val = redis_client.get(cache_key)
-                if cached_val is not None:
-                    # If cached as '1', stay as True. If '0', stay as None to force re-check if it's a command
-                    if str(cached_val) == "1":
-                        is_subscribed = True
-                    else:
-                        is_subscribed = False
-            except Exception as e:
-                logging.error(f"Redis cache read error: {e}")
-
-        # Force re-check if it's a /start command or no cache exists
-        is_start_command = isinstance(event, Message) and event.text and event.text.startswith("/start")
-        
-        if is_subscribed is None or (not is_subscribed and is_start_command):
-            # Obunani Telegramdan tekshirish
-            is_subscribed = await check_membership(user.id)
-            
-            # Keshga saqlash
-            if redis_client:
-                try:
-                    # If subscribed, cache for 10 min. If not, only for 30 seconds to allow quick re-try
-                    expire = 600 if is_subscribed else 30
-                    redis_client.set(cache_key, "1" if is_subscribed else "0", ex=expire)
-                except Exception as e:
-                    logging.error(f"Redis cache write error: {e}")
+        # Obunani real-time rejimda Telegramdan tekshirish (keshsiz)
+        is_subscribed = await check_membership(user.id)
         
         if is_subscribed:
             return await handler(event, data)
