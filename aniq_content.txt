@@ -1,0 +1,1129 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="uz"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="uz"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="uz"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="uz" > <!--<![endif]-->
+<head>
+    <title>Ramazon taqvimi 2026</title>
+    <meta name="description" content="Ramazon taqvimi 2026">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta property="og:title" content="Ramazon taqvimi 2026"/>
+    <meta property="og:description" content="Ramazon taqvimi 2026" />
+    <meta property="og:type" content="article"/>
+    <meta property="article:published_time" content="2018-06-10T11:53:39Z" />
+    <meta property="article:modified_time" content="2018-06-10T11:53:39Z" />
+    <meta property="og:url" content="https://m.aniq.uz/uz/ramadan-2026"/>
+    <meta property="og:locale" content="uz_UZ"/>
+    <meta property="og:image" content="https://m.aniq.uz/photos/news/1ftlwnSM1zPkpXw.jpeg" />
+    <meta property="og:site_name" content="Aniq.uz">
+    <meta itemprop="name" content="Ramazon taqvimi 2026"/>
+    <meta itemprop="description" content="Ramazon taqvimi 2026" />
+    <meta itemprop="image" content="https://m.aniq.uz/photos/news/1ftlwnSM1zPkpXw.jpeg" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.aniq.uz/uz/ramadan-2026">
+            <link rel="alternate" hreflang="uz" href="https://aniq.uz/ramadan-2026" />
+        <link rel="alternate" hreflang="uz-UZ" href="https://aniq.uz/uz/ramadan-2026" />
+        <link rel="alternate" hreflang="x-default" href="https://aniq.uz/ramadan-2026" />
+        <meta name="csrf-token" content="N8ueUHem3ufNzrNm9uLGQaT3VEb6bvOpP9PbPuFv">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#38618e">
+
+    <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5V93FP8');
+    </script>
+    <!-- End Google Tag Manager -->
+    <link rel="stylesheet" href="/mobile_css/front.css?v=1">
+        <link rel="manifest" href="/manifest.json" />
+
+    <script async src="https://yastatic.net/pcode/adfox/header-bidding.js"></script>
+    <script type="text/javascript" src="https://ads.digitalcaramel.com/js/aniq.uz.js"></script>
+    <script>window.yaContextCb = window.yaContextCb || []</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+    <script async src="https://yastatic.net/pcode-native/loaders/loader.js"></script>
+
+    <script async src="https://yandex.ru/ads/system/header-bidding.js"></script>
+    <script>
+        window.CaramelDomain = "aniq.uz";
+        const caramelJS = document.createElement('script');
+        caramelJS.src = "https://ads.digitalcaramel.com/caramel.js?ts="+new Date().getTime();
+        caramelJS.async = true;
+        document.head.appendChild(caramelJS);
+    </script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V93FP8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<header>
+    <div class="navbar navbar-default sm-top-nav">
+        <div class="container navigationbar">
+                                                <a href="#" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#registerModel">Kirish</a>
+                    <a href="https://m.aniq.uz/uz/register" class="btn btn-primary navbar-btn">Registrasiya</a>
+                                        <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://www.facebook.com/Aniq.uz/"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://t.me/aniquzbek"><i class="fa fa-telegram"></i></a></li>
+                <li class="searchicon" id="searchicon"><a href=""><i class="fa fa-search"></i></a></li>
+            </ul>
+            <div class="row" id="searchbar" >
+                <div class="col-xs-12">
+                    <form method="GET" action="https://m.aniq.uz/uz/qidiruv" accept-charset="UTF-8" role="search" class="form search-form">
+                        <div class="input-group">
+                            <input class="form-control" id="searchBox" name="q" type="text" placeholder="Saytda qidirish" value="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search-button" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my">
+        <!--AdFox START-->
+        <!--caramel2017-->
+        <!--Площадка: aniq.uz / content / 100%x250mobile2-->
+        <!--Категория: <не задана>-->
+        <!--Тип баннера: Native Ad-->
+        <div caramel-id="01j78m0jswx0cepn8vh2q1c9by"></div>
+    </div>
+    <div class="header-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="logo-block">
+                        <a href="https://m.aniq.uz/uz" class="logo">
+                            <img src="/images/top_logo.jpg" alt="Aniq.uz" title="Aniq.uz">
+                        </a>
+                        <a href="#slide1" class="btn btn-dark pull-left slide-toggle">Menyu</a>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="lang-select pull-right">
+                        <p>Bugun 16 fevral, 2026 yil, dushanba</p>
+                        <a href="https://m.aniq.uz/locale/oz" class="btn btn-primary locale">КИР</a>
+                        <button class="btn btn-primary disabled">РУС</button>
+                        <button class="btn btn-primary disabled">ENG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="slide-block " id="slide1">
+    <ul class="slide-menu clearfix">
+                                    <li><a href="/uz/yangiliklar" title="Yangiliklar">Yangiliklar</a></li>
+                                                <li><a href="/uz/siyosat" title="Siyosat">Siyosat</a></li>
+                                                <li><a href="/uz/iktisod" title="Iqtisod">Iqtisod</a></li>
+                                                <li><a href="/uz/biznes" title="Biznes">Biznes</a></li>
+                                                <li><a href="/uz/fan-va-texnika" title="Fan va texnika">Fan va texnika</a></li>
+                                                <li><a href="/uz/salomatlik" title="Salomatlik">Salomatlik</a></li>
+                                                <li><a href="/uz/avto" title="Avto">Avto</a></li>
+                                                <li><a href="/uz/sport" title="Sport">Sport</a></li>
+                                                <li><a href="https://stadion.uz/" title="Stadion.uz">Stadion.uz</a></li>
+                                                <li><a href="/uz/video" title="Video">Video</a></li>
+                                                <li><a href="/uz/fotogalereya" title="Fotogalereya">Fotogalereya</a></li>
+                                                <li><a href="/uz/tv-dastur" title="TV-dastur">TV-dastur</a></li>
+                                                <li><a href="/uz/ob-xavo" title="Ob-havo">Ob-havo</a></li>
+                                                <li><a href="/uz/shou-biznes" title="Shou biznes">Shou biznes</a></li>
+                                                <li><a href="/uz/uyinlar" title="O‘yinlar">O‘yinlar</a></li>
+                                                <li><a href="/uz/tuyxonalar" title="To‘yxona">To‘yxona</a></li>
+                                                <li><a href="/uz/bozorlar" title="Bozorlar">Bozorlar</a></li>
+                                                <li><a href="/uz/yumor" title="Yumor">Yumor</a></li>
+                                                <li><a href="/uz/eng-eng" title="Eng-eng">Eng-eng</a></li>
+                                                <li><a href="/uz/kirmang" title="Kirmang">Kirmang</a></li>
+                        </ul>
+</div>
+            <ul class="teams-logo-list nav-just clearfix">
+                                <li>
+                <a href="/uz/uzbekiston">
+                    <img src="/photos/states/uzbekistan.png" alt="Uzbekiston" title="Uzbekiston">
+                </a>
+            </li>
+                                <li>
+                <a href="/uz/aksh">
+                    <img src="/photos/states/united_states.png" alt="AKSh" title="AKSh">
+                </a>
+            </li>
+                                <li>
+                <a href="/uz/xitoy">
+                    <img src="/photos/states/china.png" alt="Xitoy" title="Xitoy">
+                </a>
+            </li>
+                                <li>
+                <a href="/uz/rossiya">
+                    <img src="/photos/states/russia.png" alt="Rossiya" title="Rossiya">
+                </a>
+            </li>
+                                        </ul>
+        </div>
+    </div>
+</header>
+<!--main container start-->
+<div class="container main-container">
+            
+        <h3 class="aside-title margin-10">Ramazon taqvimi 2026</h3>
+
+        <select class="form-control select-region-detail margin-5" data-lang="/uz">
+                            <option value="17">Toshkent</option>
+                            <option value="19">Andijon</option>
+                            <option value="21">Buxoro</option>
+                            <option value="40">Guliston</option>
+                            <option value="24">Jizzax</option>
+                            <option value="25">Navoiy</option>
+                            <option value="20">Namangan</option>
+                            <option value="55">Nukus</option>
+                            <option value="18">Samarqand</option>
+                            <option value="59">Termiz</option>
+                            <option value="53">Urganch</option>
+                            <option value="23">Farg‘ona</option>
+                            <option value="47">Qarshi</option>
+                            <option value="72">Marg‘ilon</option>
+                            <option value="54">Xiva</option>
+                            <option value="37">Qo‘qon</option>
+                            <option value="30">Angren</option>
+                            <option value="39">Bekobod</option>
+                            <option value="60">Denov</option>
+                            <option value="42">Zomin</option>
+                            <option value="48">Zarafshon</option>
+                            <option value="45">Kattaqo‘rg‘on</option>
+                            <option value="49">Nurota</option>
+                            <option value="75">Pop</option>
+                            <option value="46">Urgut</option>
+                            <option value="76">Xazorasp</option>
+                            <option value="35">Chust</option>
+                            <option value="32">Shahrixon</option>
+                            <option value="77">Qorako‘l</option>
+                            <option value="78">Qo‘rg‘ontepa</option>
+                            <option value="79">Ashxabod</option>
+                            <option value="68">Bishkek</option>
+                            <option value="80">O‘sh</option>
+                            <option value="81">Dushanbe</option>
+                            <option value="64">Xo‘jand</option>
+                            <option value="69">Olmaota</option>
+                            <option value="66">Jambul</option>
+                            <option value="82">Turkiston</option>
+                            <option value="63">Chimkent</option>
+                    </select>
+        <div class="widget-container-detail">
+                        <table class="table table-hover spec-table detail-ruza-table" id="ruza-table-detail">
+                                    <tr class="header-item">
+                        <th class="list-gr-item-no-pd">Ro‘za kunlari</th>
+                        <th class="list-gr-item-no-pd">FEVRAL</th>
+                        <th class="list-gr-item-no-pd">Hafta kunlari</th>
+                        <th class="list-gr-item-no-pd" style="text-align: center;">Saharlik</th>
+                        <th class="list-gr-item-no-pd" style="text-align: center;">Iftorlik</th>
+                    </tr>
+                                                                    <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">1</td>
+                            <td class="list-gr-item-no-pd">19</td>
+                            <td class="list-gr-item-no-pd">payshanba</td>
+                            <td class="list-gr-item-no-pd">05:54</td>
+                            <td class="list-gr-item-no-pd">18:05</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line select-background">
+                            <td class="list-gr-item-no-pd">2</td>
+                            <td class="list-gr-item-no-pd">20</td>
+                            <td class="list-gr-item-no-pd">juma</td>
+                            <td class="list-gr-item-no-pd">05:53</td>
+                            <td class="list-gr-item-no-pd">18:06</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">3</td>
+                            <td class="list-gr-item-no-pd">21</td>
+                            <td class="list-gr-item-no-pd">shanba</td>
+                            <td class="list-gr-item-no-pd">05:51</td>
+                            <td class="list-gr-item-no-pd">18:07</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">4</td>
+                            <td class="list-gr-item-no-pd">22</td>
+                            <td class="list-gr-item-no-pd">yakshanba</td>
+                            <td class="list-gr-item-no-pd">05:50</td>
+                            <td class="list-gr-item-no-pd">18:08</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">5</td>
+                            <td class="list-gr-item-no-pd">23</td>
+                            <td class="list-gr-item-no-pd">dushanba</td>
+                            <td class="list-gr-item-no-pd">05:48</td>
+                            <td class="list-gr-item-no-pd">18:09</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">6</td>
+                            <td class="list-gr-item-no-pd">24</td>
+                            <td class="list-gr-item-no-pd">seshanba</td>
+                            <td class="list-gr-item-no-pd">05:47</td>
+                            <td class="list-gr-item-no-pd">18:11</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">7</td>
+                            <td class="list-gr-item-no-pd">25</td>
+                            <td class="list-gr-item-no-pd">chorshanba</td>
+                            <td class="list-gr-item-no-pd">05:46</td>
+                            <td class="list-gr-item-no-pd">18:12</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">8</td>
+                            <td class="list-gr-item-no-pd">26</td>
+                            <td class="list-gr-item-no-pd">payshanba</td>
+                            <td class="list-gr-item-no-pd">05:44</td>
+                            <td class="list-gr-item-no-pd">18:13</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line select-background">
+                            <td class="list-gr-item-no-pd">9</td>
+                            <td class="list-gr-item-no-pd">27</td>
+                            <td class="list-gr-item-no-pd">juma</td>
+                            <td class="list-gr-item-no-pd">05:43</td>
+                            <td class="list-gr-item-no-pd">18:14</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">10</td>
+                            <td class="list-gr-item-no-pd">28</td>
+                            <td class="list-gr-item-no-pd">shanba</td>
+                            <td class="list-gr-item-no-pd">05:41</td>
+                            <td class="list-gr-item-no-pd">18:15</td>
+                        </tr>
+                                                                                <tr class="header-item">
+                        <th class="list-gr-item-no-pd">Ro‘za kunlari</th>
+                        <th class="list-gr-item-no-pd">MART</th>
+                        <th class="list-gr-item-no-pd">Hafta kunlari</th>
+                        <th class="list-gr-item-no-pd" style="text-align: center;">Saharlik</th>
+                        <th class="list-gr-item-no-pd" style="text-align: center;">Iftorlik</th>
+                    </tr>
+                                                                    <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">11</td>
+                            <td class="list-gr-item-no-pd">1</td>
+                            <td class="list-gr-item-no-pd">yakshanba</td>
+                            <td class="list-gr-item-no-pd">05:40</td>
+                            <td class="list-gr-item-no-pd">18:16</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">12</td>
+                            <td class="list-gr-item-no-pd">2</td>
+                            <td class="list-gr-item-no-pd">dushanba</td>
+                            <td class="list-gr-item-no-pd">05:38</td>
+                            <td class="list-gr-item-no-pd">18:18</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">13</td>
+                            <td class="list-gr-item-no-pd">3</td>
+                            <td class="list-gr-item-no-pd">seshanba</td>
+                            <td class="list-gr-item-no-pd">05:37</td>
+                            <td class="list-gr-item-no-pd">18:19</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">14</td>
+                            <td class="list-gr-item-no-pd">4</td>
+                            <td class="list-gr-item-no-pd">chorshanba</td>
+                            <td class="list-gr-item-no-pd">05:35</td>
+                            <td class="list-gr-item-no-pd">18:20</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">15</td>
+                            <td class="list-gr-item-no-pd">5</td>
+                            <td class="list-gr-item-no-pd">payshanba</td>
+                            <td class="list-gr-item-no-pd">05:34</td>
+                            <td class="list-gr-item-no-pd">18:21</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line select-background">
+                            <td class="list-gr-item-no-pd">16</td>
+                            <td class="list-gr-item-no-pd">6</td>
+                            <td class="list-gr-item-no-pd">juma</td>
+                            <td class="list-gr-item-no-pd">05:32</td>
+                            <td class="list-gr-item-no-pd">18:22</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">17</td>
+                            <td class="list-gr-item-no-pd">7</td>
+                            <td class="list-gr-item-no-pd">shanba</td>
+                            <td class="list-gr-item-no-pd">05:30</td>
+                            <td class="list-gr-item-no-pd">18:23</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">18</td>
+                            <td class="list-gr-item-no-pd">8</td>
+                            <td class="list-gr-item-no-pd">yakshanba</td>
+                            <td class="list-gr-item-no-pd">05:29</td>
+                            <td class="list-gr-item-no-pd">18:24</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">19</td>
+                            <td class="list-gr-item-no-pd">9</td>
+                            <td class="list-gr-item-no-pd">dushanba</td>
+                            <td class="list-gr-item-no-pd">05:27</td>
+                            <td class="list-gr-item-no-pd">18:26</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">20</td>
+                            <td class="list-gr-item-no-pd">10</td>
+                            <td class="list-gr-item-no-pd">seshanba</td>
+                            <td class="list-gr-item-no-pd">05:25</td>
+                            <td class="list-gr-item-no-pd">18:27</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">21</td>
+                            <td class="list-gr-item-no-pd">11</td>
+                            <td class="list-gr-item-no-pd">chorshanba</td>
+                            <td class="list-gr-item-no-pd">05:24</td>
+                            <td class="list-gr-item-no-pd">18:28</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">22</td>
+                            <td class="list-gr-item-no-pd">12</td>
+                            <td class="list-gr-item-no-pd">payshanba</td>
+                            <td class="list-gr-item-no-pd">05:22</td>
+                            <td class="list-gr-item-no-pd">18:29</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line select-background">
+                            <td class="list-gr-item-no-pd">23</td>
+                            <td class="list-gr-item-no-pd">13</td>
+                            <td class="list-gr-item-no-pd">juma</td>
+                            <td class="list-gr-item-no-pd">05:20</td>
+                            <td class="list-gr-item-no-pd">18:30</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">24</td>
+                            <td class="list-gr-item-no-pd">14</td>
+                            <td class="list-gr-item-no-pd">shanba</td>
+                            <td class="list-gr-item-no-pd">05:19</td>
+                            <td class="list-gr-item-no-pd">18:31</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">25</td>
+                            <td class="list-gr-item-no-pd">15</td>
+                            <td class="list-gr-item-no-pd">yakshanba</td>
+                            <td class="list-gr-item-no-pd">05:17</td>
+                            <td class="list-gr-item-no-pd">18:32</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">26</td>
+                            <td class="list-gr-item-no-pd">16</td>
+                            <td class="list-gr-item-no-pd">dushanba</td>
+                            <td class="list-gr-item-no-pd">05:15</td>
+                            <td class="list-gr-item-no-pd">18:33</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">27</td>
+                            <td class="list-gr-item-no-pd">17</td>
+                            <td class="list-gr-item-no-pd">seshanba</td>
+                            <td class="list-gr-item-no-pd">05:13</td>
+                            <td class="list-gr-item-no-pd">18:35</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">28</td>
+                            <td class="list-gr-item-no-pd">18</td>
+                            <td class="list-gr-item-no-pd">chorshanba</td>
+                            <td class="list-gr-item-no-pd">05:12</td>
+                            <td class="list-gr-item-no-pd">18:36</td>
+                        </tr>
+                                                                                            <tr class="bor-bt-line ">
+                            <td class="list-gr-item-no-pd">29</td>
+                            <td class="list-gr-item-no-pd">19</td>
+                            <td class="list-gr-item-no-pd">payshanba</td>
+                            <td class="list-gr-item-no-pd">05:10</td>
+                            <td class="list-gr-item-no-pd">18:37</td>
+                        </tr>
+                                                                        </table>
+        </div>
+        <p><strong>Рўза тутиш (саҳарлик, оғиз ёпиш) дуоси</strong></p>
+
+        <p>Навайту ан асувма совма шаҳри рамазона минал фажри илал мағриби, холисан лиллаҳи таъаалаа Аллоҳу акбар.</p>
+
+        <p>Маъноси: Рамазон ойининг рўзасини субҳдан то кун ботгунча тутмоқни ният қилдим. Холис Аллоҳ учун Аллоҳ буюкдир.</p>
+        <p><strong>Ифторлик (оғиз очиш) дуоси</strong></p>
+        <p>Аллоҳумма лака сумту ва бика ааманту ва аълайка таваккалту ва аълаа ризқика афтарту, фағфирлий ма қоддамту ва маа аххорту бироҳматика йаа арҳамар рооҳимийн.</p>
+        <p>Маъноси: Эй Аллоҳ, ушбу Рўзамни Сен учун тутдим ва Сенга иймон келтирдим ва Сенга таваккал қилдим ва берган ризқинг билан ифтор қилдим. Эй меҳрибонларнинг энг меҳрибони, менинг аввалги ва кейинги гуноҳларимни мағфират қилгил.</p>
+
+    <hr>
+
+        <div class="posts news-list">
+                                                <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/an-nasr-ronalduni-sotadigan-buldi-birinchi-xaridor-aniq" title="“An-Nasr” Ronalduni sotadigan bo‘ldi. Birinchi xaridor aniq">“An-Nasr” Ronalduni sotadigan bo‘ldi. Birinchi xaridor aniq</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Saudiya Arabistonining “An-Nasr” klubi rahbariyati mamlakat Professional ligasining eng mashhur yulduzi Krishtianu Ronaldu bilan xayrlashishga tayyor.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 23:58 12.02.2026.
+                            <b>O&#039;qildi:</b> 81977 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/imomali-rahmon-vafot-etdi-mi" title="Imomali Rahmon vafot etdi(mi)?">Imomali Rahmon vafot etdi(mi)?</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Ijtimoiy tarmoqlarda tarqalgan ma’lumotlarga, shuningdek, mamlakat ichidagi ismini oshkor qilishni istamagan manbalar Tojikiston Respublikasi Prezidenti Imomali Rahmonning vafotini tasdiqladi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 09:30 15.02.2026.
+                            <b>O&#039;qildi:</b> 57642 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/ronaldu-qarorini-birdan-uzgartirdi" title="Ronaldu qarorini birdan o‘zgartirdi">Ronaldu qarorini birdan o‘zgartirdi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            «An-Nasr» hujumchisi Krishtianu Ronaldu jamoa bilan birga Saudiya Pro-Ligasining 22-turida «Al-Fotih»ga qarshi o‘yin uchun safarga yo‘l oldi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 11:13 14.02.2026.
+                            <b>O&#039;qildi:</b> 38647 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/olim-er-aholisini-jahannam-iqlimi-dan-ogohlantirdi" title="Olim Yer aholisini «jahannam iqlimi»dan ogohlantirdi">Olim Yer aholisini «jahannam iqlimi»dan ogohlantirdi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Nashrda ta’kidlanishicha, isish «jahannam issiqxonasi» iqlimiga olib kelishi mumkin. 
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 20:32 12.02.2026.
+                            <b>O&#039;qildi:</b> 26536 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/sadir-japarov-qamchibek-tashievni-nega-ishdan-olganini-tushuntirdi" title="Sadir Japarov Qamchibek Tashiyevni nega ishdan olganini tushuntirdi">Sadir Japarov Qamchibek Tashiyevni nega ishdan olganini tushuntirdi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/siyosat" title="Siyosat">Siyosat</a> / <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Avvalambor, men bu qarorni davlatimiz manfaatlarini ko‘zlab qabul qildim
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 16:50 10.02.2026.
+                            <b>O&#039;qildi:</b> 21702 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/uzbekistonlik-qotil-sofascore-shomurodovni-etirof-etdi-foto" title="«O‘zbekistonlik qotil». SofaScore Shomurodovni e’tirof etdi (foto)">«O‘zbekistonlik qotil». SofaScore Shomurodovni e’tirof etdi (foto)</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Jahonga mashhur SofaScore portali hozirda &quot;Bashakshehir&quot; safida faoliyatini davom ettirayotgan hamyurtimiz Eldor Shomurodovni e’tirof etdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 23:39 09.02.2026.
+                            <b>O&#039;qildi:</b> 21258 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/holand-kutilmagan-transfer-qarorini-qabul-qildi" title="Holand kutilmagan transfer qarorini qabul qildi">Holand kutilmagan transfer qarorini qabul qildi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            &quot;Manchester Siti&quot; hujumchisi Erling Xoland bosh murabbiy Pep Gvardiolaga, agar u klubni tark etsa, o‘zi ham ketishga tayyorligini ma’lum qildi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 14:42 15.02.2026.
+                            <b>O&#039;qildi:</b> 20545 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/krishtianu-ronaldu-boykotdan-keyin-jahon-rekordini-urnatdi" title="Krishtianu Ronaldu boykotdan keyin jahon rekordini o‘rnatdi">Krishtianu Ronaldu boykotdan keyin jahon rekordini o‘rnatdi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            &quot;An-Nasr&quot; hujumchisi Krishtianu Ronaldu Saudiya Arabistoni chempionatining 22-turidan o‘rin olgan &quot;Al-Fateh&quot;ga qarshi o‘yinda hisobni ochdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 14:47 15.02.2026.
+                            <b>O&#039;qildi:</b> 19289 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/husayn-norchaev-italiyaga-yul-oldi" title="Husayn Norchayev Italiyaga yo‘l oldi">Husayn Norchayev Italiyaga yo‘l oldi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Qarshining &quot;Nasaf&quot; klubi hujumchisi Husayn Norchayev Italiyaga jo‘nab ketdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 19:31 13.02.2026.
+                            <b>O&#039;qildi:</b> 17738 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/man-siti-uzbek-muxlislari-borasida-hayratlanarli-kursatkichlarni-elon-qildi" title="«Man Siti» o‘zbek muxlislari borasida hayratlanarli ko‘rsatkichlarni e’lon qildi">«Man Siti» o‘zbek muxlislari borasida hayratlanarli ko‘rsatkichlarni e’lon qildi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            &quot;Manchester Siti&quot;ning YouTube kanali 2024/25 yilgi mavsum davomida O‘zbekistondan 26 million marta ko‘rildi — bu barcha mamlakatlar orasida to‘rtinchi eng yuqori ko‘rsatkichdir.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 19:27 14.02.2026.
+                            <b>O&#039;qildi:</b> 13675 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/odilxon-qori-yunusxon-ugli-sud-zalida-hibsga-olindi" title="Odilxon qori Yunusxon o‘g‘li sud zalida hibsga olindi ">Odilxon qori Yunusxon o‘g‘li sud zalida hibsga olindi </a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/kirmang" title="Kirmang">Kirmang</a> / <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/jinoyat" title="Jinoyat">Jinoyat</a> / <a href="https://aniq.uz/uz/yurtimizda" title="Yurtimizda">Yurtimizda</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Jinoyat ishlari bo‘yicha Namangan viloyati Pop tuman sudida Odilxon qori Yunusxon o‘g‘liga oid jinoyat ishi bo‘yicha sud jarayoni boshlandi.  
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 15:32 26.01.2026.
+                            <b>O&#039;qildi:</b> 100436 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/aholini-ruyxatga-olish-savolnomasini-xato-tuldirganlarga-ogohlantirish-yuborilmoqda" title="Aholini ro‘yxatga olish savolnomasini xato to‘ldirganlarga ogohlantirish yuborilmoqda">Aholini ro‘yxatga olish savolnomasini xato to‘ldirganlarga ogohlantirish yuborilmoqda</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/yurtimizda" title="Yurtimizda">Yurtimizda</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Bu haqda aholi va qishloq xo‘jaligini ro‘yxatga olish tadbirining rasmiy sahifasida ma’lum qilindi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 10:31 27.01.2026.
+                            <b>O&#039;qildi:</b> 97036 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/rossiya-uzbekiston-fuqarolarini-mamlakatdan-majburan-chiqarib-yubordi-video" title="Rossiya O‘zbekiston fuqarolarini mamlakatdan majburan chiqarib yubordi (video)">Rossiya O‘zbekiston fuqarolarini mamlakatdan majburan chiqarib yubordi (video)</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/jinoyat" title="Jinoyat">Jinoyat</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Shu sababli, ushbu davlatlarning fuqarolari o‘tkazilgan maxsus reyd tadbirida qo‘lga olinib, Rossiyadan deportasiya qilindi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 08:00 24.01.2026.
+                            <b>O&#039;qildi:</b> 67561 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/hatto-ythdan-keyin-ham-adam-qodirov-medal-olib-kelmoqda" title="Hatto YTHdan keyin ham Adam Qodirov medal olib kelmoqda">Hatto YTHdan keyin ham Adam Qodirov medal olib kelmoqda</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Adam Qodirov yo‘l-transport hodisasidan keyingi holatda ham medal bilan taqdirlandi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 22:17 17.01.2026.
+                            <b>O&#039;qildi:</b> 62338 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/qoraqalpogistondagi-borsakelmas-quriqxonasi-fotoqopqoniga-qoraquloq-muhrlandi" title="Qoraqalpog‘istondagi “Borsakelmas” qo‘riqxonasi fotoqopqoniga qoraquloq muhrlandi">Qoraqalpog‘istondagi “Borsakelmas” qo‘riqxonasi fotoqopqoniga qoraquloq muhrlandi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/yurtimizda" title="Yurtimizda">Yurtimizda</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Ekologiya va iqlim o‘zgarishi milliy qo‘mitasi tasarrufidagi “Borsakelmas” davlat buyurtma qo‘riqxonasida o‘rnatilgan fotoqopqonlarga qoraquloq muhrlandi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 17:18 04.02.2026.
+                            <b>O&#039;qildi:</b> 41720 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/er-yuzidagi-sovuqlik-rekordi-qayd-etildi" title="Er yuzidagi sovuqlik rekordi qayd etildi">Er yuzidagi sovuqlik rekordi qayd etildi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/eng-eng" title="Eng-eng">Eng-eng</a> / <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            &quot;Vostok&quot; stansiyasidagi olimlar 15 fevral sanasi uchun Yer yuzasidagi eng past haroratni qayd etishdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 23:48 15.02.2026.
+                            <b>O&#039;qildi:</b> 12202 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/bashakshehir-90-6-daqiqadagi-gol-evaziga-beshiktosh-ga-maglub-buldi" title="«Bashakshehir» 90+6-daqiqadagi gol evaziga «Beshiktosh»ga mag‘lub bo‘ldi">«Bashakshehir» 90+6-daqiqadagi gol evaziga «Beshiktosh»ga mag‘lub bo‘ldi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/sport" title="Sport">Sport</a> / <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Turkiya Superligasida turnir jadvalida yonma-yon kelayotgan jamoalar to‘qnashuvi haqiqiy dramaga aylandi
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> Bugun 06:57.
+                            <b>O&#039;qildi:</b> 1762 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/aqsh-bosh-prokurori-epshteyn-ishi-materiallarida-tilga-olingan-ismlar-ruyxatini-elon-qildi" title="AQSh Bosh prokurori &quot;Epshteyn ishi&quot; materiallarida tilga olingan ismlar ro‘yxatini e’lon qildi">AQSh Bosh prokurori &quot;Epshteyn ishi&quot; materiallarida tilga olingan ismlar ro‘yxatini e’lon qildi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Hujjat DocumentCloud platformasida joylashtirilgan.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> Bugun 10:10.
+                            <b>O&#039;qildi:</b> 1167 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/rossiyada-vazir-fsb-tomonidan-qulga-olindi" title="Rossiyada Vazir FSB tomonidan qo‘lga olindi">Rossiyada Vazir FSB tomonidan qo‘lga olindi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Buni huquqni muhofaza qilish manbalari mansabdor shaxs o‘z rasmiy vakolatlaridan tashqaridagi harakatlarni sodir etganlikda gumon qilinayotganini tasdiqladilar.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> Bugun 15:00.
+                            <b>O&#039;qildi:</b> 1162 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/qirgizistonda-milliy-xavfsizlik-davlat-qumitasining-bishkek-shahar-bosh-boshqarmasining-sobiq-rahbari-hibsga-olindi" title="Qirg‘izistonda Milliy xavfsizlik davlat qo‘mitasining Bishkek shahar bosh boshqarmasining sobiq rahbari hibsga olindi.">Qirg‘izistonda Milliy xavfsizlik davlat qo‘mitasining Bishkek shahar bosh boshqarmasining sobiq rahbari hibsga olindi.</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> / <a href="https://aniq.uz/uz/jinoyat" title="Jinoyat">Jinoyat</a> / <a href="https://aniq.uz/uz/hodisalar" title="Hodisalar">Hodisalar</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Bu haqda “Xabar” axborot agentligiga Qirg‘iziston Bosh prokuraturasiga tayanib xabar bermoqda.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> Bugun 12:50.
+                            <b>O&#039;qildi:</b> 1137 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/turkologiyaning-peshqadam-qurultoyi-asrlik-sado" title="Turkologiyaning peshqadam qurultoyi: asrlik sado">Turkologiyaning peshqadam qurultoyi: asrlik sado</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/kirmang" title="Kirmang">Kirmang</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            1926 yili Baku shahrida o‘tkazilgan Birinchi Turkologlar Qurultoyi tarixi va taqdiri mushtarak, bir tilda so‘zlashuvchi xalqlarning XX asrdagi ilmiy va madaniy hayotida alohida o‘rin tutgan muhim voqea bo‘ldi. Bu yil mazkur qurultoy o‘tkazilganiga to‘liq bir asr bo‘ldi. Ushbu muhim ilmiy yig‘ilishning mazmuni va ahamiyatini baholash maqsadida maxsus davra suhbati tashkil etildi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> Bugun 17:58.
+                            <b>O&#039;qildi:</b> 173 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/aqsh-norvegiyada-gavana-sindromi-bilan-bogliq-qurilmani-sinovdan-utkazgan" title="AQSh Norvegiyada “Gavana sindromi” bilan bog‘liq qurilmani sinovdan o‘tkazgan">AQSh Norvegiyada “Gavana sindromi” bilan bog‘liq qurilmani sinovdan o‘tkazgan</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/eng-eng" title="Eng-eng">Eng-eng</a> / <a href="https://aniq.uz/uz/kirmang" title="Kirmang">Kirmang</a> / <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            The Washington Post ma’lumotiga ko‘ra, AQSh Markaziy razvedka boshqarmasi (MRB) va Pentagon Norvegiyada “Gavana sindromi” bilan bog‘liq maxfiy qurilmani tekshirgan.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 21:58 14.02.2026.
+                            <b>O&#039;qildi:</b> 495 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/yoshlar-ekologiya-qumitasi-faoliyati-bilan-yaqindan-tanishishdi" title="Yoshlar Ekologiya qo‘mitasi faoliyati bilan yaqindan tanishishdi">Yoshlar Ekologiya qo‘mitasi faoliyati bilan yaqindan tanishishdi</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/kirmang" title="Kirmang">Kirmang</a> / <a href="https://aniq.uz/uz/yurtimizda" title="Yurtimizda">Yurtimizda</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            13 fevral kuni Toshkent shahridagi 31-maktab va “Oxbridge” xalqaro maktabi o‘quvchilari, shuningdek, Farg‘ona viloyati yosh ekologlar harakati a’zolari, yosh eko-faollar Ekologiya va iqlim o‘zgarishi milliy qo‘mitasiga tashrif buyurdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 14:43 14.02.2026.
+                            <b>O&#039;qildi:</b> 626 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/gazoga-hujumlar-paytida-isroil-armiyasida-un-minglab-xorijliklar-xizmat-qilgan" title="G‘azoga hujumlar paytida Isroil armiyasida o‘n minglab xorijliklar xizmat qilgan">G‘azoga hujumlar paytida Isroil armiyasida o‘n minglab xorijliklar xizmat qilgan</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/kirmang" title="Kirmang">Kirmang</a> / <a href="https://aniq.uz/uz/bilasizmi" title="Bilasizmi?">Bilasizmi?</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            Bu haqda Britaniyaning Declassified UK nashri isroillik harbiylarga tayanib xabar berdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 22:32 13.02.2026.
+                            <b>O&#039;qildi:</b> 2625 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    <div class="news-list_item article">
+                        <h2 class="news-item_name">
+                            <a href="https://m.aniq.uz/uz/yangiliklar/tramp-ukraina-buyicha-muzokaralardan-chiqmaydi-ekspert" title="Tramp Ukraina bo‘yicha muzokaralardan chiqmaydi — ekspert">Tramp Ukraina bo‘yicha muzokaralardan chiqmaydi — ekspert</a>
+                        </h2>
+                        <div class="news-item_cat clearfix">
+                            <div class="pull-left">
+                                <a href="https://aniq.uz/uz/siyosat" title="Siyosat">Siyosat</a> / <a href="https://aniq.uz/uz/kirmang" title="Kirmang">Kirmang</a> / <a href="https://aniq.uz/uz/xorij" title="Xorij">Xorij</a> 
+                            </div>
+                        </div>
+
+                        <div class="news-item_text">
+                            AQSh prezidenti Donald Trump Ukrainadagi mojaroni hal etish bo‘yicha muzokaralardan voz kechmaydi. Bu fikrni siyosatshunos, Innovasion rivojlanish instituti Geosiyosiy tadqiqotlar markazi direktori Dmitriy Rodionov bildirdi.
+                        </div>
+                        <div class="news-item_footer">
+                            <b>Kiritildi:</b> 22:10 13.02.2026.
+                            <b>O&#039;qildi:</b> 602 marta.
+                            <b>Fikrlar soni:</b> 0 ta.
+                        </div>
+                    </div>
+                                    </div>
+
+        <style>
+            .hide-save{
+                opacity:0; overflow:hidden; visibility: hidden; height:0;
+            }
+            .select-region-detail{
+                font-weight: bold;
+            }
+            .bor-bt-line .list-gr-item-no-pd, .header-item .list-gr-item-no-pd{
+                text-align: center;
+                padding: 3px 6px;
+                vertical-align: middle;
+            }
+            .detail-ruza-table td:nth-child(2)
+            {
+                /*background-color: #c6dcea;*/
+                font-weight: bold;
+            }
+
+            .detail-ruza-table td:nth-child(3){
+                text-transform: capitalize;
+            }
+
+            .select-background{
+                background-color: #c6dcea;
+            }
+        </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!--main container end-->
+<footer>
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-12 center margin-10">
+            <a href="https://aniq.uz/uz" class="btn btn-primary" style="padding: 7px 20px;background: #38618E;color: #ffffff;border-radius: 5px;">Asosiy saxifa</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            Guvohnoma №1241. Berilgan sanasi: 13.07.2017.
+			<br>Muassis: «OSIYO KABEL» MCHJ.
+			<br>Bosh muharrir: Nizomjon Islomov.
+			<br>Tahririyat manzili: 100057, Toshkent shahri, Usta Shirin 125.
+			<br>E-mail: admin@aniq.uz
+            <br>Barcha huquqlar himoyalangan. Sayt materiallaridan to'liq yoki qisman foydalanilganda veb-sayt manzili ko'rsatilishi shart.
+            <p>Made by <a href="https://t.me/wycenond">A L i S H E R</a></p>
+        </div>
+        <div class="col-xs-4 counter-list text-right">
+            <div>
+                <img src="/images/18.png" style="width: 30px">
+                <!-- MyCounter v.2.0 -->
+                <script type="text/javascript"><!--
+                    my_id = 166674;
+                    my_width = 88;
+                    my_height = 61;
+                    my_alt = "MyCounter - счётчик и статистика";
+                    //--></script>
+                <script type="text/javascript"
+                    src="https://get.mycounter.ua/counter2.0.js">
+                </script>
+                <noscript>
+                    <a target="_blank" href="https://mycounter.ua/"><img
+                        src="https://get.mycounter.ua/counter.php?id=166674"
+                        title="MyCounter - счётчик и статистика"
+                        alt="MyCounter - счётчик и статистика"
+                        width="88" height="61" border="0" />
+                    </a>
+                </noscript>
+                <!--/ MyCounter -->
+            </div>
+            <div>
+                <!--LiveInternet counter--><script type="text/javascript">
+                    document.write("<a href='//www.liveinternet.ru/click' "+
+                        "target=_blank><img src='//counter.yadro.ru/hit?t20.14;r"+
+                        escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                            ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                            screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                        ";h"+escape(document.title.substring(0,150))+";"+Math.random()+
+                        "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                        " часа, посетителей за 24 часа и за сегодня' "+
+                        "border='0' width='88' height='31'><\/a>")
+                </script><!--/LiveInternet-->
+            </div>
+            <div>
+                <div id="counter-www"></div>
+                <!-- START WWW.UZ TOP-RATING --><NOSCRIPT><A href="http://www.uz/rus/toprating/cmd/stat/id/42371" target=_top><IMG height=31 src="https://www.uz/plugins/top_rating/count/nojs_cnt.png?id=42371&pg=http%3A//aniq.uz&col=0063AF&t=ffffff&p=E6850F" width=88 border=0 alt="Топ рейтинг www.uz"></A></NOSCRIPT><!-- FINISH WWW.UZ TOP-RATING -->
+                <SCRIPT language="javascript" type="text/javascript">
+                    <!--
+                    top_js="1.0";top_r="id=42371&r="+escape(document.referrer)+"&pg="+escape(window.location.href);document.cookie="smart_top=1; path=/"; top_r+="&c="+(document.cookie?"Y":"N")
+                    //-->
+                </SCRIPT>
+                <SCRIPT language="javascript1.1" type="text/javascript">
+                    <!--
+                    top_js="1.1";top_r+="&j="+(navigator.javaEnabled()?"Y":"N")
+                    //-->
+                </SCRIPT>
+                <SCRIPT language="javascript1.2" type="text/javascript">
+                    <!--
+                    top_js="1.2";top_r+="&wh="+screen.width+'x'+screen.height+"&px="+
+                        (((navigator.appName.substring(0,3)=="Mic"))?screen.colorDepth:screen.pixelDepth)
+                    //-->
+                </SCRIPT>
+                <SCRIPT language="javascript1.3" type="text/javascript">
+                    <!--
+                    top_js="1.3";
+                    //-->
+                </SCRIPT>
+                <SCRIPT language="JavaScript" type="text/javascript">
+                    <!--
+                    top_rat="&col=0063AF&t=ffffff&p=E6850F";top_r+="&js="+top_js+"";document.getElementById("counter-www").innerHTML = ('<a href="http://www.uz/rus/toprating/cmd/stat/id/42371" target=_top><img src="https://www.uz/plugins/top_rating/count/cnt.png?'+top_r+top_rat+'" width=88 height=31 border=0 alt="Топ рейтинг www.uz"></a>')//-->
+                </SCRIPT>
+                <!-- width=88 height=31 -->
+            </div>
+        </div>
+    </div>
+</div></footer>
+<div caramel-id="01jy6m81amt12356gsk3wz30b8"></div>
+<a href="#" class="sf-back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+    <!-- Modal -->
+    <div id="registerModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tizimga kirish</h4>
+                    <div class="imgcontainer">
+                        <img src="/images/avatar2.png" alt="Avatar" class="avatar">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form class="" method="POST" action="https://m.aniq.uz/uz/login">
+                        <input type="hidden" name="_token" value="N8ueUHem3ufNzrNm9uLGQaT3VEb6bvOpP9PbPuFv">
+
+                        <div class="container_modal">
+                            <div class="form-group">
+                                <label for="email" class="">E-Mail / Login / Telefon:</label>
+                                <input id="email" type="text" class="form-control" name="email" value="" required autofocus placeholder="998123456789">
+                                                            </div>
+                            <div class="form-group">
+                                <label for="password" class="">Parol</label>
+                                <input id="password" type="password" class="form-control" name="password" required>
+                                                            </div>
+                            <button type="submit" class="btn btn-success btn-block btn-lg">Kirish</button>
+                            <label style="font-weight: 600;">
+                                <input type="checkbox" name="remember" checked> Esda saqlash
+                            </label>
+                        </div>
+
+                        <div class="container_modal modal-footer row clearfix">
+                            <button type="button" class="btn btn-default cancelbtn" data-dismiss="modal">Bekitish</button>
+                            <a class="btn btn-link" href="https://m.aniq.uz/uz/password/reset">
+                                Parolni tiklash
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--[if lt IE 9]>
+<script src="/js/front-ie.js"></script>
+<![endif]-->
+<script>
+    var APP_URL = "https:\/\/m.aniq.uz"
+    var LANG = "_uz"
+</script>
+<script src="/mobile_js/front.js?v=1"></script>
+
+<!-- Start Native Network Ads -->
+<script>
+    const nnlJS = document.createElement('script');
+    nnlJS.src = "https://ads.nativenetwork.uz/nnl.js?ts="+new Date().getTime();
+    nnlJS.async = true;
+    document.head.appendChild(nnlJS);
+</script>
+<!-- End Native Network Ads -->
+
+</body>
+</html>
