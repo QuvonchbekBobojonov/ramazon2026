@@ -55,6 +55,22 @@ python ./main.py
 
 Now, your Aiogram bot is configured to use webhooks via FastAPI. You can extend the provided example commands and handlers for your specific use case.
 
+## Docker usage
+
+1. **Configure Environment**:
+   Ensure your `.env` file has the necessary values. If using the provided `docker-compose.yml`, the `DATABASE_URL` will be automatically constructed.
+
+2. **Run with Docker Compose**:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Stop the containers**:
+   ```bash
+   docker-compose down
+   ```
+
+
 ## Contributing
 
 Feel free to contribute to the project by opening issues or creating pull requests. Your feedback and collaboration are highly appreciated!

@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.git/
+.gitignore
+.idea/
+.vscode/
+*.swp
+*.bak
+*.tmp
+*.log
+static/
+!static/
+# We want to keep static files if they are needed inside the container
+# but usually they are mounted or copied.
+# In main.py: app.mount("/static", StaticFiles(directory="static"), name="static")
+# So we SHOULD include static files.
+# templates/ SHOULD also be included.

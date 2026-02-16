@@ -1,0 +1,16 @@
+services:
+  bot:
+    build: .
+    container_name: ramazon_bot
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      ADMINS: ${ADMINS}
+      WEBHOOK_HOST: ${WEBHOOK_HOST}
+      DATABASE_URL: ${DATABASE_URL}
+      UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL}
+      UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN}
+    ports:
+      - "8080:8080"
