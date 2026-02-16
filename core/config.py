@@ -11,7 +11,7 @@ WEBHOOK_HOST = env.str("WEBHOOK_HOST")
 WEBHOOK_PATH = f"/{BOT_TOKEN}"
 WEBHOOK_URI = WEBHOOK_HOST + WEBHOOK_PATH
 
-CHANNELS = ["@QuvonchbekBobojonov"]
+CHANNELS = env.list("CHANNELS", default=["@QuvonchbekBobojonov"])
 
 DATABASE_URL = env.str("DATABASE_URL")
 

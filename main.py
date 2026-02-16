@@ -272,8 +272,13 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
     
     # If user_id is provided, check their subscription status
     if user_id:
+        from core.config import ADMINS
+        if str(user_id) in ADMINS or user_id in ADMINS:
+             calendar_data = get_full_calendar(region)
+             return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
+
         from utils.cache import redis_client
-        cache_key = f"subs_check:{user_id}"
+        cache_key = f"user_sub:{user_id}"
         
         # Try to get from cache first
         is_subscribed = None
