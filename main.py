@@ -48,7 +48,7 @@ async def global_exception_handler(request: Request, exc: Exception):
         content=error_details
     )
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, String
 from db.models import User
 from db.base import async_session_maker
 
