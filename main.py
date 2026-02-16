@@ -169,14 +169,20 @@ async def on_startup():
         await conn.run_sync(Base.metadata.create_all)
         
     try:
-        webhook_info = await bot.get_webhook_info()
-        if webhook_info.url != WEBHOOK_URI:
-            await bot.set_webhook(WEBHOOK_URI)
+        if "your-webhook-host" not in WEBHOOK_URI and WEBHOOK_HOST:
+            webhook_info = await bot.get_webhook_info()
+            if webhook_info.url != WEBHOOK_URI:
+                await bot.set_webhook(WEBHOOK_URI)
+                logger.info(f"Webhook set to: {WEBHOOK_URI}")
+        else:
+            logger.warning("WEBHOOK_HOST is not configured properly. Skipping webhook setup.")
+            # Optionally delete webhook if you want to use polling, 
+            # but this is a FastAPI app, so it expects webhooks.
         
         await set_default_commands(bot)
         await on_startup_notify(bot)
     except Exception as e:
-        logger.error(f"Error during bot setup: {e}")
+        logger.error(f"Error during bot setup (webhook might be invalid): {e}")
     
     setup_middlewares(dp)
 
