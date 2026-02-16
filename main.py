@@ -223,6 +223,13 @@ async def on_startup():
     # Create tables
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    
+    # Check for missing columns (fix schema)
+    try:
+        from fix_db_schema import fix_schema
+        await fix_schema()
+    except Exception as e:
+        logger.error(f"Error fixing schema: {e}")
         
     try:
         if "your-webhook-host" not in WEBHOOK_URI and WEBHOOK_HOST:

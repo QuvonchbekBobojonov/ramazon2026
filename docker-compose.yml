@@ -12,20 +12,12 @@ services:
     ports:
       - "5433:5432"
 
-  redis:
-    image: redis:7-alpine
-    container_name: ramazon_redis
-    restart: always
-    ports:
-      - "6379:6379"
-
   bot:
     build: .
     container_name: ramazon_bot
     restart: always
     depends_on:
       - db
-      - redis
     volumes:
       - .:/app
     environment:
@@ -33,9 +25,6 @@ services:
       ADMINS: ${ADMINS}
       WEBHOOK_HOST: ${WEBHOOK_HOST}
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-ramazon}:${POSTGRES_PASSWORD:-ramazon_pass}@db:5432/${POSTGRES_DB:-ramazon_db}
-      REDIS_URL: redis://redis:6379/0
-      UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL}
-      UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN}
     ports:
       - "8080:8080"
 

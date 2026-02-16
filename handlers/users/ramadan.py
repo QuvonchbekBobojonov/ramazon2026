@@ -9,7 +9,6 @@ from utils.ramadan_calculator import get_today_times, get_tomorrow_times, get_da
 from utils.ramadan_data import ramadan_data, ramadan_prayers
 from db.base import async_session_maker
 from db.crud import get_user, update_user_region
-from utils.cache import redis_client
 
 @dp.callback_query(F.data.startswith("region:"))
 async def select_region(call: CallbackQuery, state: FSMContext):
@@ -19,13 +18,6 @@ async def select_region(call: CallbackQuery, state: FSMContext):
     # Update DB
     async with async_session_maker() as session:
         await update_user_region(session, user_id, region)
-    
-    # Update Cache
-    if redis_client:
-        try:
-            redis_client.set(f"user:{user_id}:region", region, ex=3600*24) # Cache for 24 hours
-        except Exception:
-            pass
         
     from core.config import ADMINS
     is_admin = str(user_id) in ADMINS or user_id in ADMINS
@@ -44,25 +36,12 @@ async def get_user_region(user_id: int, state: FSMContext):
     data = await state.get_data()
     region = data.get("region")
     
-    # 2. Check Redis
-    if not region and redis_client:
-        try:
-            region = redis_client.get(f"user:{user_id}:region")
-        except Exception:
-            pass
-            
-    # 3. Check DB
+    # 2. Check DB
     if not region:
         async with async_session_maker() as session:
             user = await get_user(session, user_id)
             if user and user.region:
                 region = user.region
-                # Write back to cache
-                if redis_client:
-                    try:
-                        redis_client.set(f"user:{user_id}:region", region, ex=3600*24)
-                    except Exception:
-                        pass
                 
     if region:
         await state.update_data(region=region)
