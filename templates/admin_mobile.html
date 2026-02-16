@@ -104,18 +104,35 @@
             <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3">
                 <i class="fas fa-user-plus text-emerald-400"></i>
             </div>
-            <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold">Bugun</p>
+            <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold">Oxirgi 24s</p>
             <h2 class="text-2xl font-bold mt-1">{{ new_today }}</h2>
         </div>
     </div>
 
+    <!-- Search Section -->
+    <div class="px-5 mt-6">
+        <form action="/admin-mobile" method="GET" class="relative">
+            <input type="hidden" name="token" value="{{ bot_token }}">
+            <input type="text" name="q" value="{{ search_query }}" placeholder="Qidirish (ism, username, ID)..."
+                class="w-full bg-slate-800/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-blue-500/50 transition-all text-sm">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            {% if search_query %}
+            <a href="/admin-mobile?token={{ bot_token }}"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+                <i class="fas fa-times-circle"></i>
+            </a>
+            {% endif %}
+        </form>
+    </div>
+
     <div class="px-5 mt-8">
         <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold">Foydalanuvchilar</h3>
+            <h3 class="text-lg font-semibold">{% if search_query %}Qidiruv natijalari{% else %}Oxirgi foydalanuvchilar{%
+                endif %}</h3>
             <span class="text-xs bg-slate-800 px-2 py-1 rounded-lg text-slate-400">Yangi qo'shilganlar</span>
         </div>
 
-        <div class="space-y-4">
+        <div id="users-list" class="space-y-4">
             {% for user in users %}
             <div class="glass rounded-2xl p-4 user-card flex items-center gap-4">
                 <div
@@ -132,10 +149,10 @@
                         </h4>
                     </div>
                     <p class="text-xs text-slate-400 truncate-custom">@{{ user.username or "yo'q" }} • {{ user.region or
-                        "hudud yo'q" }}</p>
+                        "hudud yo'q" }} • ID: {{ user.telegram_id }}</p>
                 </div>
 
-                <div class="flex flex-col items-end gap-2">
+                <div class="flex flex-col items-end gap-2 text-right">
                     <a href="{% if user.username %}https://t.me/{{ user.username }}{% else %}tg://user?id={{ user.telegram_id }}{% endif %}"
                         class="w-8 h-8 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
                         <i class="fa-brands fa-telegram text-sm"></i>
@@ -144,22 +161,104 @@
                     <span class="text-[10px] text-slate-500 italic">{{ user.created_at_uz.strftime('%H:%M') if
                         user.created_at_uz else '--:--' }}</span>
                 </div>
-
             </div>
             {% endfor %}
         </div>
+
+        {% if users|length == 10 %}
+        <div class="mt-8 flex justify-center">
+            <button id="load-more-btn" onclick="loadMoreUsers()"
+                class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium py-3 px-8 rounded-xl transition-all flex items-center gap-2">
+                <span>Yana yuklash</span>
+                <i class="fas fa-chevron-down text-xs"></i>
+            </button>
+        </div>
+        {% endif %}
     </div>
 
     <script>
-        // Check for overflowing text and add a class if it overflows
-        document.querySelectorAll('.marquee-container h4').forEach(el => {
-            if (el.scrollWidth > el.clientWidth) {
-                // It overflows
-                el.parentElement.classList.add('can-scroll');
+        let offset = 10;
+        const limit = 10;
+        const token = "{{ bot_token }}";
+        const searchQuery = "{{ search_query }}";
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const usersList = document.getElementById('users-list');
+
+        function initMarquee() {
+            document.querySelectorAll('.marquee-container h4').forEach(el => {
+                if (el.scrollWidth > el.clientWidth) {
+                    el.parentElement.classList.add('can-scroll');
+                }
+            });
+        }
+
+        async function loadMoreUsers() {
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuklanmoqda...';
+
+            try {
+                let url = `/api/admin/users?token=${token}&offset=${offset}&limit=${limit}`;
+                if (searchQuery) url += `&q=${encodeURIComponent(searchQuery)}`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.users && data.users.length > 0) {
+                    data.users.forEach(user => {
+                        const userHtml = `
+                            <div class="glass rounded-2xl p-4 user-card flex items-center gap-4 opacity-0 transition-opacity duration-500" style="opacity: 1;">
+                                <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-lg font-bold overflow-hidden relative">
+                                    <span class="absolute">${user.full_name ? user.full_name.substring(0, 1) : '?'}</span>
+                                    <img src="/api/user-photo/${user.telegram_id}?token=${token}"
+                                        class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'">
+                                </div>
+
+                                <div class="flex-1 min-w-0">
+                                    <div class="marquee-container">
+                                        <h4 class="font-medium inline-block marquee-scroll w-full truncate-custom">
+                                            ${user.full_name}
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs text-slate-400 truncate-custom">@${user.username || "yo'q"} • ${user.region || "hudud yo'q"} • ID: ${user.telegram_id}</p>
+                                </div>
+
+                                <div class="flex flex-col items-end gap-2 text-right">
+                                    <a href="${user.username ? 'https://t.me/' + user.username : 'tg://user?id=' + user.telegram_id}"
+                                        class="w-8 h-8 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center">
+                                        <i class="fa-brands fa-telegram text-sm"></i>
+                                    </a>
+                                    <span class="text-[10px] text-slate-500 italic">${user.created_at_time}</span>
+                                </div>
+                            </div>
+                        `;
+                        usersList.insertAdjacentHTML('beforeend', userHtml);
+                    });
+
+                    offset += data.users.length;
+
+                    if (data.users.length < limit) {
+                        loadMoreBtn.remove();
+                    } else {
+                        loadMoreBtn.disabled = false;
+                        loadMoreBtn.innerHTML = '<span>Yana yuklash</span> <i class="fas fa-chevron-down text-xs"></i>';
+                    }
+
+                    initMarquee();
+                } else {
+                    loadMoreBtn.remove();
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+                loadMoreBtn.disabled = false;
+                loadMoreBtn.innerHTML = 'Xatolik yuz berdi. Qayta urinish';
             }
-        });
+        }
+
+        // Initial marquee check
+        window.addEventListener('load', initMarquee);
     </script>
 </body>
-
 
 </html>

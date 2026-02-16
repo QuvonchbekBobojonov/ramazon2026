@@ -97,47 +97,103 @@ async def get_user_photo(telegram_id: int, token: str = None):
     return HTMLResponse("Not Found", status_code=404)
 
 @app.get("/admin-mobile")
-async def admin_mobile(request: Request, token: str = None):
-
-    from core.config import BOT_TOKEN, ADMINS
-    # Simple security: check if token matches bot token or a secret
+async def admin_mobile(request: Request, token: str = None, q: str = None):
+    from core.config import BOT_TOKEN
     if token != BOT_TOKEN:
-        # In a real app, you'd check initData, but for now, we'll use a token
         return HTMLResponse("Unauthorized", status_code=403)
         
     async with async_session_maker() as session:
-        # Extract bot ID from token (it's the first part before the colon)
         bot_id = int(BOT_TOKEN.split(":")[0])
         
-        result = await session.execute(
-            select(User).where(User.telegram_id != bot_id).order_by(User.created_at.desc())
-        )
-        users = result.scalars().all()
-
+        # Base query
+        query = select(User).where(User.telegram_id != bot_id)
         
-        from datetime import timedelta
-        # Convert created_at to UZ time (UTC+5)
+        # Search filter
+        if q:
+            search_filter = (
+                (User.full_name.ilike(f"%{q}%")) | 
+                (User.username.ilike(f"%{q}%")) | 
+                (User.telegram_id.cast(String).ilike(f"%{q}%"))
+            )
+            query = query.where(search_filter)
+            
+        # Total counts
+        total_result = await session.execute(select(func.count(User.id)).where(User.telegram_id != bot_id))
+        total_users = total_result.scalar()
+        
+        from utils.ramadan_calculator import get_now_uz
+        now_uz = get_now_uz()
+        today_uz = now_uz.date()
+        
+        # We need to handle UZ time timezone correctly in SQL ideally, but for now we'll do it in memory for stats
+        # For performance, maybe just count all today
+        # new_today = ... # Simplified below
+        
+        # Fetch only last 10 users initially
+        limit = 10
+        result = await session.execute(query.order_by(User.created_at.desc()).limit(limit))
+        users = result.scalars().all()
+        
+        from datetime import datetime, timedelta
         for user in users:
             if user.created_at:
                 user.created_at_uz = user.created_at + timedelta(hours=5)
             else:
                 user.created_at_uz = None
         
-        # Stats in UZ time
-        from utils.ramadan_calculator import get_now_uz
-        now_uz = get_now_uz()
-        today_uz = now_uz.date()
-        
-        total_users = len(users)
-        new_today = sum(1 for u in users if u.created_at_uz and u.created_at_uz.date() == today_uz)
+        # Stats
+        new_today_result = await session.execute(
+            select(func.count(User.id)).where(
+                (User.telegram_id != bot_id) & 
+                (User.created_at >= datetime.utcnow() - timedelta(days=1)) # Rough approximation
+            )
+        )
+        new_today = new_today_result.scalar()
         
     return templates.TemplateResponse("admin_mobile.html", {
         "request": request, 
         "users": users,
         "total_users": total_users,
         "new_today": new_today,
-        "bot_token": BOT_TOKEN
+        "bot_token": BOT_TOKEN,
+        "search_query": q or ""
     })
+
+@app.get("/api/admin/users")
+async def api_get_users(token: str, offset: int = 0, limit: int = 10, q: str = None):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+        
+    async with async_session_maker() as session:
+        bot_id = int(BOT_TOKEN.split(":")[0])
+        query = select(User).where(User.telegram_id != bot_id)
+        
+        if q:
+            search_filter = (
+                (User.full_name.ilike(f"%{q}%")) | 
+                (User.username.ilike(f"%{q}%")) | 
+                (User.telegram_id.cast(String).ilike(f"%{q}%"))
+            )
+            query = query.where(search_filter)
+            
+        result = await session.execute(query.order_by(User.created_at.desc()).offset(offset).limit(limit))
+        users = result.scalars().all()
+        
+        from datetime import timedelta
+        user_list = []
+        for u in users:
+            created_at_uz = (u.created_at + timedelta(hours=5)) if u.created_at else None
+            user_list.append({
+                "id": u.id,
+                "telegram_id": u.telegram_id,
+                "full_name": u.full_name,
+                "username": u.username,
+                "region": u.region,
+                "created_at_time": created_at_uz.strftime('%H:%M') if created_at_uz else '--:--'
+            })
+            
+    return {"users": user_list}
 
 
 
