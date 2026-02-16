@@ -11,24 +11,32 @@ from keyboards.inlines.regions import get_regions_keyboard
 from utils.subscription import check_membership, get_subscription_keyboard, SUBSCRIPTION_TEXT
 
 @dp.message(CommandStart())
-async def command_start_handler(message: Message, state: FSMContext, db_user=None) -> None:
+async def command_start_handler(message: Message, state: FSMContext, db_user=None, user=None) -> None:
     """
     Handles /start command, registers user, and checks for region.
     """
     import logging
-    logging.info(f"Start handler called. User: {message.from_user.id}, db_user: {db_user}")
-    if db_user:
-        logging.info(f"db_user region: {db_user.region}")
+    # message.from_user might be the bot if called from a callback (call.message)
+    # in such cases, we should rely on the passed 'user' or context
+    current_user = user or message.from_user
+    user_id = current_user.id
+    
+    logging.info(f"Start handler called. User: {user_id}, db_user: {db_user}")
+    
+    # If db_user is not passed (e.g. called from subscription.py), try to get it
+    if not db_user:
+        async with async_session_maker() as session:
+            from db.crud import get_user
+            db_user = await get_user(session, user_id)
 
     # Check subscription first
-    is_subscribed = await check_membership(message.from_user.id)
+    is_subscribed = await check_membership(user_id)
     if not is_subscribed:
         await message.answer(SUBSCRIPTION_TEXT, reply_markup=get_subscription_keyboard())
         return
         
     if db_user and db_user.region:
         from core.config import ADMINS
-        user_id = message.from_user.id
         is_admin = str(user_id) in ADMINS or user_id in ADMINS
         
         await state.update_data(region=db_user.region)
@@ -37,9 +45,8 @@ async def command_start_handler(message: Message, state: FSMContext, db_user=Non
                              f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
                              reply_markup=get_ramadan_menu(db_user.region, is_admin, user_id=user_id))
 
-
     else:
-        await message.answer(f"👋 Assalomu alaykum, {message.from_user.full_name}!\n"
+        await message.answer(f"👋 Assalomu alaykum, {current_user.full_name}!\n"
                              f"🌙 Ramazon 2026 botiga xush kelibsiz.\n\n"
                              f"🌍 Iltimos, davom etish uchun <b>o'z hududingizni tanlang:</b>",
                              reply_markup=get_regions_keyboard())

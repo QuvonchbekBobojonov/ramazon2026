@@ -21,7 +21,7 @@ async def check_subs_callback(call: types.CallbackQuery, state: FSMContext):
         except:
             pass
         await call.message.answer("✅ Obuna tasdiqlandi! Botdan foydalanishingiz mumkin.")
-        await command_start_handler(call.message, state)
+        await command_start_handler(call.message, state, user=call.from_user)
     else:
         try:
             await call.message.edit_text(SUBSCRIPTION_TEXT, reply_markup=get_subscription_keyboard())
