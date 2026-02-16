@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # CONFIGURATION - Update these if necessary
 OLD_DB_URL = "postgresql+asyncpg://neondb_owner:npg_7HZhkTGpV6qm@ep-fancy-paper-ai5kwohx-pooler.c-4.us-east-1.aws.neon.tech/neondb?ssl=require"
-NEW_DB_URL = "postgresql+asyncpg://ramazon:ramazon_pass@localhost:5432/ramazon_db"
+NEW_DB_URL = "postgresql+asyncpg://ramazon:ramazon_pass@localhost:5433/ramazon_db"
 
 async def migrate():
     logger.info("Starting migration from Neon to Local Docker DB...")

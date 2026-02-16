@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ramazon_pass}
       POSTGRES_DB: ${POSTGRES_DB:-ramazon_db}
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   redis:
     image: redis:7-alpine
