@@ -174,7 +174,7 @@ async def on_startup():
             await bot.set_webhook(WEBHOOK_URI)
         
         await set_default_commands(bot)
-        # await on_startup_notify(bot)
+        await on_startup_notify(bot)
     except Exception as e:
         logger.error(f"Error during bot setup: {e}")
     
