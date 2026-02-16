@@ -1,3 +1,5 @@
+from aiogram import F
+from aiogram.filters import Command
 from aiogram.types import Message, WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from core.loader import dp, bot
 from core.config import ADMINS, WEBHOOK_HOST
