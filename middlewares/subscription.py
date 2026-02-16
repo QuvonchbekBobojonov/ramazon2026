@@ -25,21 +25,29 @@ class SubscriptionMiddleware(BaseMiddleware):
         
         if redis_client:
             try:
-                # Upstash-redis returns bytes or string depending on version/client
                 cached_val = redis_client.get(cache_key)
                 if cached_val is not None:
-                    is_subscribed = str(cached_val) == "1"
+                    # If cached as '1', stay as True. If '0', stay as None to force re-check if it's a command
+                    if str(cached_val) == "1":
+                        is_subscribed = True
+                    else:
+                        is_subscribed = False
             except Exception as e:
                 logging.error(f"Redis cache read error: {e}")
 
-        if is_subscribed is None:
+        # Force re-check if it's a /start command or no cache exists
+        is_start_command = isinstance(event, Message) and event.text and event.text.startswith("/start")
+        
+        if is_subscribed is None or (not is_subscribed and is_start_command):
             # Obunani Telegramdan tekshirish
             is_subscribed = await check_membership(user.id)
             
-            # Keshga saqlash (masalan, 10 minutga)
+            # Keshga saqlash
             if redis_client:
                 try:
-                    redis_client.set(cache_key, "1" if is_subscribed else "0", ex=600)
+                    # If subscribed, cache for 10 min. If not, only for 30 seconds to allow quick re-try
+                    expire = 600 if is_subscribed else 30
+                    redis_client.set(cache_key, "1" if is_subscribed else "0", ex=expire)
                 except Exception as e:
                     logging.error(f"Redis cache write error: {e}")
         
