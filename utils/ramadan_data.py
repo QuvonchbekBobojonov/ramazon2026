@@ -23,7 +23,8 @@ ramadan_data = {
         "navoiy": 15,
         "buxoro": 21,
         "urganch": 35,
-        "nukus": 42
+        "nukus": 42,
+        "chiroqchi": 13
     },
     "calendar": [
         { "day": 1, "date": "2026-02-19", "weekday": "Payshanba", "suhoor": "05:54", "iftar": "18:05" },

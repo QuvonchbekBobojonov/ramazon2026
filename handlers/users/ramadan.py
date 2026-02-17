@@ -23,7 +23,8 @@ async def select_region(call: CallbackQuery, state: FSMContext):
     is_admin = str(user_id) in ADMINS or user_id in ADMINS
     
     await state.update_data(region=region)
-    await call.message.answer(f"✅ Siz {region.capitalize()} hududini tanladingiz.\n"
+    display_name = region.replace("_", " ").title()
+    await call.message.answer(f"✅ Siz {display_name} hududini tanladingiz.\n"
                               f"⬇️ Quyidagi menyudan foydalanishingiz mumkin:",
                               reply_markup=get_ramadan_menu(region, is_admin, user_id=user_id))
 
@@ -54,8 +55,9 @@ async def today_calendar(message: Message, state: FSMContext):
     times = get_today_times(region)
     
     if times:
+        display_name = region.replace("_", " ").title()
         response = (f"📅 <b>Bugungi taqvim ({times['date']})</b>\n\n"
-                    f"📍 <b>Hudud:</b> {region.capitalize()}\n"
+                    f"📍 <b>Hudud:</b> {display_name}\n"
                     f"🏙 <b>Saharlik:</b> <b>{times['suhoor']}</b>\n"
                     f"🌆 <b>Iftorlik:</b> <b>{times['iftar']}</b>\n")
         if times.get("note"):
@@ -71,8 +73,9 @@ async def tomorrow_calendar(message: Message, state: FSMContext):
     times = get_tomorrow_times(region)
     
     if times:
+        display_name = region.replace("_", " ").title()
         response = (f"⏳ <b>Ertangi taqvim ({times['date']})</b>\n\n"
-                    f"📍 <b>Hudud:</b> {region.capitalize()}\n"
+                    f"📍 <b>Hudud:</b> {display_name}\n"
                     f"🏙 <b>Saharlik:</b> <b>{times['suhoor']}</b>\n"
                     f"🌆 <b>Iftorlik:</b> <b>{times['iftar']}</b>\n")
         if times.get("note"):

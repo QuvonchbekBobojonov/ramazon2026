@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ramazon 2026 Taqvim - {{ region|title }}</title>
+    <title>Ramazon 2026 Taqvim - {{ region.replace('_', ' ').title() }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -62,7 +62,8 @@
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-2xl font-bold gradient-text">Ramazan 2026</h1>
-                <p class="text-slate-400 text-sm arabic-font mb-1">To'liq taqvim • {{ region|title }}</p>
+                <p class="text-slate-400 text-sm arabic-font mb-1">To'liq taqvim • {{ region.replace('_', ' ').title()
+                    }}</p>
             </div>
             <div class="glass px-3 py-1 rounded-full border border-blue-500/30 flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
@@ -83,7 +84,8 @@
                 <div
                     class="glass px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">{{ region|title
+                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">{{ region.replace('_',
+                        ' ').title()
                         }}</span>
                 </div>
             </div>

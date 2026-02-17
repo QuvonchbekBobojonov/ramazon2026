@@ -9,7 +9,8 @@ def get_regions_keyboard():
     for region in regions:
         if region in ["unit", "description"]:
             continue
-        builder.button(text=region.capitalize(), callback_data=f"region:{region}")
+        display_name = region.replace("_", " ").title()
+        builder.button(text=display_name, callback_data=f"region:{region}")
     
     builder.adjust(2)
     return builder.as_markup()
