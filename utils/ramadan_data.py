@@ -54,7 +54,8 @@ ramadan_data = {
         { "day": 26, "date": "2026-03-16", "weekday": "Dushanba", "suhoor": "05:15", "iftar": "18:33", "note": "Laylat al-Qadr" },
         { "day": 27, "date": "2026-03-17", "weekday": "Seshanba", "suhoor": "05:13", "iftar": "18:35" },
         { "day": 28, "date": "2026-03-18", "weekday": "Chorshanba", "suhoor": "05:12", "iftar": "18:36" },
-        { "day": 29, "date": "2026-03-19", "weekday": "Payshanba", "suhoor": "05:10", "iftar": "18:37" }
+        { "day": 29, "date": "2026-03-19", "weekday": "Payshanba", "suhoor": "05:10", "iftar": "18:37" },
+        { "day": 30, "date": "2026-03-20", "weekday": "Juma", "suhoor": "05:08", "iftar": "18:38", "note": "Eid al-Fitr" },
     ]
 }
 
