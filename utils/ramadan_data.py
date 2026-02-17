@@ -25,8 +25,8 @@ ramadan_data = {
         "urganch": 35,
         "nukus": 42,
         "chiroqchi": 13,
-        "sankt_peterburg": {"suhoor": 141, "iftar": 115},
-        "moskva": {"suhoor": 122, "iftar": 100}
+        "sankt_peterburg": {"suhoor": 21, "iftar": -5},
+        "moskva": {"suhoor": 2, "iftar": -20}
     },
     "calendar": [
         { "day": 1, "date": "2026-02-19", "weekday": "Payshanba", "suhoor": "05:54", "iftar": "18:05" },
