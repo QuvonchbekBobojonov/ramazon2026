@@ -62,6 +62,8 @@ async def today_calendar(message: Message, state: FSMContext):
                     f"🌆 <b>Iftorlik:</b> <b>{times['iftar']}</b>\n")
         if times.get("note"):
             response += f"\n💡 <b>Eslatma:</b> {times['note']}"
+        if region in ['moskva', 'sankt_peterburg']:
+            response += f"\n\n🤖 <i>Rossiya hududlari uchun vaqtlar AI orqali tahlil qilingan.</i>"
     else:
         response = "⚠️ Bugun uchun ma'lumot topilmadi."
     
@@ -80,6 +82,8 @@ async def tomorrow_calendar(message: Message, state: FSMContext):
                     f"🌆 <b>Iftorlik:</b> <b>{times['iftar']}</b>\n")
         if times.get("note"):
             response += f"\n💡 <b>Eslatma:</b> {times['note']}"
+        if region in ['moskva', 'sankt_peterburg']:
+            response += f"\n\n🤖 <i>Rossiya hududlari uchun vaqtlar AI orqali tahlil qilingan.</i>"
     else:
         response = "⚠️ Ertaga uchun ma'lumot topilmadi."
         
