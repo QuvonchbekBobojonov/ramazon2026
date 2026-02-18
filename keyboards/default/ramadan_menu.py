@@ -7,6 +7,8 @@ def get_ramadan_menu(region: str = "tashkent", is_admin: bool = False, user_id: 
     if user_id:
         calendar_url += f"&user_id={user_id}"
 
+    prayers_url = f"{WEBHOOK_HOST}/prayers?user_id={user_id}"
+    
     keyboard = [
         [
             KeyboardButton(text="📅 Bugungi taqvim"),
@@ -14,9 +16,10 @@ def get_ramadan_menu(region: str = "tashkent", is_admin: bool = False, user_id: 
         ],
         [
             KeyboardButton(text="🗓 To'liq taqvim", web_app=WebAppInfo(url=calendar_url)),
-            KeyboardButton(text="🤲 Ramazon duolari"),
+            KeyboardButton(text="✨ Duo Devori", web_app=WebAppInfo(url=prayers_url)),
         ],
         [
+            KeyboardButton(text="🤲 Ramazon duolari"),
             KeyboardButton(text="📍 Hududni o'zgartirish"),
         ],
     ]
