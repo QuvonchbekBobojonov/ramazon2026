@@ -234,6 +234,8 @@ async def api_broadcast_ramadan(token: str):
         )
         
         for user in users:
+            if user.is_blocked:
+                continue
             try:
                 # Use file_id if available, otherwise upload
                 sent_msg = await bot.send_animation(
@@ -305,6 +307,8 @@ async def api_broadcast_prayers(token: str):
         )
         
         for user in users:
+            if user.is_blocked:
+                continue
             try:
                 # Get the menu with the new Duo Devori button
                 menu = get_ramadan_menu(region=user.region or "tashkent", is_admin=False, user_id=user.telegram_id)
