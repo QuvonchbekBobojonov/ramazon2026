@@ -11,16 +11,16 @@ def get_ramadan_menu(region: str = "tashkent", is_admin: bool = False, user_id: 
     
     keyboard = [
         [
-            KeyboardButton(text="📅 Bugungi taqvim"),
-            KeyboardButton(text="⏳ Ertangi taqvim"),
+            KeyboardButton(text="📅 Bugungi taqvim ✨"),
+            KeyboardButton(text="⏳ Ertangi taqvim ✨"),
         ],
         [
             KeyboardButton(text="🗓 To'liq taqvim", web_app=WebAppInfo(url=calendar_url)),
-            KeyboardButton(text="✨ Duo Devori", web_app=WebAppInfo(url=prayers_url)),
+            KeyboardButton(text="✨ Duo Devori 🔥", web_app=WebAppInfo(url=prayers_url)),
         ],
         [
-            KeyboardButton(text="🤲 Ramazon duolari"),
-            KeyboardButton(text="📍 Hududni o'zgartirish"),
+            KeyboardButton(text="🤲 Ramazon duolari ✨"),
+            KeyboardButton(text="📍 Hududni o'zgartirish ⚙️"),
         ],
     ]
 

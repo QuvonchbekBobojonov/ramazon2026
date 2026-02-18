@@ -49,7 +49,7 @@ async def get_user_region(user_id: int, state: FSMContext):
         
     return region or "tashkent"
 
-@dp.message(F.text == "📅 Bugungi taqvim")
+@dp.message(F.text.startswith("📅 Bugungi taqvim"))
 async def today_calendar(message: Message, state: FSMContext):
     region = await get_user_region(message.from_user.id, state)
     times = get_today_times(region)
@@ -69,7 +69,7 @@ async def today_calendar(message: Message, state: FSMContext):
     
     await message.answer(response)
 
-@dp.message(F.text == "⏳ Ertangi taqvim")
+@dp.message(F.text.startswith("⏳ Ertangi taqvim"))
 async def tomorrow_calendar(message: Message, state: FSMContext):
     region = await get_user_region(message.from_user.id, state)
     times = get_tomorrow_times(region)
@@ -91,12 +91,12 @@ async def tomorrow_calendar(message: Message, state: FSMContext):
 
 
 
-@dp.message(F.text == "📍 Hududni o'zgartirish")
+@dp.message(F.text.startswith("📍 Hududni o'zgartirish"))
 async def change_region_cmd(message: Message):
     await message.answer("🌍 Iltimos, o'z hududingizni tanlang:", reply_markup=get_regions_keyboard())
 
 
-@dp.message(F.text == "🤲 Ramazon duolari")
+@dp.message(F.text.startswith("🤲 Ramazon duolari"))
 async def ramadan_prayers_handler(message: Message):
     suhoor = ramadan_prayers["suhoor"]
     iftar = ramadan_prayers["iftar"]
