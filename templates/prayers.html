@@ -51,7 +51,22 @@
         }
 
         .floating-btn {
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 99, 235, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+            }
         }
 
         /* Custom Scrollbar */
@@ -137,9 +152,13 @@
     </div>
 
     <!-- Floating Action Button -->
-    <div class="fixed bottom-8 right-5 z-30">
+    <div class="fixed bottom-8 right-5 z-30 flex flex-col items-end gap-3">
+        <div
+            class="bg-blue-600/20 text-blue-400 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-500/20 backdrop-blur-sm animate-bounce">
+            Duo qoldiring
+        </div>
         <button onclick="openModal()"
-            class="floating-btn w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all">
+            class="floating-btn w-16 h-16 rounded-3xl bg-gradient-to-tr from-blue-600 to-purple-600 text-white flex items-center justify-center text-2xl hover:scale-105 active:scale-95 transition-all shadow-xl">
             <i class="fas fa-plus"></i>
         </button>
     </div>
