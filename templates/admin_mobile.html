@@ -236,13 +236,23 @@
                     </p>
 
                     <div class="mt-3 flex items-center justify-between text-[10px]">
-                        <span class="text-slate-500"><i class="far fa-clock mr-1"></i> {{ prayer.uz_time.strftime('%d.%m
-                            %H:%M') if prayer.uz_time else '' }}</span>
+                        <span class="text-slate-500"><i class="far fa-clock mr-1"></i> {{ prayer.uz_time | uz_date
+                            }}</span>
                         <span class="text-blue-400 font-bold"><i class="far fa-thumbs-up mr-1"></i> {{ prayer.amen_count
                             }} Omin</span>
                     </div>
                 </div>
                 {% endfor %}
+
+                {% if prayers|length == 100 %}
+                <div class="mt-8 flex justify-center">
+                    <button id="load-more-admin-prayers-btn" onclick="loadMoreAdminPrayers()"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium py-3 px-8 rounded-xl transition-all flex items-center gap-2">
+                        <span>Yana yuklash</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                </div>
+                {% endif %}
 
                 {% if not prayers %}
                 <div class="glass rounded-2xl p-10 text-center">
@@ -258,6 +268,68 @@
         let offset = 10;
         const limit = 10;
         const searchQuery = "{{ search_query }}";
+
+        let adminPrayerOffset = 100;
+        const adminPrayerLimit = 50;
+
+        async function loadMoreAdminPrayers() {
+            const btn = document.getElementById('load-more-admin-prayers-btn');
+            const container = document.querySelector('#prayers-section .space-y-4');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                const response = await fetch(`/api/admin/prayers?token=${token}&offset=${adminPrayerOffset}&limit=${adminPrayerLimit}`);
+                const data = await response.json();
+
+                if (data.prayers && data.prayers.length > 0) {
+                    data.prayers.forEach(p => {
+                        const authorInitial = p.author_initial || '?';
+                        const authorName = p.author_name || 'Noma\'lum';
+                        const isAnon = p.is_anonymous ? '<span class="text-amber-500 font-bold ml-1">(Anonim)</span>' : '';
+
+                        const html = `
+                            <div class="glass rounded-2xl p-4 relative overflow-hidden border-l-4 border-l-blue-500" id="admin-prayer-${p.id}">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold">
+                                            ${authorInitial}
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xs font-bold text-white">${authorName}</h4>
+                                            <p class="text-[10px] text-slate-500">ID: ${p.user_id} ${isAnon}</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="deleteAdminPrayer(${p.id})" class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center">
+                                        <i class="fas fa-trash-can text-sm"></i>
+                                    </button>
+                                </div>
+                                <p class="text-sm text-slate-300 bg-white/5 p-3 rounded-xl border border-white/5 italic">"${p.content}"</p>
+                                <div class="mt-3 flex items-center justify-between text-[10px]">
+                                    <span class="text-slate-500"><i class="far fa-clock mr-1"></i> ${p.formatted_date}</span>
+                                    <span class="text-blue-400 font-bold"><i class="far fa-thumbs-up mr-1"></i> ${p.amen_count} Omin</span>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', html);
+                    });
+
+                    adminPrayerOffset += data.prayers.length;
+                    if (data.prayers.length < adminPrayerLimit) {
+                        btn.remove();
+                    } else {
+                        btn.disabled = false;
+                        btn.innerText = 'Yana yuklash';
+                    }
+                } else {
+                    btn.remove();
+                }
+            } catch (error) {
+                btn.disabled = false;
+                btn.innerText = 'Xatolik, yana urinib ko\'ring';
+            }
+        }
 
         function switchTab(tab) {
             const usersSection = document.getElementById('users-section');

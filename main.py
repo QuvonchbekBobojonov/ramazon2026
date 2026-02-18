@@ -61,6 +61,19 @@ async def db_check():
 
 templates = Jinja2Templates(directory="templates")
 
+UZBEK_MONTHS = {
+    1: "Yanvar", 2: "Fevral", 3: "Mart", 4: "Aprel",
+    5: "May", 6: "Iyun", 7: "Iyul", 8: "Avgust",
+    9: "Sentyabr", 10: "Oktyabr", 11: "Noyabr", 12: "Dekabr"
+}
+
+def format_uz_date(dt):
+    if not dt: return ""
+    # Format: 18 Fevral 22:01
+    return f"{dt.day}-{UZBEK_MONTHS.get(dt.month)} {dt.strftime('%H:%M')}"
+
+templates.env.filters["uz_date"] = format_uz_date
+
 
 
 # Admin Panel Setup
@@ -505,6 +518,29 @@ async def get_prayers_page(request: Request, user_id: int = None):
         "user_amens": user_amens
     })
 
+from datetime import timedelta
+
+@app.get("/api/prayers")
+async def api_get_prayers(offset: int = 0, limit: int = 20, user_id: int = 0):
+    async with async_session_maker() as session:
+        from db.crud import get_prayers, get_user_amens
+        prayers = await get_prayers(session, limit=limit, offset=offset)
+        user_amens = await get_user_amens(session, user_id) if user_id else set()
+        
+        results = []
+        for p in prayers:
+            uz_time = p.created_at + timedelta(hours=5) if p.created_at else None
+            results.append({
+                "id": p.id,
+                "content": p.content,
+                "author_name": p.author_name if not p.is_anonymous else "Anonim birodarimiz",
+                "is_anonymous": p.is_anonymous,
+                "amen_count": p.amen_count,
+                "formatted_date": format_uz_date(uz_time),
+                "is_voted": p.id in user_amens
+            })
+        return {"prayers": results}
+
 from pydantic import BaseModel
 class PrayerCreate(BaseModel):
     user_id: int
@@ -558,6 +594,32 @@ async def api_delete_prayer(prayer_id: int, token: str):
         await delete_prayer(session, prayer_id)
     return {"success": True}
 
+
+@app.get("/api/admin/prayers")
+async def api_get_admin_prayers(token: str, offset: int = 0, limit: int = 50):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+        
+    async with async_session_maker() as session:
+        from db.crud import get_prayers, get_user
+        prayers = await get_prayers(session, limit=limit, offset=offset)
+        
+        results = []
+        for p in prayers:
+            uz_time = p.created_at + timedelta(hours=5) if p.created_at else None
+            author = await get_user(session, p.user_id)
+            results.append({
+                "id": p.id,
+                "user_id": p.user_id,
+                "content": p.content,
+                "author_name": author.full_name if author else "Noma'lum",
+                "author_initial": author.full_name[0] if author and author.full_name else "?",
+                "is_anonymous": p.is_anonymous,
+                "amen_count": p.amen_count,
+                "formatted_date": format_uz_date(uz_time)
+            })
+        return {"prayers": results}
 
 @app.post(WEBHOOK_PATH)
 async def webhook_endpoint(request: Request):

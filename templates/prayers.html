@@ -113,7 +113,7 @@
                         <h4 class="text-sm font-semibold text-slate-200">
                             {{ prayer.author_name if not prayer.is_anonymous else 'Anonim birodarimiz' }}
                         </h4>
-                        <p class="text-[10px] text-slate-500">{{ prayer.uz_time.strftime('%d.%m %H:%M') }}</p>
+                        <p class="text-[10px] text-slate-500">{{ prayer.uz_time | uz_date }}</p>
                     </div>
                 </div>
                 <div class="text-xs text-slate-500 font-medium">
@@ -141,15 +141,24 @@
             </div>
         </div>
         {% endfor %}
+    </div>
 
-        {% if not prayers %}
-        <div class="text-center py-20">
-            <div class="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-comment-dots text-slate-600 text-2xl"></i>
-            </div>
-            <p class="text-slate-500 text-sm">Hozircha duolar yo'q. Birinchi bo'lib duo qiling!</p>
+    {% if prayers|length == 50 %}
+    <div class="mt-8 flex justify-center pb-10">
+        <button id="load-more-prayers-btn" onclick="loadMorePrayers()"
+            class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 text-sm font-bold py-3 px-10 rounded-2xl transition-all border border-blue-500/20">
+            <span>Yana yuklash</span>
+        </button>
+    </div>
+    {% endif %}
+    {% if not prayers %}
+    <div class="text-center py-20">
+        <div class="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-comment-dots text-slate-600 text-2xl"></i>
         </div>
-        {% endif %}
+        <p class="text-slate-500 text-sm">Hozircha duolar yo'q. Birinchi bo'lib duo qiling!</p>
+    </div>
+    {% endif %}
     </div>
 
     <!-- Floating Action Button -->
@@ -260,15 +269,79 @@
                 const response = await fetch(`/api/prayers/${prayerId}/amen?user_id=${userId}`, { method: 'POST' });
                 if (response.ok) {
                     const data = await response.json();
-                    const countEl = document.getElementById(`amen-count-${prayerId}`);
-                    countEl.innerText = data.amen_count;
+                    document.getElementById(`amen-count-${prayerId}`).innerText = data.amen_count;
                     btn.classList.add('active');
-
-                    // Optional: save to local storage to keep UI state
-                    localStorage.setItem(`amen_${prayerId}_${userId}`, 'true');
                 }
             } catch (error) {
                 console.error(error);
+            }
+        }
+
+        let prayerOffset = 50;
+        const prayerLimit = 20;
+
+        async function loadMorePrayers() {
+            const btn = document.getElementById('load-more-prayers-btn');
+            const container = document.getElementById('prayers-container');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span>Yuklanmoqda...</span> <i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                const response = await fetch(`/api/prayers?offset=${prayerOffset}&limit=${prayerLimit}&user_id=${userId}`);
+                const data = await response.json();
+
+                if (data.prayers && data.prayers.length > 0) {
+                    data.prayers.forEach(p => {
+                        const authorInitial = p.author_name ? p.author_name[0] : 'U';
+                        const authorName = p.author_name;
+                        const activeClass = p.is_voted ? 'active' : '';
+
+                        const html = `
+                            <div class="glass rounded-2xl p-5 prayer-card" id="prayer-${p.id}">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">
+                                            ${authorInitial}
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-semibold text-slate-200">${authorName}</h4>
+                                            <p class="text-[10px] text-slate-500">${p.formatted_date}</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-slate-500 font-medium">#${p.id}</div>
+                                </div>
+                                <p class="text-slate-300 text-sm leading-relaxed mb-4">${p.content}</p>
+                                <div class="flex items-center justify-between">
+                                    <button data-prayer-id="${p.id}" onclick="handleAmen(this)" id="amen-btn-${p.id}"
+                                        class="amen-btn flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 glass text-xs font-medium hover:bg-white/5 ${activeClass}">
+                                        <i class="fas fa-hands-praying"></i>
+                                        <span>Omin</span>
+                                        <span id="amen-count-${p.id}" class="ml-1 opacity-60">${p.amen_count}</span>
+                                    </button>
+                                    <button data-prayer-id="${p.id}"
+                                        data-prayer-content="${p.content.substring(0, 80)}" onclick="handleShare(this)" class="text-slate-500 hover:text-white px-2">
+                                        <i class="fas fa-share-nodes"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', html);
+                    });
+
+                    prayerOffset += data.prayers.length;
+                    if (data.prayers.length < prayerLimit) {
+                        btn.remove();
+                    } else {
+                        btn.disabled = false;
+                        btn.innerHTML = '<span>Yana yuklash</span>';
+                    }
+                } else {
+                    btn.remove();
+                }
+            } catch (error) {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Xatolik, yana urinib ko\'ring</span>';
             }
         }
 
