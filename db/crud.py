@@ -83,3 +83,8 @@ async def increment_amen(session: AsyncSession, prayer_id: int, user_id: int):
     result = await session.execute(stmt)
     return result.scalar()
 
+async def get_user_amens(session: AsyncSession, user_id: int):
+    from .models import PrayerAmen
+    stmt = select(PrayerAmen.prayer_id).where(PrayerAmen.user_id == user_id)
+    result = await session.execute(stmt)
+    return set(result.scalars().all())

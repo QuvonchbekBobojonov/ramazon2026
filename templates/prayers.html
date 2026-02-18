@@ -127,7 +127,8 @@
 
             <div class="flex items-center justify-between">
                 <button data-prayer-id="{{ prayer.id }}" onclick="handleAmen(this)" id="amen-btn-{{ prayer.id }}"
-                    class="amen-btn flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 glass text-xs font-medium hover:bg-white/5">
+                    class="amen-btn flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 glass text-xs font-medium hover:bg-white/5 {% if prayer.id in user_amens %}active{% endif %}">
+
                     <i class="fas fa-hands-praying"></i>
                     <span>Omiyn</span>
                     <span id="amen-count-{{ prayer.id }}" class="ml-1 opacity-60">{{ prayer.amen_count }}</span>

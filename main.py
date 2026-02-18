@@ -463,11 +463,12 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
 @app.get("/prayers", response_class=HTMLResponse)
 async def get_prayers_page(request: Request, user_id: int = None):
     async with async_session_maker() as session:
-        from db.crud import get_prayers, get_user
+        from db.crud import get_prayers, get_user, get_user_amens
         db_user = await get_user(session, user_id) if user_id else None
         user_name = db_user.full_name if db_user else "Mehmon"
         
         prayers = await get_prayers(session, limit=50)
+        user_amens = await get_user_amens(session, user_id) if user_id else set()
         
     bot_info = await bot.get_me()
     
@@ -476,7 +477,8 @@ async def get_prayers_page(request: Request, user_id: int = None):
         "prayers": prayers, 
         "user_id": user_id or 0,
         "user_name": user_name,
-        "bot_username": bot_info.username
+        "bot_username": bot_info.username,
+        "user_amens": user_amens
     })
 
 from pydantic import BaseModel
