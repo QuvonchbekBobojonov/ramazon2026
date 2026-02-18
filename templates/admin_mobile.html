@@ -92,34 +92,50 @@
         <p class="text-slate-400 text-sm">Foydalanuvchilar boshqaruvi</p>
     </div>
 
-    <div class="px-5 mt-6 grid grid-cols-2 gap-4">
-        <div class="glass rounded-2xl p-4">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3">
-                <i class="fas fa-users text-blue-400"></i>
+    <!-- Compact Stats -->
+    <div class="px-5 mt-6">
+        <div class="glass rounded-[2rem] p-5 grid grid-cols-2 gap-x-8 gap-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+                    <i class="fas fa-users text-blue-400 text-sm"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-white leading-tight">{{ total_users }}</h2>
+                    <p class="text-[9px] text-slate-500 uppercase font-bold tracking-wider">Barchasi</p>
+                </div>
             </div>
-            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Barcha foydalanuvchilar</p>
-            <h2 class="text-2xl font-bold mt-1 text-blue-400">{{ total_users }}</h2>
-        </div>
-        <div class="glass rounded-2xl p-4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3">
-                <i class="fas fa-check-circle text-emerald-400"></i>
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+                    <i class="fas fa-check-circle text-emerald-400 text-sm"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-white leading-tight">{{ active_users }}</h2>
+                    <p class="text-[9px] text-slate-500 uppercase font-bold tracking-wider">Faollar</p>
+                </div>
             </div>
-            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Faol foydalanuvchilar</p>
-            <h2 class="text-2xl font-bold mt-1 text-emerald-400">{{ active_users }}</h2>
-        </div>
-        <div class="glass rounded-2xl p-4">
-            <div class="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center mb-3">
-                <i class="fas fa-ban text-rose-400"></i>
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center shrink-0">
+                    <i class="fas fa-ban text-rose-400 text-sm"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-white leading-tight">{{ blocked_users }}</h2>
+                    <p class="text-[9px] text-slate-500 uppercase font-bold tracking-wider">Blok</p>
+                </div>
             </div>
-            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Bloklaganlar</p>
-            <h2 class="text-2xl font-bold mt-1 text-rose-400">{{ blocked_users }}</h2>
-        </div>
-        <div class="glass rounded-2xl p-4">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
-                <i class="fas fa-user-plus text-amber-400"></i>
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
+                    <i class="fas fa-user-plus text-amber-400 text-sm"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-white leading-tight">{{ new_today }}</h2>
+                    <p class="text-[9px] text-slate-500 uppercase font-bold tracking-wider">+24 Soat</p>
+                </div>
             </div>
-            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Oxirgi 24 soatda</p>
-            <h2 class="text-2xl font-bold mt-1 text-amber-400">{{ new_today }}</h2>
         </div>
     </div>
 
