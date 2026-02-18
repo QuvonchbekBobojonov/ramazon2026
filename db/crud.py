@@ -44,6 +44,12 @@ async def get_all_users(session: AsyncSession):
     return result.scalars().all()
 
 async def add_prayer(session: AsyncSession, user_id: int, author_name: str, content: str, is_anonymous: bool):
+    # Check for duplicate content from the same user
+    stmt = select(Prayer).where(Prayer.user_id == user_id, Prayer.content == content)
+    result = await session.execute(stmt)
+    if result.scalar_one_or_none():
+        return None # Duplicate
+        
     prayer = Prayer(user_id=user_id, author_name=author_name, content=content, is_anonymous=is_anonymous)
     session.add(prayer)
     await session.commit()

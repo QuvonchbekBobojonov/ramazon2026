@@ -502,13 +502,15 @@ class PrayerCreate(BaseModel):
 async def api_add_prayer(prayer_data: PrayerCreate):
     async with async_session_maker() as session:
         from db.crud import add_prayer
-        await add_prayer(
+        prayer = await add_prayer(
             session, 
             user_id=prayer_data.user_id,
             author_name=prayer_data.author_name,
             content=prayer_data.content,
             is_anonymous=prayer_data.is_anonymous
         )
+    if not prayer:
+        return JSONResponse({"error": "Siz ushbu duoni allaqachon yuborgansiz!"}, status_code=400)
     return {"success": True}
 
 @app.post("/api/prayers/{prayer_id}/amen")

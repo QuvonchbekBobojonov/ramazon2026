@@ -227,7 +227,8 @@
                     closeModal();
                     location.reload();
                 } else {
-                    alert('Xatolik yuz berdi');
+                    const data = await response.json();
+                    alert(data.error || 'Xatolik yuz berdi');
                 }
             } catch (error) {
                 alert('Internet bilan bog\'liq xatolik');
