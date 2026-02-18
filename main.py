@@ -470,6 +470,12 @@ async def get_prayers_page(request: Request, user_id: int = None):
         prayers = await get_prayers(session, limit=50)
         user_amens = await get_user_amens(session, user_id) if user_id else set()
         
+        # Adjust timestamps to Uzbekistan time (UTC+5)
+        from datetime import timedelta
+        for p in prayers:
+            if p.created_at:
+                p.uz_time = p.created_at + timedelta(hours=5)
+        
     bot_info = await bot.get_me()
     
     return templates.TemplateResponse("prayers.html", {
