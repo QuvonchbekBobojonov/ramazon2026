@@ -15,6 +15,8 @@ async def send_daily_notifications():
     
     count = 0
     for user in users:
+        if user.is_blocked:
+            continue
         region = user.region or "tashkent"
         times = get_today_times(region)
         
