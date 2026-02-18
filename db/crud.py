@@ -55,7 +55,25 @@ async def get_prayers(session: AsyncSession, limit: int = 20, offset: int = 0):
     result = await session.execute(stmt)
     return result.scalars().all()
 
-async def increment_amen(session: AsyncSession, prayer_id: int):
+async def increment_amen(session: AsyncSession, prayer_id: int, user_id: int):
+    from .models import PrayerAmen
+    
+    # Check if user already said Amen for this prayer
+    stmt = select(PrayerAmen).where(PrayerAmen.prayer_id == prayer_id, PrayerAmen.user_id == user_id)
+    result = await session.execute(stmt)
+    existing = result.scalar_one_or_none()
+    
+    if existing:
+        # Already voted, just return current count
+        stmt = select(Prayer.amen_count).where(Prayer.id == prayer_id)
+        result = await session.execute(stmt)
+        return result.scalar()
+    
+    # Add new Amen record
+    new_amen = PrayerAmen(prayer_id=prayer_id, user_id=user_id)
+    session.add(new_amen)
+    
+    # Increment count
     stmt = update(Prayer).where(Prayer.id == prayer_id).values(amen_count=Prayer.amen_count + 1)
     await session.execute(stmt)
     await session.commit()

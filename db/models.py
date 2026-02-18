@@ -36,5 +36,11 @@ class Prayer(Base):
     amen_count: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
-    def __repr__(self):
-        return f"<Prayer {self.id} by {self.user_id}>"
+class PrayerAmen(Base):
+    __tablename__ = "prayer_amens"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    prayer_id: Mapped[int] = mapped_column(Integer, index=True)
+    user_id: Mapped[int] = mapped_column(BigInteger, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+

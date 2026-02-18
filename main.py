@@ -469,11 +469,14 @@ async def get_prayers_page(request: Request, user_id: int = None):
         
         prayers = await get_prayers(session, limit=50)
         
+    bot_info = await bot.get_me()
+    
     return templates.TemplateResponse("prayers.html", {
         "request": request, 
         "prayers": prayers, 
         "user_id": user_id or 0,
-        "user_name": user_name
+        "user_name": user_name,
+        "bot_username": bot_info.username
     })
 
 from pydantic import BaseModel
@@ -497,10 +500,10 @@ async def api_add_prayer(prayer_data: PrayerCreate):
     return {"success": True}
 
 @app.post("/api/prayers/{prayer_id}/amen")
-async def api_inc_amen(prayer_id: int):
+async def api_inc_amen(prayer_id: int, user_id: int):
     async with async_session_maker() as session:
         from db.crud import increment_amen
-        new_count = await increment_amen(session, prayer_id)
+        new_count = await increment_amen(session, prayer_id, user_id)
     return {"amen_count": new_count}
 
 

@@ -11,11 +11,11 @@ from keyboards.inlines.regions import get_regions_keyboard
 from utils.subscription import check_membership, get_subscription_keyboard, SUBSCRIPTION_TEXT
 
 @dp.message(CommandStart())
-async def command_start_handler(message: Message, state: FSMContext, command: CommandObject, db_user=None, user=None) -> None:
+async def command_start_handler(message: Message, state: FSMContext, command: CommandObject = None, db_user=None, user=None) -> None:
     """
     Handles /start command, registers user, and checks for region.
     """
-    args = command.args
+    args = command.args if command else None
     if args == "prayers":
         # If user came from the deep link, send them the WebApp invitation directly
         prayers_url = f"{WEBHOOK_HOST}/prayers?user_id={message.from_user.id}"

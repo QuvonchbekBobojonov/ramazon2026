@@ -33,5 +33,19 @@ async def fix_schema():
         else:
             print("'is_blocked' column already exists.")
 
+        # Create prayer_amens table if not exists
+        await conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS prayer_amens (
+                id SERIAL PRIMARY KEY,
+                prayer_id INTEGER NOT NULL,
+                user_id BIGINT NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+            );
+            CREATE INDEX IF NOT EXISTS idx_prayer_amens_prayer_id ON prayer_amens(prayer_id);
+            CREATE INDEX IF NOT EXISTS idx_prayer_amens_user_id ON prayer_amens(user_id);
+        """))
+        print("Ensured 'prayer_amens' table exists.")
+
+
 if __name__ == "__main__":
     asyncio.run(fix_schema())

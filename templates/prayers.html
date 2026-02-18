@@ -171,6 +171,7 @@
     <script>
         const userId = parseInt("{{ user_id or 0 }}");
         const userName = "{{ user_name or 'Mehmon' }}";
+        const botUsername = "{{ bot_username }}";
 
         function openModal() {
             document.getElementById('prayer-modal').classList.remove('hidden');
@@ -223,12 +224,15 @@
             if (btn.classList.contains('active')) return;
 
             try {
-                const response = await fetch(`/api/prayers/${prayerId}/amen`, { method: 'POST' });
+                const response = await fetch(`/api/prayers/${prayerId}/amen?user_id=${userId}`, { method: 'POST' });
                 if (response.ok) {
                     const data = await response.json();
                     const countEl = document.getElementById(`amen-count-${prayerId}`);
                     countEl.innerText = data.amen_count;
                     btn.classList.add('active');
+
+                    // Optional: save to local storage to keep UI state
+                    localStorage.setItem(`amen_${prayerId}_${userId}`, 'true');
                 }
             } catch (error) {
                 console.error(error);
@@ -242,14 +246,23 @@
         }
 
         function sharePrayer(id, content) {
+            const shareUrl = `https://t.me/${botUsername}?start=prayers`;
+            const shareText = `✨ Duo Devori\n\n"${content}"\n\nSiz ham o'z niyatlaringizni qoldiring:`;
+
             if (navigator.share) {
                 navigator.share({
                     title: 'Duo Devori',
-                    text: content,
-                    url: window.location.href,
+                    text: shareText,
+                    url: shareUrl,
                 });
             } else {
-                alert('Ushbu brauzerda ulashish imkoniyati mavjud emas');
+                // Fallback: Copy to clipboard
+                const fullText = `${shareText}\n${shareUrl}`;
+                navigator.clipboard.writeText(fullText).then(() => {
+                    alert('Havola nusxalandi! Endi uni yaqinlaringizga yuborishingiz mumkin.');
+                }).catch(() => {
+                    alert('Ushbu brauzerda ulashish imkoniyati mavjud emas');
+                });
             }
         }
     </script>
