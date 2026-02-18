@@ -82,6 +82,66 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
         }
+
+        @keyframes amen-pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .amen-pop {
+            animation: amen-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 100;
+        }
+
+        @keyframes particle-fire {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fbbf24;
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+        }
+
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 
@@ -265,16 +325,63 @@
             const btn = document.getElementById(`amen-btn-${prayerId}`);
             if (btn.classList.contains('active')) return;
 
+            // Trigger animations
+            btn.classList.add('amen-pop');
+            createParticles(btn);
+            setTimeout(() => btn.classList.remove('amen-pop'), 400);
+
             try {
                 const response = await fetch(`/api/prayers/${prayerId}/amen?user_id=${userId}`, { method: 'POST' });
                 if (response.ok) {
                     const data = await response.json();
                     document.getElementById(`amen-count-${prayerId}`).innerText = data.amen_count;
                     btn.classList.add('active');
+                    showToast("Ominingiz qabul bo'lsin! 🤲");
                 }
             } catch (error) {
                 console.error(error);
             }
+        }
+
+        function createParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#fbbf24', '#60a5fa', '#c084fc', '#f8fafc'];
+            const container = document.body;
+
+            for (let i = 0; i < 15; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 8 + 4;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                p.style.borderRadius = '50%';
+                p.style.left = (rect.left + rect.width / 2) + 'px';
+                p.style.top = (rect.top + rect.height / 2) + 'px';
+
+                const tx = (Math.random() - 0.5) * 200;
+                const ty = (Math.random() - 0.5) * 200 - 50;
+
+                p.style.setProperty('--tx', tx + 'px');
+                p.style.setProperty('--ty', ty + 'px');
+                p.style.animation = `particle-fire ${Math.random() * 0.5 + 0.5}s ease-out forwards`;
+
+                container.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerHTML = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
 
         let prayerOffset = 50;
