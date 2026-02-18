@@ -155,7 +155,16 @@ async def admin_mobile(request: Request, token: str = None, q: str = None):
             )
         )
         new_today = new_today_result.scalar()
-        
+
+        # Fetch all prayers for admin management
+        from db.crud import get_prayers, get_user
+        prayers = await get_prayers(session, limit=100)
+        for p in prayers:
+            if p.created_at:
+                p.uz_time = p.created_at + timedelta(hours=5)
+            # Link real author info for admin eyes only
+            p.real_author = await get_user(session, p.user_id)
+            
     return templates.TemplateResponse("admin_mobile.html", {
         "request": request, 
         "users": users,
@@ -164,7 +173,8 @@ async def admin_mobile(request: Request, token: str = None, q: str = None):
         "blocked_users": blocked_users,
         "new_today": new_today,
         "bot_token": BOT_TOKEN,
-        "search_query": q or ""
+        "search_query": q or "",
+        "prayers": prayers
     })
 
 @app.get("/api/admin/users")
@@ -492,9 +502,7 @@ async def get_prayers_page(request: Request, user_id: int = None):
         "user_id": user_id or 0,
         "user_name": user_name,
         "bot_username": bot_info.username,
-        "user_amens": user_amens,
-        "is_admin": is_admin,
-        "token": BOT_TOKEN
+        "user_amens": user_amens
     })
 
 from pydantic import BaseModel
