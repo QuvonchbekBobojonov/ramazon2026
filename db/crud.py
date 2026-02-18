@@ -33,6 +33,11 @@ async def update_user_subscription(session: AsyncSession, telegram_id: int, is_s
     await session.execute(stmt)
     await session.commit()
 
+async def update_user_blocked(session: AsyncSession, telegram_id: int, is_blocked: bool):
+    stmt = update(User).where(User.telegram_id == telegram_id).values(is_blocked=is_blocked)
+    await session.execute(stmt)
+    await session.commit()
+
 async def get_all_users(session: AsyncSession):
     stmt = select(User)
     result = await session.execute(stmt)

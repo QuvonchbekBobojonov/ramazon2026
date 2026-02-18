@@ -6,7 +6,7 @@ from markupsafe import Markup
 from db.models import User
 
 class UserAdmin(ModelView, model=User):
-    column_list = ["id", "telegram_id", "full_name", "username", "region", "profile_link", "created_at"]
+    column_list = ["id", "telegram_id", "full_name", "username", "region", "is_subscribed", "is_blocked", "profile_link", "created_at"]
     
     column_formatters = {
         "profile_link": lambda m, a: Markup(

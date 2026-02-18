@@ -19,5 +19,19 @@ async def fix_schema():
         else:
             print("'is_subscribed' column already exists.")
 
+        # Check if is_blocked column exists
+        result = await conn.execute(text(
+            "SELECT column_name FROM information_schema.columns "
+            "WHERE table_name='users' AND column_name='is_blocked';"
+        ))
+        column_exists = result.fetchone() is not None
+        
+        if not column_exists:
+            print("Adding 'is_blocked' column to 'users' table...")
+            await conn.execute(text("ALTER TABLE users ADD COLUMN is_blocked BOOLEAN DEFAULT FALSE;"))
+            print("Column added successfully.")
+        else:
+            print("'is_blocked' column already exists.")
+
 if __name__ == "__main__":
     asyncio.run(fix_schema())

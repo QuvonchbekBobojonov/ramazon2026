@@ -121,6 +121,12 @@ async def admin_mobile(request: Request, token: str = None, q: str = None):
         total_result = await session.execute(select(func.count(User.id)).where(User.telegram_id != bot_id))
         total_users = total_result.scalar()
         
+        active_result = await session.execute(select(func.count(User.id)).where((User.telegram_id != bot_id) & (User.is_blocked == False)))
+        active_users = active_result.scalar()
+        
+        blocked_result = await session.execute(select(func.count(User.id)).where((User.telegram_id != bot_id) & (User.is_blocked == True)))
+        blocked_users = blocked_result.scalar()
+        
         from utils.ramadan_calculator import get_now_uz
         now_uz = get_now_uz()
         today_uz = now_uz.date()
@@ -154,6 +160,8 @@ async def admin_mobile(request: Request, token: str = None, q: str = None):
         "request": request, 
         "users": users,
         "total_users": total_users,
+        "active_users": active_users,
+        "blocked_users": blocked_users,
         "new_today": new_today,
         "bot_token": BOT_TOKEN,
         "search_query": q or ""
@@ -190,10 +198,77 @@ async def api_get_users(token: str, offset: int = 0, limit: int = 10, q: str = N
                 "full_name": u.full_name,
                 "username": u.username,
                 "region": u.region,
+                "is_blocked": u.is_blocked,
                 "created_at_time": created_at_uz.strftime('%H:%M') if created_at_uz else '--:--'
             })
             
     return {"users": user_list}
+
+
+@app.post("/api/admin/broadcast/ramadan")
+async def api_broadcast_ramadan(token: str):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+    
+    async with async_session_maker() as session:
+        from db.crud import get_all_users
+        users = await get_all_users(session)
+    
+    async def run_broadcast():
+        from aiogram.types import FSInputFile
+        from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
+        import asyncio
+        from db.base import async_session_maker
+        from db.crud import update_user_blocked
+        
+        gif_path = "static/ramadan.gif"
+        gif_file = FSInputFile(gif_path)
+        gif_id = None # Store file_id after first send
+        
+        caption = (
+            "<b>Assalomu alaykum va rahmatullohi va barokatuh!</b>\n\n"
+            "Barchangizni kirib kelayotgan <b>Ramazon oyi</b> bilan chin qalbdan muborakbod etamiz! 🌙✨\n\n"
+            "Ushbu muborak oy barchamizga xayrli va barokatli bo'lsin. Duolarimiz ijobat, ibodatlarimiz maqbul bo'lishini Allohdan so'rab qolamiz. 🤲\n\n"
+            "Hurmat bilan, <a href='https://t.me/QuvonchbekBobojonov'>Quvonchbek Bobojonov</a>"
+        )
+        
+        for user in users:
+            try:
+                # Use file_id if available, otherwise upload
+                sent_msg = await bot.send_animation(
+                    user.telegram_id, 
+                    animation=gif_id if gif_id else gif_file, 
+                    caption=caption, 
+                    parse_mode="HTML"
+                )
+                
+                # Save file_id from the first successful send
+                if not gif_id and sent_msg.animation:
+                    gif_id = sent_msg.animation.file_id
+                
+                # If user was previously blocked, mark as unblocked
+                if user.is_blocked:
+                    async with async_session_maker() as session_inner:
+                        await update_user_blocked(session_inner, user.telegram_id, False)
+                
+                await asyncio.sleep(0.05) # Rate limit protection
+            except TelegramForbiddenError:
+                async with async_session_maker() as session_inner:
+                    await update_user_blocked(session_inner, user.telegram_id, True)
+            except TelegramRetryAfter as e:
+                await asyncio.sleep(e.retry_after)
+                try:
+                    await bot.send_animation(user.telegram_id, animation=gif_id if gif_id else gif_file, caption=caption, parse_mode="HTML")
+                except:
+                    pass
+            except Exception as e:
+                logger.error(f"Broadcast error for {user.telegram_id}: {e}")
+                
+    import asyncio
+    asyncio.create_task(run_broadcast())
+    
+    return {"success": True, "count": len(users)}
 
 
 
