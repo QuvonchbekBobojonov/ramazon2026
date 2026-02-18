@@ -531,7 +531,20 @@ async def api_add_prayer(prayer_data: PrayerCreate):
 async def api_inc_amen(prayer_id: int, user_id: int):
     async with async_session_maker() as session:
         from db.crud import increment_amen
-        new_count = await increment_amen(session, prayer_id, user_id)
+        new_count, author_id, was_added = await increment_amen(session, prayer_id, user_id)
+        
+        if was_added and author_id:
+            try:
+                # Send notification to the author
+                # The user requested the one who clicked to be anonymous
+                await bot.send_message(
+                    chat_id=author_id,
+                    text="<b>Sizning duoingizga kimdir 'Omin' deb aytdi! 🤲</b>",
+                    parse_mode="HTML"
+                )
+            except Exception as e:
+                logger.error(f"Error sending amen notification: {e}")
+                
     return {"amen_count": new_count}
 
 @app.delete("/api/admin/prayers/{prayer_id}")
