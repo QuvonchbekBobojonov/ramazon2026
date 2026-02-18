@@ -271,6 +271,70 @@ async def api_broadcast_ramadan(token: str):
     return {"success": True, "count": len(users)}
 
 
+@app.post("/api/admin/broadcast/prayers")
+async def api_broadcast_prayers(token: str):
+    from core.config import BOT_TOKEN, WEBHOOK_HOST
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+    
+    # Get bot username for deep linking
+    bot_info = await bot.get_me()
+    bot_username = bot_info.username
+    
+    async with async_session_maker() as session:
+        from db.crud import get_all_users
+        users = await get_all_users(session)
+    
+    async def run_broadcast_prayers():
+        from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
+        import asyncio
+        from db.base import async_session_maker
+        from db.crud import update_user_blocked
+        from keyboards.default.ramadan_menu import get_ramadan_menu
+        
+        # Post matni
+        text = (
+            "✨ <b>Yangi funksiya: Duo Devori!</b>\n\n"
+            "Muborak Ramazon oyida bir-birimizning haqimizga duo qilish, niyatlarimiz bilan o'rtoqlashish va o'zaro ma'naviy bog'liqlikni his qilish uchun <b>\"Duo Devori\"</b> bo'limini ishga tushirdik. 🤲\n\n"
+            "🌙 <b>Bu yerda siz:</b>\n"
+            "• O'z duo va niyatlaringizni yozib qoldirishingiz;\n"
+            "• Boshqalarning duolariga \"Omiyn\" deb qo'shilishingiz;\n"
+            "• Ezgu niyatlarni yaqinlaringizga ulashishingiz mumkin.\n\n"
+            "Duolaringiz ijobat bo'lsin! Pastdagi tugma yoki mana bu havola orqali o'tishingiz mumkin: 👇\n\n"
+            f"🔗 <a href='https://t.me/{bot_username}?start=prayers'>Duo Devorini ochish</a>"
+        )
+        
+        for user in users:
+            try:
+                # Get the menu with the new Duo Devori button
+                menu = get_ramadan_menu(region=user.region or "tashkent", is_admin=False, user_id=user.telegram_id)
+                
+                await bot.send_message(user.telegram_id, text=text, reply_markup=menu, parse_mode="HTML")
+                
+                if user.is_blocked:
+                    async with async_session_maker() as session_inner:
+                        await update_user_blocked(session_inner, user.telegram_id, False)
+                
+                await asyncio.sleep(0.05)
+            except TelegramForbiddenError:
+                async with async_session_maker() as session_inner:
+                    await update_user_blocked(session_inner, user.telegram_id, True)
+            except TelegramRetryAfter as e:
+                await asyncio.sleep(e.retry_after)
+                try:
+                    menu = get_ramadan_menu(region=user.region or "tashkent", is_admin=False, user_id=user.telegram_id)
+                    await bot.send_message(user.telegram_id, text=text, reply_markup=menu, parse_mode="HTML")
+                except:
+                    pass
+            except Exception as e:
+                logger.error(f"Duo broadcast error for {user.telegram_id}: {e}")
+                
+    import asyncio
+    asyncio.create_task(run_broadcast_prayers())
+    
+    return {"success": True, "count": len(users)}
+
+
 
 
 

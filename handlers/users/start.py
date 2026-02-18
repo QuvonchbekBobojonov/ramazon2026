@@ -1,9 +1,9 @@
-import requests
-from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.filters import CommandStart, CommandObject
+from aiogram.types import Message, WebAppInfo
 from aiogram.fsm.context import FSMContext
 
-from core.loader import dp
+from core.loader import dp, bot
+from core.config import WEBHOOK_HOST
 from db.base import async_session_maker
 from db.crud import add_user
 from keyboards.default.ramadan_menu import get_ramadan_menu
@@ -11,10 +11,26 @@ from keyboards.inlines.regions import get_regions_keyboard
 from utils.subscription import check_membership, get_subscription_keyboard, SUBSCRIPTION_TEXT
 
 @dp.message(CommandStart())
-async def command_start_handler(message: Message, state: FSMContext, db_user=None, user=None) -> None:
+async def command_start_handler(message: Message, state: FSMContext, command: CommandObject, db_user=None, user=None) -> None:
     """
     Handles /start command, registers user, and checks for region.
     """
+    args = command.args
+    if args == "prayers":
+        # If user came from the deep link, send them the WebApp invitation directly
+        prayers_url = f"{WEBHOOK_HOST}/prayers?user_id={message.from_user.id}"
+        await message.answer(
+            "✨ <b>Duo Devoriga xush kelibsiz!</b>\n\n"
+            "Pastdagi tugmani bosib niyatlar devorini ochishingiz mumkin:",
+            reply_markup=get_ramadan_menu() # Default menu or custom one
+        )
+        # We can also use an inline button for a cleaner look
+        from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+        inline_kb = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="✨ Duo Devorini ochish", web_app=WebAppInfo(url=prayers_url))]
+        ])
+        await message.answer("Darchani ochish uchun bosing:", reply_markup=inline_kb)
+        return
     import logging
     # message.from_user might be the bot if called from a callback (call.message)
     # in such cases, we should rely on the passed 'user' or context
