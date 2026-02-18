@@ -182,8 +182,10 @@
                 <button onclick="closeModal()"
                     class="flex-1 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all">Bekor
                     qilish</button>
-                <button onclick="submitPrayer()"
-                    class="flex-[2] py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-sm font-bold transition-all">Yuborish</button>
+                <button id="submit-prayer-btn" onclick="submitPrayer()"
+                    class="flex-[2] py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2">
+                    <span>Yuborish</span>
+                </button>
             </div>
         </div>
     </div>
@@ -208,8 +210,14 @@
             const content = document.getElementById('prayer-content').value.trim();
             const isAnonymous = document.getElementById('is-anonymous').checked;
 
+            const btn = document.getElementById('submit-prayer-btn');
+            const originalContent = btn.innerHTML;
+
             if (!content) return alert('Duo matnini kiriting');
             if (content.length < 5) return alert('Duo matni juda qisqa');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Yuborilmoqda...</span>';
 
             try {
                 const response = await fetch('/api/prayers', {
@@ -229,9 +237,13 @@
                 } else {
                     const data = await response.json();
                     alert(data.error || 'Xatolik yuz berdi');
+                    btn.disabled = false;
+                    btn.innerHTML = originalContent;
                 }
             } catch (error) {
                 alert('Internet bilan bog\'liq xatolik');
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
             }
         }
 
