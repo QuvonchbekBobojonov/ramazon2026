@@ -42,8 +42,13 @@ async def command_start_handler(message: Message, state: FSMContext, command: Co
     # If db_user is not passed (e.g. called from subscription.py), try to get it
     if not db_user:
         async with async_session_maker() as session:
-            from db.crud import get_user
+            from db.crud import get_user, update_user_blocked
             db_user = await get_user(session, user_id)
+            
+            # If user exists and was blocked, unblock them now
+            if db_user and db_user.is_blocked:
+                await update_user_blocked(session, user_id, False)
+                db_user.is_blocked = False
 
     # Check subscription first
     is_subscribed = await check_membership(user_id)
