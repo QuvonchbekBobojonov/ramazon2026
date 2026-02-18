@@ -357,7 +357,7 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
         from core.config import ADMINS
         if str(user_id) in ADMINS or user_id in ADMINS:
              calendar_data = get_full_calendar(region)
-             return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
+             return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region, "user_id": user_id})
 
         # Bazadan tekshirish
         async with async_session_maker() as session:
@@ -393,7 +393,51 @@ async def get_calendar(request: Request, region: str = "tashkent", user_id: int 
 
 
     calendar_data = get_full_calendar(region)
-    return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region})
+    return templates.TemplateResponse("calendar.html", {"request": request, "calendar": calendar_data, "region": region, "user_id": user_id})
+
+
+@app.get("/prayers", response_class=HTMLResponse)
+async def get_prayers_page(request: Request, user_id: int = None):
+    async with async_session_maker() as session:
+        from db.crud import get_prayers, get_user
+        db_user = await get_user(session, user_id) if user_id else None
+        user_name = db_user.full_name if db_user else "Mehmon"
+        
+        prayers = await get_prayers(session, limit=50)
+        
+    return templates.TemplateResponse("prayers.html", {
+        "request": request, 
+        "prayers": prayers, 
+        "user_id": user_id or 0,
+        "user_name": user_name
+    })
+
+from pydantic import BaseModel
+class PrayerCreate(BaseModel):
+    user_id: int
+    content: str
+    is_anonymous: bool
+    author_name: str
+
+@app.post("/api/prayers")
+async def api_add_prayer(prayer_data: PrayerCreate):
+    async with async_session_maker() as session:
+        from db.crud import add_prayer
+        await add_prayer(
+            session, 
+            user_id=prayer_data.user_id,
+            author_name=prayer_data.author_name,
+            content=prayer_data.content,
+            is_anonymous=prayer_data.is_anonymous
+        )
+    return {"success": True}
+
+@app.post("/api/prayers/{prayer_id}/amen")
+async def api_inc_amen(prayer_id: int):
+    async with async_session_maker() as session:
+        from db.crud import increment_amen
+        new_count = await increment_amen(session, prayer_id)
+    return {"amen_count": new_count}
 
 
 @app.post(WEBHOOK_PATH)

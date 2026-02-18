@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Duo Devori — Ramazon 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(88, 28, 135, 0.3) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prayer-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prayer-card:active {
+            transform: scale(0.98);
+        }
+
+        .amen-btn {
+            transition: all 0.2s;
+        }
+
+        .amen-btn.active {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border-color: #fbbf24;
+        }
+
+        .floating-btn {
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="pb-24">
+    <!-- Header -->
+    <div class="px-5 pt-8 pb-6 sticky top-0 bg-[#0f172a]/80 backdrop-blur-md z-20 border-b border-white/5">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold gradient-text">Duo Devori</h1>
+                <p class="text-slate-400 text-xs">Boshqalarning duolariga omiyn deng</p>
+            </div>
+            <div class="w-10 h-10 rounded-full glass flex items-center justify-center text-amber-400">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prayers List -->
+    <div id="prayers-container" class="px-5 mt-6 space-y-4">
+        {% for prayer in prayers %}
+        <div class="glass rounded-2xl p-5 prayer-card" id="prayer-{{ prayer.id }}">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">
+                        {{ prayer.author_name[:1] if not prayer.is_anonymous else 'A' }}
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold text-slate-200">
+                            {{ prayer.author_name if not prayer.is_anonymous else 'Anonim birodarimiz' }}
+                        </h4>
+                        <p class="text-[10px] text-slate-500">{{ prayer.created_at.strftime('%d.%m %H:%M') }}</p>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-500 font-medium">
+                    #{{ prayer.id }}
+                </div>
+            </div>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                {{ prayer.content }}
+            </p>
+
+            <div class="flex items-center justify-between">
+                <button data-prayer-id="{{ prayer.id }}" onclick="handleAmen(this)" id="amen-btn-{{ prayer.id }}"
+                    class="amen-btn flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 glass text-xs font-medium hover:bg-white/5">
+                    <i class="fas fa-hands-praying"></i>
+                    <span>Omiyn</span>
+                    <span id="amen-count-{{ prayer.id }}" class="ml-1 opacity-60">{{ prayer.amen_count }}</span>
+                </button>
+                <button data-prayer-id="{{ prayer.id }}"
+                    data-prayer-content="{{ prayer.content | replace("'", "&apos;") | truncate(80) | replace(' \n', ' '
+                    ) }}" onclick="handleShare(this)" class="text-slate-500 hover:text-white px-2">
+                    <i class="fas fa-share-nodes"></i>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if not prayers %}
+        <div class="text-center py-20">
+            <div class="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-comment-dots text-slate-600 text-2xl"></i>
+            </div>
+            <p class="text-slate-500 text-sm">Hozircha duolar yo'q. Birinchi bo'lib duo qiling!</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-8 right-5 z-30">
+        <button onclick="openModal()"
+            class="floating-btn w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl hover:scale-105 active:scale-95 transition-all">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- Modal for adding prayer -->
+    <div id="prayer-modal" class="fixed inset-0 z-50 flex items-center justify-center p-5 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="glass w-full max-w-md rounded-3xl p-6 relative z-10 animate-in fade-in zoom-in duration-200">
+            <h3 class="text-xl font-bold mb-4">Duo qilish</h3>
+            <textarea id="prayer-content" placeholder="Duongizni shu yerga yozing..."
+                class="w-full h-32 bg-slate-800/50 border border-white/10 rounded-2xl p-4 text-sm focus:outline-none focus:border-blue-500 transition-all resize-none"></textarea>
+
+            <div class="flex items-center gap-3 mt-4">
+                <input type="checkbox" id="is-anonymous" checked
+                    class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-blue-600">
+                <label for="is-anonymous" class="text-sm text-slate-400">Anonim tarzda yuborish</label>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeModal()"
+                    class="flex-1 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all">Bekor
+                    qilish</button>
+                <button onclick="submitPrayer()"
+                    class="flex-[2] py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-sm font-bold transition-all">Yuborish</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const userId = parseInt("{{ user_id or 0 }}");
+        const userName = "{{ user_name or 'Mehmon' }}";
+
+        function openModal() {
+            document.getElementById('prayer-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('prayer-content').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('prayer-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        async function submitPrayer() {
+            const content = document.getElementById('prayer-content').value.trim();
+            const isAnonymous = document.getElementById('is-anonymous').checked;
+
+            if (!content) return alert('Duo matnini kiriting');
+            if (content.length < 5) return alert('Duo matni juda qisqa');
+
+            try {
+                const response = await fetch('/api/prayers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        content: content,
+                        is_anonymous: isAnonymous,
+                        author_name: userName
+                    })
+                });
+
+                if (response.ok) {
+                    closeModal();
+                    location.reload();
+                } else {
+                    alert('Xatolik yuz berdi');
+                }
+            } catch (error) {
+                alert('Internet bilan bog\'liq xatolik');
+            }
+        }
+
+        function handleAmen(btn) {
+            const prayerId = btn.getAttribute('data-prayer-id');
+            sendAmen(prayerId);
+        }
+
+        async function sendAmen(prayerId) {
+            const btn = document.getElementById(`amen-btn-${prayerId}`);
+            if (btn.classList.contains('active')) return;
+
+            try {
+                const response = await fetch(`/api/prayers/${prayerId}/amen`, { method: 'POST' });
+                if (response.ok) {
+                    const data = await response.json();
+                    const countEl = document.getElementById(`amen-count-${prayerId}`);
+                    countEl.innerText = data.amen_count;
+                    btn.classList.add('active');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function handleShare(btn) {
+            const id = btn.getAttribute('data-prayer-id');
+            const content = btn.getAttribute('data-prayer-content');
+            sharePrayer(id, content);
+        }
+
+        function sharePrayer(id, content) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Duo Devori',
+                    text: content,
+                    url: window.location.href,
+                });
+            } else {
+                alert('Ushbu brauzerda ulashish imkoniyati mavjud emas');
+            }
+        }
+    </script>
+</body>
+
+</html>
