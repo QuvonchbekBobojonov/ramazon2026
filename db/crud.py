@@ -94,3 +94,13 @@ async def get_user_amens(session: AsyncSession, user_id: int):
     stmt = select(PrayerAmen.prayer_id).where(PrayerAmen.user_id == user_id)
     result = await session.execute(stmt)
     return set(result.scalars().all())
+
+async def delete_prayer(session: AsyncSession, prayer_id: int):
+    from sqlalchemy import delete
+    from .models import PrayerAmen
+    
+    # First delete associated amens
+    await session.execute(delete(PrayerAmen).where(PrayerAmen.prayer_id == prayer_id))
+    # Then delete the prayer
+    await session.execute(delete(Prayer).where(Prayer.id == prayer_id))
+    await session.commit()

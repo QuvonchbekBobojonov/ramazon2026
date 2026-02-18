@@ -480,6 +480,10 @@ async def get_prayers_page(request: Request, user_id: int = None):
             if p.created_at:
                 p.uz_time = p.created_at + timedelta(hours=5)
         
+        # Admin check
+        from core.config import ADMINS, BOT_TOKEN
+        is_admin = str(user_id) in ADMINS or user_id in ADMINS
+        
     bot_info = await bot.get_me()
     
     return templates.TemplateResponse("prayers.html", {
@@ -488,7 +492,9 @@ async def get_prayers_page(request: Request, user_id: int = None):
         "user_id": user_id or 0,
         "user_name": user_name,
         "bot_username": bot_info.username,
-        "user_amens": user_amens
+        "user_amens": user_amens,
+        "is_admin": is_admin,
+        "token": BOT_TOKEN
     })
 
 from pydantic import BaseModel
@@ -519,6 +525,17 @@ async def api_inc_amen(prayer_id: int, user_id: int):
         from db.crud import increment_amen
         new_count = await increment_amen(session, prayer_id, user_id)
     return {"amen_count": new_count}
+
+@app.delete("/api/admin/prayers/{prayer_id}")
+async def api_delete_prayer(prayer_id: int, token: str):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+        
+    async with async_session_maker() as session:
+        from db.crud import delete_prayer
+        await delete_prayer(session, prayer_id)
+    return {"success": True}
 
 
 @app.post(WEBHOOK_PATH)
