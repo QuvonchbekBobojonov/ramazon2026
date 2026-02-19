@@ -151,6 +151,17 @@
                     </div>
                     <i class="fas fa-paper-plane text-slate-500 bubble-icon"></i>
                 </button>
+                <button onclick="sendITBroadcast(event)"
+                    class="w-full glass rounded-2xl p-4 flex items-center gap-4 hover:bg-white/5 transition-all text-left">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                        <i class="fas fa-code text-indigo-400 text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold">IT Xizmatlari</h4>
+                        <p class="text-xs text-slate-400">IT xizmatlari haqida reklama yuborish</p>
+                    </div>
+                    <i class="fas fa-paper-plane text-slate-500 bubble-icon"></i>
+                </button>
             </div>
         </div>
 
@@ -565,6 +576,20 @@
                 btnText.innerText = 'Barchaga';
                 icon.className = originalIcon;
             }
+        }
+
+        async function sendITBroadcast(event) {
+            if (!confirm('IT xizmatlari haqidagi reklamani BARCHA foydalanuvchilarga yubormoqchimisiz?')) return;
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('.bubble-icon');
+            const originalIcon = icon.className;
+            icon.className = 'fas fa-spinner fa-spin text-slate-500';
+            try {
+                const response = await fetch(`/api/admin/broadcast/it_services?token=${token}`, { method: 'POST' });
+                const data = await response.json();
+                alert(data.success ? `IT reklamasi yuborish boshlandi! Jami: ${data.count}` : 'Xatolik!');
+            } catch (e) { alert('Xatolik!'); }
+            icon.className = originalIcon;
         }
     </script>
 </body>
