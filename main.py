@@ -301,6 +301,51 @@ async def api_broadcast_ramadan(token: str):
     return {"success": True, "count": len(users)}
 
 
+@app.post("/api/admin/broadcast/features")
+async def api_broadcast_features(token: str):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+    
+    async with async_session_maker() as session:
+        from db.crud import get_all_users
+        users = await get_all_users(session)
+    
+    async def run_broadcast_features():
+        from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
+        from db.crud import update_user_blocked
+        import asyncio
+        
+        text = (
+            "✨ <b>Yangi imkoniyatlar!</b>\n\n"
+            "Botimizda quyidagi yangilanishlar bo'ldi:\n\n"
+            "🎵 <b>Audio xizmatlar</b> — Endi mp3quran.net rasmiy bazasidan dunyoning eng mashhur qorilarining (Mishary Rashid, AbdulBaset va b.) go'zal qiroatlarini tinglashingiz mumkin!\n\n"
+            "❓ <b>Savol-javob (Fatvo)</b> — Ramazon va ro'zaga oid eng ko'p beriladigan savollarga rasmiy fatvolar bo'limi yangilandi.\n\n"
+            "Foydalanish uchun menyudagi tugmalardan foydalaning. 😊"
+        )
+        
+        for user in users:
+            if user.is_blocked:
+                continue
+            try:
+                await bot.send_message(user.telegram_id, text, parse_mode="HTML")
+                await asyncio.sleep(0.05)
+            except TelegramForbiddenError:
+                async with async_session_maker() as session_inner:
+                    await update_user_blocked(session_inner, user.telegram_id, True)
+            except TelegramRetryAfter as e:
+                await asyncio.sleep(e.retry_after)
+                try:
+                    await bot.send_message(user.telegram_id, text, parse_mode="HTML")
+                except: pass
+            except Exception as e:
+                logger.error(f"Feature broadcast error for {user.telegram_id}: {e}")
+
+    import asyncio
+    asyncio.create_task(run_broadcast_features())
+    return {"success": True, "count": len(users)}
+
+
 @app.post("/api/admin/broadcast/prayers")
 async def api_broadcast_prayers(token: str):
     from core.config import BOT_TOKEN, WEBHOOK_HOST

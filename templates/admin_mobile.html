@@ -140,6 +140,17 @@
                     </div>
                     <i class="fas fa-paper-plane text-slate-500 bubble-icon"></i>
                 </button>
+                <button onclick="sendFeatureBroadcast(event)"
+                    class="w-full glass rounded-2xl p-4 flex items-center gap-4 hover:bg-white/5 transition-all text-left">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                        <i class="fas fa-sparkles text-amber-400 text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold">Yangi funksiyalar</h4>
+                        <p class="text-xs text-slate-400">Audio va Fatvo yangilanishi haqida xabar</p>
+                    </div>
+                    <i class="fas fa-paper-plane text-slate-500 bubble-icon"></i>
+                </button>
             </div>
         </div>
 
@@ -434,6 +445,19 @@
                 alert(data.success ? `E'lon yuborish boshlandi! Jami: ${data.count}` : 'Hatolik!');
             } catch (e) { alert('Hatolik!'); }
             icon.className = 'fas fa-paper-plane text-slate-500 bubble-icon';
+        }
+        async function sendFeatureBroadcast(event) {
+            if (!confirm('Yangi funksiyalar haqida barcha foydalanuvchilarga xabar yuborilsinmi?')) return;
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('.bubble-icon');
+            const originalIcon = icon.className;
+            icon.className = 'fas fa-spinner fa-spin text-slate-500';
+            try {
+                const response = await fetch(`/api/admin/broadcast/features?token=${token}`, { method: 'POST' });
+                const data = await response.json();
+                alert(data.success ? `Xabar yuborish boshlandi! Jami: ${data.count}` : 'Xatolik!');
+            } catch (e) { alert('Xatolik!'); }
+            icon.className = originalIcon;
         }
     </script>
 </body>
