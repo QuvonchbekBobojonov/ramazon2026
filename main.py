@@ -379,6 +379,49 @@ async def api_broadcast_targeted(request: Request, token: str):
     return {"success": True, "count": len(id_list)}
 
 
+@app.post("/api/admin/broadcast/all")
+async def api_broadcast_all(request: Request, token: str):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+    
+    data = await request.json()
+    text = data.get("text", "")
+    
+    if not text:
+        return JSONResponse({"error": "Text missing"}, status_code=400)
+    
+    async with async_session_maker() as session:
+        from db.crud import get_all_users
+        users = await get_all_users(session)
+    
+    async def run_broadcast_all():
+        from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
+        from db.crud import update_user_blocked
+        import asyncio
+        
+        for user in users:
+            if user.is_blocked:
+                continue
+            try:
+                await bot.send_message(user.telegram_id, text, parse_mode="HTML")
+                await asyncio.sleep(0.05)
+            except TelegramForbiddenError:
+                async with async_session_maker() as session_inner:
+                    await update_user_blocked(session_inner, user.telegram_id, True)
+            except TelegramRetryAfter as e:
+                await asyncio.sleep(e.retry_after)
+                try:
+                    await bot.send_message(user.telegram_id, text, parse_mode="HTML")
+                except: pass
+            except Exception as e:
+                logger.error(f"Broadcast all error for {user.telegram_id}: {e}")
+
+    import asyncio
+    asyncio.create_task(run_broadcast_all())
+    return {"success": True, "count": len(users)}
+
+
 @app.post("/api/admin/broadcast/prayers")
 async def api_broadcast_prayers(token: str):
     from core.config import BOT_TOKEN, WEBHOOK_HOST

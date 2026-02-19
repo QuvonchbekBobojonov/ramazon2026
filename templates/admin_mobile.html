@@ -170,11 +170,18 @@
                     <textarea id="ad-text" placeholder="Reklama matnini kiriting..."
                         class="w-full bg-slate-800/50 border border-white/10 rounded-xl p-3 focus:outline-none focus:border-blue-500/50 text-sm h-32"></textarea>
                 </div>
-                <button onclick="sendTargetedAd(event)"
-                    class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
-                    <span id="ad-btn-text">Yuborish</span>
-                    <i class="fas fa-paper-plane text-xs ad-icon"></i>
-                </button>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="sendTargetedAd(event)"
+                        class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+                        <span id="ad-btn-text">ID-larga</span>
+                        <i class="fas fa-paper-plane text-[10px] ad-icon"></i>
+                    </button>
+                    <button onclick="sendAllAd(event)"
+                        class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+                        <span id="all-ad-btn-text">Barchaga</span>
+                        <i class="fas fa-users text-[10px] all-ad-icon"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -249,11 +256,12 @@
                         <div class="flex items-center gap-2">
                             <div
                                 class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold">
-                                {{ prayer.real_author.full_name[:1] if prayer.real_author else '?' }}
+                                {{ prayer.real_author.full_name[:1] if (prayer and prayer.real_author and
+                                prayer.real_author.full_name) else '?' }}
                             </div>
                             <div>
-                                <h4 class="text-xs font-bold text-white">{{ prayer.real_author.full_name if
-                                    prayer.real_author else "Noma'lum" }}</h4>
+                                <h4 class="text-xs font-bold text-white">{{ prayer.real_author.full_name if (prayer and
+                                    prayer.real_author and prayer.real_author.full_name) else "Noma'lum" }}</h4>
                                 <p class="text-[10px] text-slate-500">
                                     ID: {{ prayer.user_id }} {% if prayer.is_anonymous %}<span
                                         class="text-amber-500 font-bold ml-1">(Anonim)</span>{% endif %}
@@ -519,6 +527,43 @@
             } finally {
                 btnText.innerText = 'Yuborish';
                 icon.className = 'fas fa-paper-plane text-xs ad-icon';
+            }
+        }
+
+        async function sendAllAd(event) {
+            const text = document.getElementById('ad-text').value;
+            const btnText = document.getElementById('all-ad-btn-text');
+            const icon = document.querySelector('.all-ad-icon');
+
+            if (!text) {
+                alert('Xabar matnini kiriting!');
+                return;
+            }
+
+            if (!confirm(`Haqiqatan ham ushbu xabarni BARCHA foydalanuvchilarga yubormoqchimisiz?`)) return;
+
+            btnText.innerText = 'Yuborilmoqda...';
+            const originalIcon = icon.className;
+            icon.className = 'fas fa-spinner fa-spin text-[10px]';
+
+            try {
+                const response = await fetch(`/api/admin/broadcast/all?token=${token}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert(`Barchaga yuborish boshlandi! Jami: ${data.count} ta foydalanuvchi.`);
+                    document.getElementById('ad-text').value = '';
+                } else {
+                    alert('Xatolik: ' + (data.error || 'Noma\'lum xato'));
+                }
+            } catch (e) {
+                alert('Xatolik yuz berdi!');
+            } finally {
+                btnText.innerText = 'Barchaga';
+                icon.className = originalIcon;
             }
         }
     </script>
