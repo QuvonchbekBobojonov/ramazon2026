@@ -656,31 +656,38 @@ async def api_get_audio():
             async with session.get(API_URL) as response:
                 if response.status == 200:
                     data = await response.json()
-                    # Mashhur qorilar: Mishary Rashid (117), AbdulBaset (1), Sudais (3), Shuraim (54)
-                    target_ids = [1, 3, 54, 117]
+                    # Mashhur qorilar: Mishary Rashid (117), AbdulBaset (1), Sudais (3), Shuraim (54), Ghamdi (55)
+                    target_ids = [1, 3, 54, 117, 55]
                     all_reciters = data.get('reciters', [])
                     selected = [r for r in all_reciters if r['id'] in target_ids]
                     
+                    # Suralar ro'yxatini olish (nomlari uchun)
+                    surah_names_url = "https://www.mp3quran.net/api/v3/suwar?language=uz"
+                    surahs_data = {}
+                    async with session.get(surah_names_url) as s_res:
+                        if s_res.status == 200:
+                            s_data = await s_res.json()
+                            for s in s_data.get('suwar', []):
+                                surahs_data[str(s['id'])] = s['name']
+                    
                     results = []
                     for r in selected:
-                        # Har biri uchun asosiy suralarni qo'shamiz
-                        # Fotiha (001), Yasin (036), Mulk (067)
-                        server = r['moshaf'][0]['server']
-                        suras = [
-                            {"id": f"{r['id']}_1", "title": "Fotiha surasi", "sura_id": "001"},
-                            {"id": f"{r['id']}_36", "title": "Yasin surasi", "sura_id": "036"},
-                            {"id": f"{r['id']}_67", "title": "Mulk surasi", "sura_id": "067"}
-                        ]
-                        for s in suras:
+                        moshaf = r['moshaf'][0]
+                        server = moshaf['server']
+                        surah_list = moshaf['surah_list'].split(',') # "1,2,3..."
+                        
+                        for surah_id in surah_list:
+                            # 3 xonali ID (masalan 1 -> 001)
+                            s_id_str = surah_id.zfill(3)
+                            name = surahs_data.get(surah_id, f"{surah_id}-sura")
+                            
                             results.append({
-                                "id": s['id'],
-                                "title": s['title'],
+                                "id": f"{r['id']}_{surah_id}",
+                                "title": name,
                                 "artist": r['name'],
-                                "url": f"{server}{s['sura_id']}.mp3",
-                                "cover": f"https://static.qurancdn.com/images/reciters/{r['id']}.png",
+                                "url": f"{server}{s_id_str}.mp3",
                                 "category": "Qur'on"
                             })
-                    
                     
                     return {"audio": results}
     except Exception as e:

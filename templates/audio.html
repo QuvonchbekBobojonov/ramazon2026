@@ -92,16 +92,11 @@
 <body class="pb-32">
     <!-- Header -->
     <div class="px-5 pt-8 pb-6 sticky top-0 bg-[#0f172a]/80 backdrop-blur-md z-20 border-b border-white/5">
-        <div class="flex items-center gap-4">
-            <button onclick="window.history.back()"
-                class="w-10 h-10 rounded-xl glass flex items-center justify-center text-slate-400">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <div>
-                <h1 class="text-xl font-bold gradient-text">🎵 Audio xizmatlar</h1>
-                <p class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Qiroat va tasbehlar</p>
-            </div>
+        <div>
+            <h1 class="text-xl font-bold gradient-text">🎵 Audio xizmatlar</h1>
+            <p class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Qiroat va tasbehlar</p>
         </div>
+    </div>
     </div>
 
     <!-- Categories -->
@@ -130,8 +125,8 @@
     <div id="player-bar"
         class="fixed bottom-6 left-5 right-5 glass rounded-[32px] p-5 transform translate-y-48 transition-all duration-500 z-50 shadow-2xl border border-white/10">
         <div class="flex items-center gap-4 mb-4">
-            <div class="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg">
-                <img id="current-cover" src="" class="w-full h-full object-cover">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+                <i class="fas fa-play text-xs"></i>
             </div>
             <div class="flex-1 min-w-0">
                 <h4 id="current-title" class="text-sm font-bold truncate text-white">Sura nomi</h4>
@@ -209,12 +204,9 @@
                 const html = `
                     <div class="glass rounded-3xl p-4 audio-card flex items-center gap-4 cursor-pointer" 
                         id="audio-${item.id}" 
-                        onclick="selectAudio('${item.id}', '${item.url}', '${item.title.replace(/'/g, "\\'")}', '${item.artist.replace(/'/g, "\\'")}', '${item.cover}')">
-                        <div class="relative w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg">
-                            <img src="${item.cover}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                                <i class="fas fa-play text-white text-xs"></i>
-                            </div>
+                        onclick="selectAudio('${item.id}', '${item.url}', '${item.title.replace(/'/g, "\\'")}', '${item.artist.replace(/'/g, "\\'")}')">
+                        <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 flex-shrink-0">
+                            <i class="fas fa-play text-[10px]"></i>
                         </div>
                         <div class="flex-1 min-w-0">
                             <h3 class="text-sm font-bold text-slate-100 truncate">${item.title}</h3>
@@ -249,7 +241,7 @@
             }
         }
 
-        function selectAudio(id, url, title, artist, cover) {
+        function selectAudio(id, url, title, artist) {
             if (currentId == id) {
                 togglePlay();
                 return;
@@ -270,7 +262,6 @@
             // Update Player UI
             document.getElementById('current-title').innerText = title;
             document.getElementById('current-artist').innerText = artist;
-            document.getElementById('current-cover').src = cover;
 
             audio.src = url;
             audio.play().catch(e => console.error("Audio play failed:", e));
@@ -298,7 +289,7 @@
             const index = filteredPlaylist.findIndex(a => a.id == currentId);
             if (index !== -1 && index < filteredPlaylist.length - 1) {
                 const next = filteredPlaylist[index + 1];
-                selectAudio(next.id, next.url, next.title, next.artist, next.cover);
+                selectAudio(next.id, next.url, next.title, next.artist);
             }
         }
 
@@ -306,7 +297,7 @@
             const index = filteredPlaylist.findIndex(a => a.id == currentId);
             if (index > 0) {
                 const prev = filteredPlaylist[index - 1];
-                selectAudio(prev.id, prev.url, prev.title, prev.artist, prev.cover);
+                selectAudio(prev.id, prev.url, prev.title, prev.artist);
             }
         }
 
