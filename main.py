@@ -258,7 +258,7 @@ async def api_broadcast_ramadan(token: str):
             "<b>Assalomu alaykum va rahmatullohi va barokatuh!</b>\n\n"
             "Barchangizni kirib kelayotgan <b>Ramazon oyi</b> bilan chin qalbdan muborakbod etamiz! 🌙✨\n\n"
             "Ushbu muborak oy barchamizga xayrli va barokatli bo'lsin. Duolarimiz ijobat, ibodatlarimiz maqbul bo'lishini Allohdan so'rab qolamiz. 🤲\n\n"
-            "Hurmat bilan, <a href='https://t.me/QuvonchbekBobojonov'>Quvonchbek Bobojonov</a>"
+            "Hurmat bilan, <a href='https://t.me/QuvonchbekDev'>Quvonchbek Dev</a> (+998774040066)"
         )
         
         for user in users:
@@ -344,6 +344,39 @@ async def api_broadcast_features(token: str):
     import asyncio
     asyncio.create_task(run_broadcast_features())
     return {"success": True, "count": len(users)}
+
+
+@app.post("/api/admin/broadcast/targeted")
+async def api_broadcast_targeted(request: Request, token: str):
+    from core.config import BOT_TOKEN
+    if token != BOT_TOKEN:
+        return JSONResponse({"error": "Unauthorized"}, status_code=403)
+    
+    data = await request.json()
+    ids_str = data.get("ids", "")
+    text = data.get("text", "")
+    
+    if not ids_str or not text:
+        return JSONResponse({"error": "IDs or text missing"}, status_code=400)
+    
+    # Parse IDs
+    import re
+    id_list = re.findall(r'\d+', ids_str)
+    
+    async def run_targeted_broadcast():
+        from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
+        import asyncio
+        
+        for user_id in id_list:
+            try:
+                await bot.send_message(int(user_id), text, parse_mode="HTML")
+                await asyncio.sleep(0.05)
+            except Exception as e:
+                logger.error(f"Targeted broadcast error for {user_id}: {e}")
+
+    import asyncio
+    asyncio.create_task(run_targeted_broadcast())
+    return {"success": True, "count": len(id_list)}
 
 
 @app.post("/api/admin/broadcast/prayers")

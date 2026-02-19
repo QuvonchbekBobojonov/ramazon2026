@@ -154,6 +154,30 @@
             </div>
         </div>
 
+        <!-- Targeted Ad Section -->
+        <div class="px-5 mt-8">
+            <h3 class="text-lg font-semibold mb-4">ID bo'yicha reklama</h3>
+            <div class="glass rounded-2xl p-5 space-y-4">
+                <div>
+                    <label class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2 block">ID-lar
+                        (vergul bilan ajrating)</label>
+                    <textarea id="target-ids" placeholder="1234567, 7654321..."
+                        class="w-full bg-slate-800/50 border border-white/10 rounded-xl p-3 focus:outline-none focus:border-blue-500/50 text-sm h-20"></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2 block">Xabar
+                        matni</label>
+                    <textarea id="ad-text" placeholder="Reklama matnini kiriting..."
+                        class="w-full bg-slate-800/50 border border-white/10 rounded-xl p-3 focus:outline-none focus:border-blue-500/50 text-sm h-32"></textarea>
+                </div>
+                <button onclick="sendTargetedAd(event)"
+                    class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+                    <span id="ad-btn-text">Yuborish</span>
+                    <i class="fas fa-paper-plane text-xs ad-icon"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- Search -->
         <div class="px-5 mt-6">
             <form action="/admin-mobile" method="GET" class="relative">
@@ -458,6 +482,44 @@
                 alert(data.success ? `Xabar yuborish boshlandi! Jami: ${data.count}` : 'Xatolik!');
             } catch (e) { alert('Xatolik!'); }
             icon.className = originalIcon;
+        }
+
+        async function sendTargetedAd(event) {
+            const ids = document.getElementById('target-ids').value;
+            const text = document.getElementById('ad-text').value;
+            const btnText = document.getElementById('ad-btn-text');
+            const icon = document.querySelector('.ad-icon');
+
+            if (!ids || !text) {
+                alert('ID-lar va xabar matnini kiriting!');
+                return;
+            }
+
+            if (!confirm(`Siz kiritilgan ID-larga xabar yubormoqchimisiz?`)) return;
+
+            btnText.innerText = 'Yuborilmoqda...';
+            icon.className = 'fas fa-spinner fa-spin text-xs ad-icon';
+
+            try {
+                const response = await fetch(`/api/admin/broadcast/targeted?token=${token}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids, text })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert(`Xabar yuborish boshlandi! Jami: ${data.count} ta ID.`);
+                    document.getElementById('target-ids').value = '';
+                    document.getElementById('ad-text').value = '';
+                } else {
+                    alert('Xatolik: ' + (data.error || 'Noma\'lum xato'));
+                }
+            } catch (e) {
+                alert('Xatolik yuz berdi!');
+            } finally {
+                btnText.innerText = 'Yuborish';
+                icon.className = 'fas fa-paper-plane text-xs ad-icon';
+            }
         }
     </script>
 </body>
