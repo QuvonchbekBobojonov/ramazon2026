@@ -4,14 +4,25 @@ from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
 from core.loader import bot
 from db.base import async_session_maker
 from db.crud import get_all_users
-from utils.ramadan_calculator import get_today_times
+from utils.ramadan_calculator import get_today_times, get_now_uz
 from utils.ramadan_data import ramadan_prayers
+from utils.reminders_data import daily_reminders
 
 logger = logging.getLogger(__name__)
 
 async def send_daily_notifications():
     async with async_session_maker() as session:
         users = await get_all_users(session)
+    
+    # Get current Ramadan day (simple logic for now)
+    now_uz = get_now_uz()
+    # Assuming Ramadan starts on Feb 19, 2026
+    ramadan_start = now_uz.replace(year=2026, month=2, day=19, hour=0, minute=0, second=0)
+    day_diff = (now_uz.date() - ramadan_start.date()).days + 1
+    
+    # Pick a reminder (wrap around if more than 30 days or index out of range)
+    reminder_index = (day_diff - 1) % len(daily_reminders)
+    reminder = daily_reminders[reminder_index]
     
     count = 0
     for user in users:
@@ -34,6 +45,9 @@ async def send_daily_notifications():
                 f"<i>{suhoor_prayers['arabic']}</i>\n\n"
                 f"🤲 <b>Iftorlik duosi:</b>\n"
                 f"<i>{iftar_prayers['arabic']}</i>\n\n"
+                f"📖 <b>Kunlik {reminder['type']}:</b>\n"
+                f"«{reminder['content']}»\n"
+                f"<i>— {reminder['source']}</i>\n\n"
                 f"Ramazon oyi barchamizga muborak bo'lsin! ✨")
         
         try:

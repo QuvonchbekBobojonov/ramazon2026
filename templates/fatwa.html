@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Savol-javob - Ramazon 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(88, 28, 135, 0.3) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+            padding-top: 1rem;
+        }
+
+        .accordion-item.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="pb-10">
+    <div class="px-5 pt-8 pb-6 sticky top-0 bg-[#0f172a]/80 backdrop-blur-md z-20 border-b border-white/5">
+        <div class="flex items-center gap-4">
+            <button onclick="window.history.back()"
+                class="w-10 h-10 rounded-xl glass flex items-center justify-center text-slate-400">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div>
+                <h1 class="text-xl font-bold gradient-text">❓ Savol-javob</h1>
+                <p class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Fatvolar va qoidalar</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-5 mt-6">
+        <div class="relative mb-8">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+            <input type="text" id="searchInput" placeholder="Savollarni izlash..."
+                class="w-full bg-slate-800/50 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-blue-500/50 transition-all">
+        </div>
+
+        <div class="space-y-4" id="faqContainer">
+            <div class="flex justify-center py-10" id="loader">
+                <i class="fas fa-circle-notch fa-spin text-blue-500 text-2xl"></i>
+            </div>
+            <!-- Data will be loaded via API -->
+        </div>
+    </div>
+
+    <script>
+        Telegram.WebApp.ready();
+
+        async function loadFatwa() {
+            const container = document.getElementById('faqContainer');
+            const loader = document.getElementById('loader');
+
+            // Tashqi API URL (agar bo'lsa)
+            const EXTERNAL_API = '';
+            const apiUrl = EXTERNAL_API || '/api/fatwa';
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (loader) loader.remove();
+
+                if (data.fatwa && data.fatwa.length > 0) {
+                    data.fatwa.forEach(item => {
+                        const html = `
+                            <div class="glass rounded-2xl p-4 accordion-item" onclick="toggleAccordion(this)">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="flex-1">
+                                        <span class="text-[10px] font-bold text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-full uppercase mb-2 inline-block">
+                                            ${item.category}
+                                        </span>
+                                        <h3 class="text-sm font-semibold text-slate-200 leading-snug">${item.question}</h3>
+                                    </div>
+                                    <i class="fas fa-chevron-down text-slate-500 mt-1 chevron"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <p class="text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+                                        ${item.answer}
+                                    </p>
+                                    <div class="mt-4 flex justify-end">
+                                        <span class="text-[9px] font-bold text-slate-600 italic">— Manba: ${item.source}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', html);
+                    });
+                } else {
+                    container.innerHTML = '<p class="text-center text-slate-500 py-10 text-sm">Ma\'lumot topilmadi.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading fatwa:', error);
+                container.innerHTML = '<p class="text-center text-red-400 py-10 text-sm">Xatolik yuz berdi. Iltimos qayta urinib ko\'ring.</p>';
+            }
+        }
+
+        // Call on load
+        loadFatwa();
+
+        function toggleAccordion(element) {
+            // Close other items
+            const items = document.querySelectorAll('.accordion-item');
+            items.forEach(item => {
+                if (item !== element) item.classList.remove('active');
+            });
+            // Toggle current
+            element.classList.toggle('active');
+
+            if (window.Telegram && Telegram.WebApp.HapticFeedback) {
+                Telegram.WebApp.HapticFeedback.selectionChanged();
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const term = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.accordion-item');
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(term)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

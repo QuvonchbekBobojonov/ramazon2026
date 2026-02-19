@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Audio Hizmatlar - Ramazon 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(88, 28, 135, 0.4) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .audio-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .audio-card.playing {
+            background: rgba(96, 165, 250, 0.15);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                height: 4px;
+            }
+
+            50% {
+                height: 16px;
+            }
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: #60a5fa;
+            border-radius: 1px;
+            animation: wave 1s infinite ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="pb-32">
+    <!-- Header -->
+    <div class="px-5 pt-8 pb-6 sticky top-0 bg-[#0f172a]/80 backdrop-blur-md z-20 border-b border-white/5">
+        <div class="flex items-center gap-4">
+            <button onclick="window.history.back()"
+                class="w-10 h-10 rounded-xl glass flex items-center justify-center text-slate-400">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div>
+                <h1 class="text-xl font-bold gradient-text">🎵 Audio xizmatlar</h1>
+                <p class="text-slate-400 text-[10px] uppercase tracking-wider font-bold">Qiroat va tasbehlar</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="px-5 mt-4 overflow-x-auto whitespace-nowrap hide-scrollbar flex gap-3">
+        <button onclick="filterCategory('Hammasi')"
+            class="cat-btn px-6 py-2.5 rounded-2xl glass text-xs font-bold transition-all active:scale-95"
+            id="cat-Hammasi">Hammasi</button>
+        <button onclick="filterCategory('Qur\'on')"
+            class="cat-btn px-6 py-2.5 rounded-2xl glass text-xs font-bold transition-all active:scale-95 opacity-60"
+            id="cat-Qur'on">Qur'on</button>
+        <button onclick="filterCategory('Tasbeh')"
+            class="cat-btn px-6 py-2.5 rounded-2xl glass text-xs font-bold transition-all active:scale-95 opacity-60"
+            id="cat-Tasbeh">Tasbeh</button>
+    </div>
+
+    <!-- Players List -->
+    <div class="px-5 mt-6 space-y-4" id="audio-list-container">
+        <!-- Loader -->
+        <div id="loader" class="flex flex-col items-center justify-center py-20">
+            <div class="w-10 h-10 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Audionlar yuklanmoqda...</p>
+        </div>
+    </div>
+
+    <!-- Global Player UI -->
+    <div id="player-bar"
+        class="fixed bottom-6 left-5 right-5 glass rounded-[32px] p-5 transform translate-y-48 transition-all duration-500 z-50 shadow-2xl border border-white/10">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg">
+                <img id="current-cover" src="" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0">
+                <h4 id="current-title" class="text-sm font-bold truncate text-white">Sura nomi</h4>
+                <p id="current-artist" class="text-[10px] text-slate-400 truncate tracking-wide">Qori</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="playPrev()" class="text-slate-400 hover:text-white transition-colors">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button onclick="togglePlay()"
+                    class="w-11 h-11 rounded-full bg-white text-slate-900 flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+                    <i id="play-icon" class="fas fa-play text-xs ml-1"></i>
+                </button>
+                <button onclick="playNext()" class="text-slate-400 hover:text-white transition-colors">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="relative group px-1">
+            <div class="progress-bar cursor-pointer" id="progress-container" onclick="seek(event)">
+                <div id="progress-fill" class="progress-fill relative">
+                    <div
+                        class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md scale-0 group-hover:scale-100 transition-transform">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-between mt-2 px-1">
+            <span id="current-time" class="text-[9px] font-bold text-slate-500 tabular-nums">0:00</span>
+            <span id="duration-time" class="text-[9px] font-bold text-slate-500 tabular-nums">0:00</span>
+        </div>
+    </div>
+
+    <audio id="main-audio" preload="auto"></audio>
+
+    <script>
+        const audio = document.getElementById('main-audio');
+        const playerBar = document.getElementById('player-bar');
+        const playIcon = document.getElementById('play-icon');
+        const progressFill = document.getElementById('progress-fill');
+        const progressContainer = document.getElementById('progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationTimeEl = document.getElementById('duration-time');
+
+        let currentId = null;
+
+        let allAudio = [];
+        let filteredPlaylist = [];
+
+        async function loadAudio() {
+            const container = document.getElementById('audio-list-container');
+            try {
+                const response = await fetch('/api/audio');
+                const data = await response.json();
+
+                if (data.audio) {
+                    allAudio = data.audio;
+                    renderAudioList('Hammasi');
+                }
+            } catch (error) {
+                console.error('Audio load error:', error);
+                container.innerHTML = '<p class="text-center text-red-400 py-10 font-bold uppercase text-[10px]">Xatolik yuz berdi</p>';
+            }
+        }
+
+        function renderAudioList(cat) {
+            const container = document.getElementById('audio-list-container');
+            container.innerHTML = '';
+
+            filteredPlaylist = allAudio.filter(a => cat === 'Hammasi' || a.category === cat);
+
+            filteredPlaylist.forEach(item => {
+                const html = `
+                    <div class="glass rounded-3xl p-4 audio-card flex items-center gap-4 cursor-pointer" 
+                        id="audio-${item.id}" 
+                        onclick="selectAudio('${item.id}', '${item.url}', '${item.title.replace(/'/g, "\\'")}', '${item.artist.replace(/'/g, "\\'")}', '${item.cover}')">
+                        <div class="relative w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg">
+                            <img src="${item.cover}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                <i class="fas fa-play text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-sm font-bold text-slate-100 truncate">${item.title}</h3>
+                            <p class="text-[10px] text-slate-500 truncate mt-0.5">${item.artist}</p>
+                        </div>
+                        <div class="playing-indicator hidden flex items-end gap-1 h-3 mb-1">
+                            <div class="wave-bar h-2" style="animation-delay: 0.1s"></div>
+                            <div class="wave-bar h-3" style="animation-delay: 0.2s"></div>
+                            <div class="wave-bar h-1" style="animation-delay: 0.3s"></div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+
+            if (currentId) {
+                const activeCard = document.getElementById(`audio-${currentId}`);
+                if (activeCard) {
+                    activeCard.classList.add('playing', 'bg-blue-500/10', 'border-blue-500/20');
+                    activeCard.querySelector('.playing-indicator').classList.remove('hidden');
+                }
+            }
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.add('opacity-60'));
+            document.getElementById(`cat-${cat}`).classList.remove('opacity-60');
+            renderAudioList(cat);
+
+            if (window.Telegram && Telegram.WebApp.HapticFeedback) {
+                Telegram.WebApp.HapticFeedback.selectionChanged();
+            }
+        }
+
+        function selectAudio(id, url, title, artist, cover) {
+            if (currentId == id) {
+                togglePlay();
+                return;
+            }
+
+            // Update List UI
+            document.querySelectorAll('.audio-card').forEach(c => {
+                c.classList.remove('playing', 'bg-blue-500/10', 'border-blue-500/20');
+                c.querySelector('.playing-indicator').classList.add('hidden');
+            });
+
+            const card = document.getElementById(`audio-${id}`);
+            if (card) {
+                card.classList.add('playing', 'bg-blue-500/10', 'border-blue-500/20');
+                card.querySelector('.playing-indicator').classList.remove('hidden');
+            }
+
+            // Update Player UI
+            document.getElementById('current-title').innerText = title;
+            document.getElementById('current-artist').innerText = artist;
+            document.getElementById('current-cover').src = cover;
+
+            audio.src = url;
+            audio.play().catch(e => console.error("Audio play failed:", e));
+            currentId = id;
+            playerBar.classList.remove('translate-y-48');
+            playIcon.className = 'fas fa-pause';
+
+            if (window.Telegram && Telegram.WebApp.HapticFeedback) {
+                Telegram.WebApp.HapticFeedback.impactOccurred('light');
+            }
+        }
+
+        function togglePlay() {
+            if (!audio.src) return;
+            if (audio.paused) {
+                audio.play();
+                playIcon.className = 'fas fa-pause';
+            } else {
+                audio.pause();
+                playIcon.className = 'fas fa-play text-xs ml-1';
+            }
+        }
+
+        function playNext() {
+            const index = filteredPlaylist.findIndex(a => a.id == currentId);
+            if (index !== -1 && index < filteredPlaylist.length - 1) {
+                const next = filteredPlaylist[index + 1];
+                selectAudio(next.id, next.url, next.title, next.artist, next.cover);
+            }
+        }
+
+        function playPrev() {
+            const index = filteredPlaylist.findIndex(a => a.id == currentId);
+            if (index > 0) {
+                const prev = filteredPlaylist[index - 1];
+                selectAudio(prev.id, prev.url, prev.title, prev.artist, prev.cover);
+            }
+        }
+
+        function seek(e) {
+            if (!audio.duration) return;
+            const rect = progressContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        }
+
+        audio.ontimeupdate = () => {
+            if (audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = `${progress}%`;
+
+                currentTimeEl.innerText = formatTime(audio.currentTime);
+                durationTimeEl.innerText = formatTime(audio.duration);
+            }
+        };
+
+        audio.onended = () => {
+            playNext();
+            if (audio.paused) { // If it was the last song
+                playIcon.className = 'fas fa-play text-xs ml-1';
+            }
+        };
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        // Initialize
+        loadAudio();
+        // filterCategory('Hammasi'); // Removed as loadAudio calls render
+
+        Telegram.WebApp.ready();
+    </script>
+    <style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body>
+
+</html>

@@ -12,8 +12,11 @@ from core.loader import bot, dp
 import handlers
 from utils.notify_admins import on_startup_notify, on_shutdown_notify
 from utils.set_bot_commands import set_default_commands
-from utils.ramadan_calculator import get_daily_times, get_full_calendar
+from utils.ramadan_calculator import get_daily_times, get_full_calendar, get_now_uz
 from utils.notifications import send_daily_notifications
+from utils.fatwa_data import fatwa_data
+from utils.audio_data import audio_data
+from utils.reminders_data import daily_reminders
 from middlewares import setup_middlewares
 
 from db.base import engine, Base
@@ -621,6 +624,69 @@ async def api_get_admin_prayers(token: str, offset: int = 0, limit: int = 50):
             })
         return {"prayers": results}
 
+@app.get("/fatwa", response_class=HTMLResponse)
+async def get_fatwa_page(request: Request):
+    return templates.TemplateResponse("fatwa.html", {"request": request, "fatwa_list": fatwa_data})
+
+@app.get("/audio", response_class=HTMLResponse)
+async def get_audio_page(request: Request):
+    return templates.TemplateResponse("audio.html", {"request": request, "audio_list": audio_data})
+
+@app.get("/reminders", response_class=HTMLResponse)
+async def get_reminders_page(request: Request):
+    return templates.TemplateResponse("reminders.html", {"request": request, "reminders_list": daily_reminders})
+
+@app.get("/api/fatwa")
+async def api_get_fatwa():
+    # Hozirda rasmiy Fatvo API (JSON) mavjud bo'lmagani uchun lokal ma'lumotdan foydalanamiz
+    # Kelajakda tashqi API qo'shilsa, shu yerda mantiqni o'zgartirish mumkin
+    try:
+        return {"fatwa": fatwa_data}
+    except Exception as e:
+        logger.error(f"Fatwa API error: {e}")
+        return {"fatwa": []}
+
+@app.get("/api/audio")
+async def api_get_audio():
+    # Rasmiy mp3quran.net API dan mashhur qorilarni olish
+    API_URL = "https://www.mp3quran.net/api/v3/reciters?language=eng"
+    import aiohttp
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(API_URL) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    # Mashhur qorilar: Mishary Rashid (117), AbdulBaset (1), Sudais (3), Shuraim (54)
+                    target_ids = [1, 3, 54, 117]
+                    all_reciters = data.get('reciters', [])
+                    selected = [r for r in all_reciters if r['id'] in target_ids]
+                    
+                    results = []
+                    for r in selected:
+                        # Har biri uchun asosiy suralarni qo'shamiz
+                        # Fotiha (001), Yasin (036), Mulk (067)
+                        server = r['moshaf'][0]['server']
+                        suras = [
+                            {"id": f"{r['id']}_1", "title": "Fotiha surasi", "sura_id": "001"},
+                            {"id": f"{r['id']}_36", "title": "Yasin surasi", "sura_id": "036"},
+                            {"id": f"{r['id']}_67", "title": "Mulk surasi", "sura_id": "067"}
+                        ]
+                        for s in suras:
+                            results.append({
+                                "id": s['id'],
+                                "title": s['title'],
+                                "artist": r['name'],
+                                "url": f"{server}{s['sura_id']}.mp3",
+                                "cover": f"https://static.qurancdn.com/images/reciters/{r['id']}.png",
+                                "category": "Qur'on"
+                            })
+                    
+                    
+                    return {"audio": results}
+    except Exception as e:
+        logger.error(f"Audio API error: {e}")
+    
+    return {"audio": audio_data}
 @app.post(WEBHOOK_PATH)
 async def webhook_endpoint(request: Request):
     return await handle_webhook(request)

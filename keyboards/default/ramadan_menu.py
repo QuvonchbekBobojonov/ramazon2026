@@ -19,7 +19,14 @@ def get_ramadan_menu(region: str = "tashkent", is_admin: bool = False, user_id: 
             KeyboardButton(text="✨ Duo Devori", web_app=WebAppInfo(url=prayers_url)),
         ],
         [
+            KeyboardButton(text="❓ Savol-javob", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/fatwa")),
+            KeyboardButton(text="🎵 Audio xizmatlar", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/audio")),
+        ],
+        [
+            KeyboardButton(text="📖 Hadis va Oyat", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/reminders")),
             KeyboardButton(text="🤲 Ramazon duolari"),
+        ],
+        [
             KeyboardButton(text="📍 Hududni o'zgartirish"),
         ],
     ]
