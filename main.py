@@ -25,6 +25,8 @@ from db.base import engine, Base
 import logging
 import sys
 from starlette.middleware.sessions import SessionMiddleware
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from pytz import timezone
 
 
 # Configure logging to see errors in Vercel logs
@@ -387,19 +389,18 @@ async def handle_webhook(request: Request):
 
 
 async def on_startup():
-    global first_run
-    
     # Create tables
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     
-    # Check for missing columns (fix schema)
+    # 1. Fix Schema
     try:
         from fix_db_schema import fix_schema
         await fix_schema()
     except Exception as e:
         logger.error(f"Error fixing schema: {e}")
         
+    # 2. Webhook and Bot setup
     try:
         if "your-webhook-host" not in WEBHOOK_URI and WEBHOOK_HOST:
             webhook_info = await bot.get_webhook_info()
@@ -408,29 +409,23 @@ async def on_startup():
                 logger.info(f"Webhook set to: {WEBHOOK_URI}")
         else:
             logger.warning("WEBHOOK_HOST is not configured properly. Skipping webhook setup.")
-            # Optionally delete webhook if you want to use polling, 
-            # but this is a FastAPI app, so it expects webhooks.
-        
+            
         await set_default_commands(bot)
         await on_startup_notify(bot)
     except Exception as e:
-        logger.error(f"Error during bot setup (webhook might be invalid): {e}")
-    
+        logger.error(f"Error during bot setup: {e}")
+
+    # 3. Scheduler
+    try:
+        scheduler = AsyncIOScheduler(timezone=timezone('Asia/Tashkent'))
+        # Schedule daily notifications at 05:00 AM (after Saharlik)
+        scheduler.add_job(send_daily_notifications, 'cron', hour=5, minute=0)
+        scheduler.start()
+        logger.info("Scheduler started: Daily notifications set at 05:00 AM")
+    except Exception as e:
+        logger.error(f"Error starting scheduler: {e}")
+        
     setup_middlewares(dp)
-    
-    # Scheduler optimization
-    from apscheduler.schedulers.asyncio import AsyncIOScheduler
-    from pytz import timezone
-    
-    uz_tz = timezone('Asia/Tashkent')
-    scheduler = AsyncIOScheduler(timezone=uz_tz)
-    
-    # Schedule notifications at 05:00 and 05:30
-    scheduler.add_job(send_daily_notifications, 'cron', hour=5, minute=0)
-    scheduler.add_job(send_daily_notifications, 'cron', hour=5, minute=30)
-    
-    scheduler.start()
-    logger.info("Scheduler started (05:00 and 05:30 UZ time)")
 
 
 
@@ -662,7 +657,7 @@ async def api_get_audio():
                     selected = [r for r in all_reciters if r['id'] in target_ids]
                     
                     # Suralar ro'yxatini olish (nomlari uchun)
-                    surah_names_url = "https://www.mp3quran.net/api/v3/suwar?language=uz"
+                    surah_names_url = "https://www.mp3quran.net/api/v3/suwar?language=eng"
                     surahs_data = {}
                     async with session.get(surah_names_url) as s_res:
                         if s_res.status == 200:
