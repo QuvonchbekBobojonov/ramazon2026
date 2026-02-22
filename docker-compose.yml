@@ -6,11 +6,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-ramazon}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ramazon_pass}
-      POSTGRES_DB: ${POSTGRES_DB:-ramazon_db}
+      - POSTGRES_USER=${POSTGRES_USER:-ramazon}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-ramazon_pass}
+      - POSTGRES_DB=${POSTGRES_DB:-ramazon_db}
     ports:
       - "5433:5432"
+
+  redis:
+    image: redis:7-alpine
+    container_name: ramazon_redis
+    restart: always
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6380:6379"
 
   bot:
     build: .
@@ -18,15 +27,18 @@ services:
     restart: always
     depends_on:
       - db
+      - redis
     volumes:
       - .:/app
     environment:
-      BOT_TOKEN: ${BOT_TOKEN}
-      ADMINS: ${ADMINS}
-      WEBHOOK_HOST: ${WEBHOOK_HOST}
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-ramazon}:${POSTGRES_PASSWORD:-ramazon_pass}@db:5432/${POSTGRES_DB:-ramazon_db}
+      - BOT_TOKEN=${BOT_TOKEN}
+      - ADMINS=${ADMINS}
+      - WEBHOOK_HOST=${WEBHOOK_HOST}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-ramazon}:${POSTGRES_PASSWORD:-ramazon_pass}@db:5432/${POSTGRES_DB:-ramazon_db}
+      - REDIS_URL=redis://redis:6379/0
     ports:
       - "8080:8080"
 
 volumes:
   postgres_data:
+  redis_data:

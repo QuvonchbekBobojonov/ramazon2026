@@ -14,3 +14,4 @@ WEBHOOK_URI = WEBHOOK_HOST + WEBHOOK_PATH
 CHANNELS = env.list("CHANNELS", default=["@QuvonchbekDev"])
 
 DATABASE_URL = env.str("DATABASE_URL")
+REDIS_URL = env.str("REDIS_URL", default="redis://localhost:6379/0")

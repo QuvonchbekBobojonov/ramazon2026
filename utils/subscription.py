@@ -3,7 +3,15 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from core.config import CHANNELS
 from core.loader import bot
 
+from utils.cache import get_cache, set_cache
+
 async def check_membership(user_id: int):
+    # Check cache first
+    cache_key = f"subs:{user_id}"
+    cached_status = await get_cache(cache_key)
+    if cached_status is not None:
+        return cached_status
+
     final_status = True
     for channel in CHANNELS:
         try:
@@ -26,6 +34,9 @@ async def check_membership(user_id: int):
         if not status:
             final_status = False
             break
+            
+    # Cache the result for 10 minutes
+    await set_cache(cache_key, final_status, expire=600)
     return final_status
 
 def get_subscription_keyboard():

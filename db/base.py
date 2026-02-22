@@ -5,7 +5,7 @@ from core.config import DATABASE_URL
 # Using the provided NeonDB URL
 # DATABASE_URL is now loaded from .env via core.config
 
-engine = create_async_engine(DATABASE_URL, echo=True)
+engine = create_async_engine(DATABASE_URL, echo=False)
 
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 

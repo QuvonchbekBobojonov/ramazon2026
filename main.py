@@ -1,5 +1,5 @@
 from aiogram import types
-from aiohttp import web
+# from aiohttp import web # Removed as we are using FastAPI responses now
 from fastapi import Request, FastAPI, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -554,7 +554,7 @@ async def handle_webhook(request: Request):
     if token == BOT_TOKEN:
         update = types.Update(**await request.json())
         await dp.feed_webhook_update(bot, update)
-        return web.Response()
+        return {"ok": True}
     else:
         raise HTTPException(status_code=403, detail="Forbidden")
 

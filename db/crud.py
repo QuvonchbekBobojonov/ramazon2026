@@ -1,6 +1,7 @@
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from .models import User, Prayer
+from utils.cache import delete_cache
 
 async def add_user(session: AsyncSession, telegram_id: int, full_name: str, username: str = None):
     stmt = select(User).where(User.telegram_id == telegram_id)
@@ -27,16 +28,19 @@ async def update_user_region(session: AsyncSession, telegram_id: int, region: st
     stmt = update(User).where(User.telegram_id == telegram_id).values(region=region)
     await session.execute(stmt)
     await session.commit()
+    await delete_cache(f"user:{telegram_id}")
 
 async def update_user_subscription(session: AsyncSession, telegram_id: int, is_subscribed: bool):
     stmt = update(User).where(User.telegram_id == telegram_id).values(is_subscribed=is_subscribed)
     await session.execute(stmt)
     await session.commit()
+    await delete_cache(f"user:{telegram_id}")
 
 async def update_user_blocked(session: AsyncSession, telegram_id: int, is_blocked: bool):
     stmt = update(User).where(User.telegram_id == telegram_id).values(is_blocked=is_blocked)
     await session.execute(stmt)
     await session.commit()
+    await delete_cache(f"user:{telegram_id}")
 
 async def get_all_users(session: AsyncSession):
     stmt = select(User)
