@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir --default-timeout=100 --retries=10 -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy project files
 COPY . .
