@@ -50,11 +50,9 @@ async def command_start_handler(message: Message, state: FSMContext, command: Co
                 await update_user_blocked(session, user_id, False)
                 db_user.is_blocked = False
 
-    # Check subscription first
-    is_subscribed = await check_membership(user_id)
-    if not is_subscribed:
-        await message.answer(SUBSCRIPTION_TEXT, reply_markup=get_subscription_keyboard())
-        return
+    # Subscription is already checked by SubscriptionMiddleware
+    # If handler is reached, user is already subscribed.
+    is_subscribed = True
         
     if db_user and db_user.region:
         from core.config import ADMINS

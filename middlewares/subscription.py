@@ -26,13 +26,25 @@ class SubscriptionMiddleware(BaseMiddleware):
 
         # Agar bazada obuna bo'lmagan bo'lsa yoki /start bosgan bo'lsa, qayta tekshiramiz
         if not is_subscribed or is_start_command:
+            import time
+            start_time = time.time()
+            
             is_subscribed = await check_membership(user.id)
+            
+            check_duration = time.time() - start_time
+            if check_duration > 2:
+                logging.warning(f"Slow subscription check for {user.id}: {check_duration:.2f}s")
             
             # Bazani yangilash
             if db_user and db_user.is_subscribed != is_subscribed:
+                db_start = time.time()
                 async with async_session_maker() as session:
                     await update_user_subscription(session, user.id, is_subscribed)
                     db_user.is_subscribed = is_subscribed # Update in-memory for current request
+                
+                db_duration = time.time() - db_start
+                if db_duration > 2:
+                    logging.warning(f"Slow DB update for user {user.id}: {db_duration:.2f}s")
         
         if is_subscribed:
             return await handler(event, data)

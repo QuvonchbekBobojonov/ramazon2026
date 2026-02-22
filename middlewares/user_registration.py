@@ -28,6 +28,9 @@ class UserRegistrationMiddleware(BaseMiddleware):
                 # Convert dict to object-like structure
                 db_user = SimpleNamespace(**cached_user)
             else:
+                import time
+                db_start = time.time()
+                
                 logging.info(f"Redis cache miss for user: {user.id}. Querying DB...")
                 async with async_session_maker() as session:
                     db_user, is_new = await add_user(
@@ -37,7 +40,11 @@ class UserRegistrationMiddleware(BaseMiddleware):
                         user.username
                     )
                     
-                    # Convert SQLAlchemy model to dict for caching
+                db_duration = time.time() - db_start
+                if db_duration > 2:
+                    logging.warning(f"Slow DB query (add_user) for user {user.id}: {db_duration:.2f}s")
+
+                # Convert SQLAlchemy model to dict for caching
                     user_dict = {
                         "id": db_user.id,
                         "telegram_id": db_user.telegram_id,
